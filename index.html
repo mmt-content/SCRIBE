@@ -1,0 +1,3198 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MMT Hotel Research — Scribe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+  --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem;
+  --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
+  --space-16: 4rem;
+  --radius-sm: 0.375rem; --radius-md: 0.5rem;
+  --radius-lg: 0.75rem; --radius-xl: 1rem;
+  --radius-full: 9999px;
+  --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* MMT Brand + Clean White App */
+  --color-bg: #f5f6f8;
+  --color-surface: #ffffff;
+  --color-surface-2: #f9fafb;
+  --color-border: rgba(0,0,0,0.08);
+  --color-divider: #e5e7eb;
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-text-faint: #9ca3af;
+  --color-primary: #e8344e; /* MMT Red */
+  --color-primary-hover: #c62a40;
+  --color-accent: #6d28d9; /* Purple for MMT Content Mode */
+  --color-accent-bg: #f5f3ff;
+  --color-accent-border: #ddd6fe;
+  --color-success: #059669;
+  --color-success-bg: #ecfdf5;
+  --color-warning: #d97706;
+  --color-warning-bg: #fffbeb;
+  --color-error: #dc2626;
+  --color-error-bg: #fef2f2;
+  --color-cta: #7c3aed;
+  --color-cta-hover: #6d28d9;
+  --color-teal: #0d9488;
+  --color-teal-bg: #f0fdfa;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
+}
+
+/* ===== BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body { font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-text); background: var(--color-bg); min-height: 100dvh; }
+img { display: block; max-width: 100%; }
+button { cursor: pointer; font: inherit; }
+input, textarea, select { font: inherit; }
+a { color: inherit; text-decoration: none; }
+
+/* ===== LAYOUT ===== */
+.app { display: flex; flex-direction: column; min-height: 100dvh; }
+.page { display: none; flex-direction: column; flex: 1; }
+.page.active { display: flex; }
+
+/* ===== HEADER ===== */
+.header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-divider);
+  padding: var(--space-3) var(--space-8);
+  display: flex; align-items: center; gap: var(--space-4);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+.header-brand { display: flex; align-items: center; gap: var(--space-3); }
+.mmt-logo {
+  width: 32px; height: 32px; border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 800; font-size: 14px; letter-spacing: -0.5px; flex-shrink: 0;
+}
+.header-title { font-size: var(--text-sm); font-weight: 600; color: var(--color-text); }
+.header-sep { color: var(--color-text-faint); }
+.header-sub { font-size: var(--text-sm); color: var(--color-cta); font-weight: 500; cursor: pointer; }
+.header-sub:hover { text-decoration: underline; }
+.header-right { margin-left: auto; display: flex; align-items: center; gap: var(--space-3); }
+.badge-official {
+  display: flex; align-items: center; gap: var(--space-2);
+  background: var(--color-teal-bg); color: var(--color-teal);
+  border: 1px solid #99f6e4; border-radius: var(--radius-full);
+  padding: var(--space-1) var(--space-3); font-size: var(--text-xs); font-weight: 500;
+}
+.badge-official::before { content: "●"; font-size: 8px; }
+.btn-header {
+  display: flex; align-items: center; gap: var(--space-2);
+  background: var(--color-surface); border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md); padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xs); font-weight: 500; color: var(--color-text);
+  transition: all var(--transition);
+}
+.btn-header:hover { background: var(--color-bg); border-color: var(--color-text-faint); }
+.user-chip {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-size: var(--text-xs); color: var(--color-text-muted); cursor: pointer;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+  background: var(--color-surface); transition: all var(--transition);
+}
+.user-chip:hover { background: var(--color-bg); }
+
+/* ===== HOME PAGE ===== */
+.home-content { padding: var(--space-6) var(--space-8); flex: 1; }
+.page-heading { font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--space-1); }
+.page-subheading { font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-6); }
+
+/* Main research card */
+.research-card {
+  background: var(--color-surface); border: 1px solid var(--color-divider);
+  border-radius: var(--radius-xl); box-shadow: var(--shadow-sm);
+  padding: var(--space-6); margin-bottom: var(--space-6);
+}
+.research-grid { display: grid; grid-template-columns: 1fr 1fr auto; gap: var(--space-6); align-items: start; }
+.section-label {
+  font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted);
+  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-3);
+}
+
+/* Hotel input */
+.hotel-input-wrap { display: flex; gap: var(--space-2); }
+.hotel-input {
+  flex: 1; border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3); font-size: var(--text-sm);
+  background: var(--color-surface-2); transition: all var(--transition);
+  outline: none;
+}
+.hotel-input:focus { border-color: var(--color-cta); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); background: white; }
+.btn-add {
+  display: flex; align-items: center; gap: var(--space-1);
+  background: var(--color-surface); border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md); padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm); font-weight: 500; color: var(--color-cta);
+  transition: all var(--transition); white-space: nowrap;
+}
+.btn-add:hover { background: var(--color-accent-bg); border-color: var(--color-accent-border); }
+
+/* Mode cards */
+.mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.mode-card {
+  border: 2px solid var(--color-divider); border-radius: var(--radius-lg);
+  padding: var(--space-4); cursor: pointer; transition: all var(--transition);
+  background: var(--color-surface);
+}
+.mode-card:hover { border-color: var(--color-accent-border); background: var(--color-accent-bg); }
+.mode-card.active { border-color: var(--color-cta); background: var(--color-accent-bg); }
+.mode-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2); }
+.mode-icon {
+  width: 28px; height: 28px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-accent-bg);
+}
+.mode-check {
+  width: 18px; height: 18px; border-radius: var(--radius-full);
+  border: 2px solid var(--color-divider); display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+}
+.mode-card.active .mode-check { background: var(--color-cta); border-color: var(--color-cta); }
+.mode-card.active .mode-check::after { content: "✓"; color: white; font-size: 10px; font-weight: 700; }
+.mode-title { font-size: var(--text-sm); font-weight: 600; margin-bottom: var(--space-1); }
+.mode-desc { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+/* Options panel */
+.options-panel { margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--color-divider); }
+.options-title { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-3); }
+.output-options, .category-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.radio-opt {
+  display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3);
+  border-radius: var(--radius-md); cursor: pointer; transition: background var(--transition);
+}
+.radio-opt:hover { background: var(--color-bg); }
+.radio-icon {
+  width: 32px; height: 32px; border-radius: var(--radius-sm);
+  background: var(--color-bg); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 14px;
+}
+.radio-opt-label { font-size: var(--text-sm); font-weight: 500; }
+.radio-opt-desc { font-size: var(--text-xs); color: var(--color-text-muted); }
+.radio-btn {
+  width: 16px; height: 16px; border-radius: var(--radius-full);
+  border: 2px solid var(--color-divider); margin-left: auto; flex-shrink: 0; margin-top: 2px;
+  transition: all var(--transition);
+}
+.radio-opt.selected .radio-btn { background: var(--color-cta); border-color: var(--color-cta); box-shadow: inset 0 0 0 3px white; }
+
+.checkbox-opt {
+  display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-2);
+  border-radius: var(--radius-sm); cursor: pointer; transition: background var(--transition);
+}
+.checkbox-opt:hover { background: var(--color-bg); }
+.checkbox-box {
+  width: 16px; height: 16px; border-radius: 3px;
+  border: 2px solid var(--color-divider); flex-shrink: 0; margin-top: 2px;
+  transition: all var(--transition); display: flex; align-items: center; justify-content: center;
+}
+.checkbox-opt.checked .checkbox-box { background: var(--color-cta); border-color: var(--color-cta); }
+.checkbox-opt.checked .checkbox-box::after { content: "✓"; color: white; font-size: 9px; font-weight: 700; }
+.cat-text { font-size: var(--text-xs); }
+.cat-desc { font-size: 11px; color: var(--color-text-faint); }
+
+/* Run button + status */
+.run-panel { display: flex; flex-direction: column; gap: var(--space-4); min-width: 220px; }
+.btn-run {
+  background: var(--color-cta); color: white;
+  border: none; border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5);
+  font-size: var(--text-sm); font-weight: 600;
+  display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+  transition: all var(--transition); width: 100%;
+}
+.btn-run:hover:not(:disabled) { background: var(--color-cta-hover); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.btn-run:active { transform: none; }
+.btn-run:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-run svg { width: 16px; height: 16px; }
+
+.run-sub { font-size: var(--text-xs); color: var(--color-text-faint); text-align: center; line-height: 1.4; }
+
+.status-panel { background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-lg); padding: var(--space-4); }
+.status-title { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-3); }
+.status-items { display: flex; flex-direction: column; gap: var(--space-3); }
+.status-item { display: flex; align-items: center; gap: var(--space-3); cursor: pointer; padding: var(--space-2); border-radius: var(--radius-md); transition: background var(--transition); }
+.status-item:hover { background: var(--color-bg); }
+.status-icon { width: 36px; height: 36px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.status-icon.progress { background: #eff6ff; }
+.status-icon.finished { background: var(--color-success-bg); }
+.status-icon.failed { background: var(--color-error-bg); }
+.status-count { font-size: var(--text-lg); font-weight: 700; line-height: 1; }
+.status-label { font-size: var(--text-xs); font-weight: 500; color: var(--color-text-muted); }
+.status-sublabel { font-size: 11px; color: var(--color-text-faint); }
+.view-all-btn { margin-top: var(--space-3); width: 100%; padding: var(--space-2); border: 1px solid var(--color-divider); border-radius: var(--radius-md); background: none; font-size: var(--text-xs); color: var(--color-cta); font-weight: 500; transition: all var(--transition); }
+.view-all-btn:hover { background: var(--color-accent-bg); }
+
+/* Bottom grid */
+.bottom-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4); }
+.bottom-card { background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: var(--space-5); }
+.bottom-card-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); }
+.bottom-card-title { font-size: var(--text-sm); font-weight: 600; }
+.bottom-card-badge { font-size: 10px; color: var(--color-cta); font-weight: 500; background: var(--color-accent-bg); padding: 2px 6px; border-radius: var(--radius-full); }
+
+/* Prompt textarea */
+.prompt-textarea {
+  width: 100%; min-height: 120px; border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md); padding: var(--space-3); font-size: 12px;
+  font-family: var(--font-body); line-height: 1.6; resize: vertical;
+  background: var(--color-surface-2); color: var(--color-text);
+  transition: all var(--transition); outline: none;
+}
+.prompt-textarea:focus { border-color: var(--color-cta); box-shadow: 0 0 0 3px rgba(124,58,237,0.08); background: white; }
+.prompt-footer { display: flex; align-items: center; justify-content: space-between; margin-top: var(--space-2); }
+.prompt-counter { font-size: 11px; color: var(--color-text-faint); }
+
+/* Quick start */
+.steps { display: flex; flex-direction: column; gap: var(--space-4); }
+.step { display: flex; align-items: flex-start; gap: var(--space-3); }
+.step-num { width: 24px; height: 24px; border-radius: var(--radius-full); background: var(--color-cta); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.step-title { font-size: var(--text-xs); font-weight: 600; margin-bottom: 2px; }
+.step-desc { font-size: 11px; color: var(--color-text-muted); }
+
+/* Recent searches */
+.recent-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.recent-item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); cursor: pointer; transition: opacity var(--transition); }
+.recent-item:last-child { border-bottom: none; }
+.recent-item:hover { opacity: 0.7; }
+.recent-dot { width: 8px; height: 8px; border-radius: var(--radius-full); background: var(--color-success); flex-shrink: 0; }
+.recent-name { font-size: var(--text-xs); font-weight: 500; flex: 1; }
+.recent-meta { font-size: 11px; color: var(--color-text-muted); }
+.recent-time { font-size: 11px; color: var(--color-text-faint); white-space: nowrap; }
+.view-all-link { display: block; text-align: center; margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-cta); font-weight: 500; padding: var(--space-2); border: 1px solid var(--color-divider); border-radius: var(--radius-md); transition: all var(--transition); }
+.view-all-link:hover { background: var(--color-accent-bg); }
+
+/* ===== LISTING PAGE ===== */
+.listing-content { padding: var(--space-6) var(--space-8); flex: 1; }
+.listing-header { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); }
+.btn-back { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-divider); border-radius: var(--radius-md); background: var(--color-surface); font-size: var(--text-xs); font-weight: 500; color: var(--color-text); transition: all var(--transition); }
+.btn-back:hover { background: var(--color-bg); }
+.listing-title { font-size: var(--text-xl); font-weight: 700; }
+.listing-count { font-size: var(--text-sm); color: var(--color-text-muted); }
+.listing-search-row { display: flex; align-items: center; gap: var(--space-3); margin-left: auto; }
+.search-input {
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-8);
+  font-size: var(--text-xs); background: var(--color-surface); outline: none;
+  width: 280px; transition: all var(--transition);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%236b7280' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: 10px center;
+}
+.search-input:focus { border-color: var(--color-cta); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+.filter-btn { width: 34px; height: 34px; border: 1px solid var(--color-divider); border-radius: var(--radius-md); background: var(--color-surface); display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+.filter-btn:hover { background: var(--color-bg); }
+
+/* Table */
+.table-card { background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); overflow: hidden; }
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th { padding: var(--space-3) var(--space-4); text-align: left; font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); border-bottom: 1px solid var(--color-divider); background: var(--color-surface-2); }
+.data-table td { padding: var(--space-4); font-size: var(--text-xs); border-bottom: 1px solid var(--color-divider); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--color-bg); }
+.pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 3px var(--space-2); border-radius: var(--radius-full);
+  font-size: 11px; font-weight: 500; white-space: nowrap;
+}
+.pill-single { background: #eff6ff; color: #1d4ed8; }
+.pill-batch { background: #fff7ed; color: #c2410c; }
+.pill-finished { background: var(--color-success-bg); color: var(--color-success); display: flex; gap: 4px; align-items: center; }
+.pill-finished::before { content: "✓"; width: 14px; height: 14px; background: var(--color-success); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; }
+.pill-progress { background: #eff6ff; color: #1d4ed8; }
+.pill-failed { background: var(--color-error-bg); color: var(--color-error); }
+.btn-view { background: none; border: none; color: var(--color-cta); font-size: var(--text-xs); font-weight: 500; display: flex; align-items: center; gap: var(--space-1); transition: all var(--transition); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); }
+.btn-view:hover { background: var(--color-accent-bg); }
+.table-footer { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4); background: var(--color-surface); border-top: 1px solid var(--color-divider); }
+.table-count-text { font-size: var(--text-xs); color: var(--color-text-muted); }
+.pagination { display: flex; align-items: center; gap: var(--space-1); }
+.page-btn { width: 32px; height: 32px; border-radius: var(--radius-md); border: 1px solid var(--color-divider); background: var(--color-surface); font-size: var(--text-xs); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--transition); }
+.page-btn:hover { background: var(--color-bg); }
+.page-btn.active { background: var(--color-cta); color: white; border-color: var(--color-cta); }
+.page-btn.disabled { opacity: 0.4; cursor: default; }
+
+/* ===== NEW REDESIGNED RESULTS PAGE ===== */
+
+/* --- Dark Purple Hero Banner --- */
+.rp-hero {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #1e1b4b 100%);
+  padding: var(--space-6) var(--space-8) var(--space-8);
+  position: relative;
+  overflow: hidden;
+}
+.rp-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234f46e5' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 1;
+}
+.rp-hero-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+.rp-hero-back-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.85);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.rp-hero-back-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); }
+.rp-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  position: relative;
+  z-index: 1;
+}
+.rp-hero-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: none;
+}
+.rp-hero-btn-primary {
+  background: #7c3aed;
+  color: white;
+}
+.rp-hero-btn-primary:hover { background: #6d28d9; }
+.rp-hero-btn-secondary {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.rp-hero-btn-secondary:hover { background: rgba(255,255,255,0.18); }
+
+.rp-hero-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+.rp-hero-badge.success {
+  background: rgba(5,150,105,0.15);
+  color: #34d399;
+  border: 1px solid rgba(5,150,105,0.25);
+}
+.rp-hero-badge.single::before,
+.rp-hero-badge.success::before { content: "●"; font-size: 8px; }
+
+.rp-hero-title {
+  font-size: clamp(1.5rem, 2vw + 0.5rem, 2.25rem);
+  font-weight: 800;
+  color: white;
+  margin-bottom: var(--space-3);
+  position: relative;
+  z-index: 1;
+  letter-spacing: -0.01em;
+}
+.rp-hero-meta-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+  position: relative;
+  z-index: 1;
+}
+.rp-hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.6);
+}
+.rp-hero-meta-icon { font-size: 12px; }
+
+/* Stat cards in hero */
+.rp-hero-stats {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-3);
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+}
+.rp-hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(4px);
+}
+.rp-hero-stat-stars { color: #fbbf24; font-size: 16px; letter-spacing: 2px; margin-bottom: 2px; }
+.rp-hero-stat-value {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: white;
+  line-height: 1.1;
+}
+.rp-hero-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+
+/* --- Tab Navigation --- */
+.rp-tabs-bar {
+  background: white;
+  border-bottom: 1px solid var(--color-divider);
+  padding: 0 var(--space-8);
+  position: sticky;
+  top: 57px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.rp-tabs-bar::-webkit-scrollbar { display: none; }
+.rp-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+  border-bottom: 2.5px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  position: relative;
+}
+.rp-tab:hover { color: var(--color-text); background: var(--color-bg); }
+.rp-tab.active {
+  color: #7c3aed;
+  border-bottom-color: #7c3aed;
+  background: var(--color-accent-bg);
+}
+.rp-tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: #ede9fe;
+  color: #7c3aed;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 700;
+}
+.rp-tab.active .rp-tab-badge { background: #7c3aed; color: white; }
+
+/* --- Content Layout --- */
+.rp-content {
+  background: #f3f4f6;
+  flex: 1;
+  padding: var(--space-6) var(--space-8) var(--space-10);
+}
+.rp-content-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-6);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.rp-main { display: flex; flex-direction: column; gap: var(--space-4); }
+.rp-sidebar { display: flex; flex-direction: column; gap: var(--space-4); height: fit-content; }
+
+/* --- Section Cards --- */
+.rp-section {
+  background: white;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  scroll-margin-top: 120px;
+}
+.rp-section-header {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-divider);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rp-section-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.rp-section-subtitle {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+.rp-section-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.rp-section-body { padding: var(--space-5); }
+
+/* --- Quick Facts Grid --- */
+.rp-facts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+.rp-fact-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  transition: all var(--transition);
+}
+.rp-fact-card:hover { background: #f3f4f6; border-color: #d1d5db; }
+.rp-fact-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-1);
+}
+.rp-fact-value {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+.rp-fact-stars { color: #111827; letter-spacing: 1px; }
+
+/* --- Tags / Pills --- */
+.rp-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+.rp-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  background: #ede9fe;
+  color: #6d28d9;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid #ddd6fe;
+  transition: all var(--transition);
+}
+.rp-tag:hover { background: #ddd6fe; }
+.rp-tag-outline {
+  background: white;
+  border: 1px solid #e5e7eb;
+  color: var(--color-text-muted);
+}
+.rp-tag-outline:hover { border-color: #7c3aed; color: #7c3aed; background: var(--color-accent-bg); }
+
+/* --- Source Link --- */
+.rp-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #7c3aed;
+  margin-top: var(--space-3);
+  padding: 4px 10px;
+  background: #f5f3ff;
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  font-family: inherit;
+}
+.rp-source-link:hover { background: #ede9fe; }
+
+/* --- Data Table --- */
+.rp-data-table { width: 100%; border-collapse: collapse; }
+.rp-data-table thead th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--color-divider);
+  background: #f9fafb;
+}
+.rp-data-table tbody td {
+  padding: var(--space-4);
+  font-size: var(--text-xs);
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+  color: var(--color-text);
+}
+.rp-data-table tbody tr:last-child td { border-bottom: none; }
+.rp-data-table tbody tr:hover td { background: #fafaf9; }
+.rp-data-table .col-name { font-weight: 600; }
+.rp-data-table .col-amenities { display: flex; flex-wrap: wrap; gap: 4px; }
+.rp-data-table .col-amenity-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: #f3f4f6;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+.rp-btn-details {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-1) var(--space-3);
+  background: #f5f3ff;
+  color: #7c3aed;
+  border: 1px solid #ede9fe;
+  border-radius: var(--radius-md);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.rp-btn-details:hover { background: #ede9fe; border-color: #ddd6fe; }
+
+/* --- Expandable Detail Panel --- */
+.rp-detail-panel {
+  background: white;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  margin-top: var(--space-3);
+  overflow: hidden;
+}
+.rp-detail-panel-header {
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-divider);
+}
+.rp-detail-panel-title { font-size: var(--text-sm); font-weight: 700; }
+.rp-detail-panel-actions { display: flex; gap: var(--space-2); }
+.rp-btn-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-1) var(--space-3);
+  background: white;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.rp-btn-copy:hover { background: var(--color-bg); border-color: var(--color-text-faint); }
+.rp-btn-close {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  background: white;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.rp-btn-close:hover { background: var(--color-error-bg); color: var(--color-error); border-color: var(--color-error); }
+.rp-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: var(--space-3);
+  padding: var(--space-5);
+}
+.rp-detail-item {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+.rp-detail-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-1);
+}
+.rp-detail-value {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+.rp-detail-amenities-row {
+  padding: 0 var(--space-5) var(--space-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* --- Dining Cards --- */
+.rp-dining-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+.rp-dining-card {
+  background: white;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+}
+.rp-dining-card:hover { box-shadow: var(--shadow-md); border-color: #ddd6fe; }
+.rp-dining-name { font-size: var(--text-sm); font-weight: 700; margin-bottom: var(--space-2); }
+.rp-dining-cuisine {
+  display: inline-flex;
+  padding: 3px 10px;
+  background: #ede9fe;
+  color: #6d28d9;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+}
+.rp-dining-desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+.rp-dining-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+/* --- Sidebar Cards --- */
+.rp-sidebar-card {
+  background: white;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+.rp-sidebar-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.rp-sidebar-text {
+  font-size: var(--text-xs);
+  color: var(--color-text);
+  line-height: 1.8;
+}
+.rp-sidebar-fact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+.rp-sidebar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3);
+  background: #f5f3ff;
+  border: 1.5px dashed #c4b5fd;
+  border-radius: var(--radius-lg);
+  color: #6d28d9;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-top: var(--space-4);
+}
+.rp-sidebar-btn:hover { background: #ede9fe; border-color: #a78bfa; }
+.rp-sidebar-divider {
+  height: 1px;
+  background: var(--color-divider);
+  margin: var(--space-4) 0;
+}
+.rp-sidebar-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-3);
+}
+.rp-sidebar-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* --- Content Output (MMT mode) --- */
+.rp-content-output {
+  background: linear-gradient(135deg, #faf5ff, #f5f3ff);
+  border: 1px solid #ddd6fe;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+.rp-content-output-header {
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd6fe;
+}
+.rp-content-output-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: #6d28d9;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.rp-content-output-body {
+  padding: var(--space-5);
+  font-size: var(--text-sm);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  color: var(--color-text);
+}
+
+/* --- Overview section specific --- */
+.rp-overview-vibe {
+  font-size: var(--text-sm);
+  line-height: 1.8;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+}
+
+/* --- Raw response fallback --- */
+.rp-raw-pre {
+  font-size: 11px;
+  overflow: auto;
+  white-space: pre-wrap;
+  max-height: 400px;
+  background: #f9fafb;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .rp-content-layout { grid-template-columns: 1fr; }
+  .rp-sidebar { order: -1; }
+  .rp-detail-grid { grid-template-columns: 1fr 1fr; }
+  .rp-dining-grid { grid-template-columns: 1fr; }
+  .rp-facts-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .rp-hero { padding: var(--space-4) var(--space-4) var(--space-6); }
+  .rp-content { padding: var(--space-4); }
+  .rp-tabs-bar { padding: 0 var(--space-4); }
+  .rp-detail-grid { grid-template-columns: 1fr; }
+  .rp-hero-stats { gap: var(--space-2); }
+  .rp-hero-stat { min-width: 70px; padding: var(--space-2) var(--space-3); }
+}
+
+/* ===== REDESIGNED HOME PAGE v13 ===== */
+.home-hero {
+  display: flex; flex-direction: column; align-items: center;
+  padding: var(--space-10) var(--space-8) var(--space-6);
+  max-width: 820px; margin: 0 auto; width: 100%;
+}
+.hero-title {
+  font-size: clamp(1.75rem, 2.5vw + 1rem, 2.5rem);
+  font-weight: 800; text-align: center;
+  margin-bottom: var(--space-2); letter-spacing: -0.02em; line-height: 1.15;
+}
+.hero-gem {
+  font-size: 0.42em; font-weight: 400;
+  color: var(--color-text-muted); vertical-align: middle; margin-left: var(--space-3);
+}
+.hero-sub {
+  font-size: var(--text-sm); color: var(--color-text-muted);
+  text-align: center; margin-bottom: var(--space-8);
+}
+.hero-input-row { display: flex; gap: var(--space-3); width: 100%; margin-bottom: var(--space-3); }
+.hero-input {
+  flex: 1; border: 1.5px solid var(--color-divider); border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4); font-size: var(--text-sm);
+  background: var(--color-surface); outline: none; transition: all var(--transition);
+}
+.hero-input:focus { border-color: var(--color-cta); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+.hero-add-btn {
+  display: flex; align-items: center; gap: var(--space-2);
+  background: var(--color-surface); border: 1.5px solid var(--color-divider);
+  border-radius: var(--radius-lg); padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm); font-weight: 600; color: var(--color-cta);
+  transition: all var(--transition); white-space: nowrap;
+}
+.hero-add-btn:hover { background: var(--color-accent-bg); border-color: var(--color-accent-border); }
+.hero-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); width: 100%; margin-bottom: var(--space-2); min-height: 0; }
+.csv-upload-btn {
+  display: flex; align-items: center; gap: var(--space-2);
+  border: 1.5px dashed var(--color-divider); border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-5); font-size: var(--text-xs); font-weight: 500;
+  color: var(--color-text-muted); background: none; cursor: pointer;
+  transition: all var(--transition); margin-bottom: var(--space-6);
+}
+.csv-upload-btn:hover { border-color: var(--color-cta); color: var(--color-cta); background: var(--color-accent-bg); }
+.mode-toggle-row {
+  display: flex; gap: 4px; background: var(--color-surface);
+  border: 1.5px solid var(--color-divider); border-radius: var(--radius-full);
+  padding: 4px; margin-bottom: var(--space-5);
+}
+.mode-toggle-btn {
+  flex: 1; padding: var(--space-2) var(--space-6); border-radius: var(--radius-full);
+  border: none; font-size: var(--text-sm); font-weight: 600; cursor: pointer;
+  transition: all var(--transition); background: none; color: var(--color-text-muted);
+  white-space: nowrap;
+}
+.mode-toggle-btn.active { background: var(--color-cta); color: white; box-shadow: var(--shadow-sm); }
+.output-type-label {
+  font-size: var(--text-xs); font-weight: 700; color: var(--color-text-muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  width: 100%; text-align: center; margin-bottom: var(--space-3);
+}
+.output-type-row { display: flex; gap: var(--space-2); margin-bottom: var(--space-5); flex-wrap: wrap; justify-content: center; width: 100%; }
+.hero-cat-row { display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center; margin-bottom: var(--space-5); width: 100%; }
+.output-pill {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-4); border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-divider); font-size: var(--text-xs);
+  font-weight: 600; cursor: pointer; transition: all var(--transition);
+  background: var(--color-surface); color: var(--color-text);
+}
+.output-pill.active { background: var(--color-cta); color: white; border-color: var(--color-cta); }
+.output-pill:not(.active):hover { border-color: var(--color-cta); color: var(--color-cta); background: var(--color-accent-bg); }
+.hero-prompt-wrap { width: 100%; margin-bottom: var(--space-5); }
+.hero-prompt-wrap textarea {
+  width: 100%; min-height: 130px; border: 1.5px solid var(--color-divider);
+  border-radius: var(--radius-lg); padding: var(--space-4); font-size: 12px;
+  font-family: var(--font-body); line-height: 1.6; resize: vertical;
+  background: var(--color-surface); color: var(--color-text);
+  outline: none; transition: all var(--transition);
+}
+.hero-prompt-wrap textarea:focus { border-color: var(--color-cta); box-shadow: 0 0 0 3px rgba(124,58,237,0.08); }
+.hero-prompt-footer { display: flex; align-items: center; justify-content: space-between; margin-top: var(--space-1); }
+.hero-action-row { display: flex; gap: var(--space-3); width: 100%; margin-bottom: var(--space-2); flex-wrap: wrap; }
+.btn-start {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+  background: var(--color-cta); color: white; border: none; border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-6); font-size: var(--text-sm); font-weight: 700;
+  cursor: pointer; transition: all var(--transition); min-width: 150px;
+}
+.btn-start:hover:not(:disabled) { background: var(--color-cta-hover); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.btn-start:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-edit-prompt {
+  display: flex; align-items: center; gap: var(--space-2);
+  background: var(--color-surface); color: var(--color-cta);
+  border: 1.5px solid var(--color-cta); border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-5); font-size: var(--text-sm);
+  font-weight: 600; cursor: pointer; transition: all var(--transition);
+}
+.btn-edit-prompt:hover { background: var(--color-accent-bg); }
+.btn-test-api {
+  display: flex; align-items: center; gap: var(--space-2);
+  background: var(--color-surface); color: var(--color-text-muted);
+  border: 1.5px solid var(--color-divider); border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-5); font-size: var(--text-sm);
+  font-weight: 500; cursor: pointer; transition: all var(--transition);
+}
+.btn-test-api:hover { background: var(--color-bg); border-color: var(--color-text-faint); }
+.hero-run-sub { font-size: var(--text-xs); color: var(--color-text-faint); text-align: center; margin-bottom: var(--space-10); }
+/* Stat cards */
+.home-stat-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4);
+  width: 100%; max-width: 820px; margin: 0 auto var(--space-6);
+  padding: 0 var(--space-8);
+}
+.stat-big-card {
+  background: var(--color-surface); border: 1px solid var(--color-divider);
+  border-radius: var(--radius-xl); box-shadow: var(--shadow-sm);
+  padding: var(--space-6) var(--space-5); cursor: pointer;
+  transition: all var(--transition); display: flex;
+  flex-direction: column; align-items: flex-start; gap: var(--space-1);
+}
+.stat-big-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.stat-big-icon {
+  width: 44px; height: 44px; border-radius: var(--radius-lg);
+  display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-2);
+}
+.stat-big-icon.progress { background: #eff6ff; }
+.stat-big-icon.finished { background: var(--color-success-bg); }
+.stat-big-icon.failed { background: var(--color-error-bg); }
+.stat-big-number { font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 800; line-height: 1; }
+.stat-big-number.progress { color: #3b82f6; }
+.stat-big-number.finished { color: var(--color-success); }
+.stat-big-number.failed { color: var(--color-error); }
+.stat-big-title { font-size: var(--text-sm); font-weight: 700; color: var(--color-text); }
+.stat-big-desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.4; }
+/* Bottom cards */
+.home-bottom-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);
+  width: 100%; max-width: 820px; margin: 0 auto var(--space-8);
+  padding: 0 var(--space-8);
+}
+.home-info-card {
+  background: var(--color-surface); border: 1px solid var(--color-divider);
+  border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: var(--space-5);
+}
+.home-info-card-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); }
+.home-info-card-title { font-size: var(--text-sm); font-weight: 700; }
+@media (max-width: 700px) {
+  .home-stat-grid { grid-template-columns: 1fr; padding: 0 var(--space-4); }
+  .home-bottom-grid { grid-template-columns: 1fr; padding: 0 var(--space-4); }
+  .home-hero { padding: var(--space-6) var(--space-4); }
+  .hero-action-row { flex-direction: column; }
+  .mode-toggle-btn { padding: var(--space-2) var(--space-3); font-size: var(--text-xs); }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loadingText">Running Research...</div>
+  <div class="loading-sub" id="loadingStage">Identifying official website and initializing crawl</div>
+    <div id="loadingError" style="display:none;margin-top:8px;padding:10px 16px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#dc2626;font-size:12px;max-width:380px;text-align:center;word-break:break-word"></div>
+    <button id="overlayCloseBtn" style="display:none;margin-top:12px;padding:8px 20px;background:#dc2626;color:white;border:none;border-radius:8px;cursor:pointer;font-size:13px;" onclick="document.getElementById('loadingOverlay').classList.remove('active');this.style.display='none';">Dismiss &amp; Close</button>
+  <div class="loading-progress"><div class="loading-bar" id="loadingBar"></div></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- API Key Modal -->
+<div class="modal-backdrop" id="apiModal">
+  <div class="modal">
+    <div class="modal-title">🔑 Configure Gemini API</div>
+    <div class="modal-sub">Enter your Google Gemini API key to enable AI-powered hotel research. Your key is stored in memory only and never sent to any server other than Google's API.</div>
+    <div class="form-group">
+      <label class="form-label">Gemini API Key</label>
+      <input type="password" class="form-input" id="apiKeyInput" placeholder="AIza..." />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Model</label>
+      <select class="form-input" id="modelSelect">
+        <option value="gemini-2.0-flash" selected>gemini-2.0-flash (Free Tier — Recommended)</option>
+        <option value="gemini-2.5-flash">gemini-2.5-flash (Free Tier — Best Quality)</option>
+        <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite (Free Tier — Fastest)</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeApiModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveApiKey()">Save & Continue</button>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+
+<!-- ========== HOME PAGE ========== -->
+<div class="page active" id="page-home">
+  <header class="header">
+    <div class="header-brand">
+      <div class="mmt-logo">M</div>
+      <span class="header-title">MMT Hotel Research</span>
+      <span class="header-sep">/</span>
+      <span class="header-sub" onclick="navigate('page-home')">Content Intelligence</span>
+    </div>
+    <div class="header-right">
+      <div class="badge-official">Official Website Only</div>
+      <button class="btn-header" onclick="navigate('page-categories')">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+        Manage Categories
+      </button>
+      <div class="user-chip" onclick="openApiModal()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+        <span id="userChipText">MMT12726</span>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO INPUT AREA -->
+  <div class="home-hero">
+    <div class="hero-title">
+      MakeMyTrip &#8212; Scribe
+      <span class="hero-gem">Powered by Gemini</span>
+    </div>
+    <div class="hero-sub">Enter a hotel name, pick your data categories, and get AI-powered research from official sources.</div>
+
+    <div class="hero-input-row">
+      <input class="hero-input" id="hotelInput" placeholder="e.g. The Leela Palace New Delhi, Taj Mahal Palace Mumbai..." onkeydown="if(event.key==='Enter')addHotel()" />
+      <button class="hero-add-btn" onclick="addHotel()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        + Add
+      </button>
+    </div>
+    <div id="hotelTags" class="hero-tags"></div>
+
+    <button class="csv-upload-btn" onclick="document.getElementById('csvFileInput').click()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      Upload CSV
+    </button>
+    <input type="file" id="csvFileInput" accept=".csv" style="display:none" onchange="handleCsvUpload(this)" />
+
+    <div class="mode-toggle-row">
+      <button class="mode-toggle-btn active" id="modeMMT" onclick="selectMode('mmt')">&#10024; MMT Writing Mode</button>
+      <button class="mode-toggle-btn" id="modeRaw" onclick="selectMode('raw')">&#128269; Raw Research Mode</button>
+    </div>
+
+    <div id="mmtOptions" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+      <div class="output-type-label">Select Output Type</div>
+      <div class="output-type-row">
+        <button class="output-pill active" id="pill-brown_text" onclick="selectOutputPill(this,'brown_text')">&#128221; Brown Text</button>
+        <button class="output-pill" id="pill-experience_cards" onclick="selectOutputPill(this,'experience_cards')">&#11088; Experience Cards</button>
+        <button class="output-pill" id="pill-property_description" onclick="selectOutputPill(this,'property_description')">&#127968; Property Description</button>
+      </div>
+    </div>
+
+    <div id="rawOptions" style="display:none;width:100%;flex-direction:column;align-items:center;">
+      <div class="output-type-label">Select Data Categories</div>
+      <div class="hero-cat-row" id="categoryList">
+        <button class="output-pill" onclick="toggleCat(this,'rooms')">Rooms &amp; Accommodation</button>
+        <button class="output-pill" onclick="toggleCat(this,'dining')">Dining</button>
+        <button class="output-pill" onclick="toggleCat(this,'amenities')">Amenities &amp; Facilities</button>
+        <button class="output-pill" onclick="toggleCat(this,'location')">Location</button>
+        <button class="output-pill" onclick="toggleCat(this,'policies')">Policies</button>
+        <button class="output-pill" onclick="toggleCat(this,'images')">Images &amp; Media</button>
+        <button class="output-pill" onclick="toggleCat(this,'reviews')">Reviews &amp; Ratings</button>
+        <button class="output-pill" style="font-weight:700" onclick="toggleCat(this,'all')">All Categories</button>
+      </div>
+    </div>
+
+    <div class="hero-prompt-wrap" id="promptWrap">
+      <textarea id="promptTextarea" oninput="updatePromptCounter()">You are a hotel content research specialist. Your task is to extract factual information from official hotel websites with absolute precision.
+
+EXTRACTION RULES:
+- Extract information exactly as written on the official website
+- Do NOT rewrite, paraphrase, synonymize, summarize, infer, or embellish
+- Preserve original wording, names, labels, amenities, room names, dining outlet names, policies exactly
+- If information is not found, mark as not_found
+- Each extracted item MUST include source page URL and source excerpt
+
+CRUCIAL EXCLUSIONS (ABSOLUTELY NO):
+- No third-party OTA content
+- No hallucinated amenities, services, or features
+- No inferred information not explicitly stated
+- No foreign objects or invented details
+
+OUTPUT FORMAT: Return structured JSON with citations and evidence.</textarea>
+      <div class="hero-prompt-footer">
+        <div></div>
+        <div class="prompt-counter" id="promptCounter">0/1500 characters</div>
+      </div>
+    </div>
+
+    <div class="hero-action-row">
+      <button class="btn-start" id="runBtn" onclick="runResearch()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Start Writing
+      </button>
+      <button class="btn-edit-prompt" onclick="togglePromptVisibility()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Edit Prompt
+      </button>
+      <button class="btn-test-api" onclick="testApi()">
+        &#128268; Test API
+      </button>
+    </div>
+    <div class="hero-run-sub">Scrapes official website &#8594; Structures data &#8594; Delivers results</div>
+  </div>
+
+  <!-- STAT CARDS -->
+  <div class="home-stat-grid">
+    <div class="stat-big-card" onclick="navigate('page-inprogress')">
+      <div class="stat-big-icon progress">
+        <svg width="22" height="22" fill="none" stroke="#3b82f6" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="stat-big-number progress" id="countProgress">0</div>
+      <div class="stat-big-title">Active Process</div>
+      <div class="stat-big-desc">Monitor currently running research processes</div>
+    </div>
+    <div class="stat-big-card" onclick="navigate('page-completed')">
+      <div class="stat-big-icon finished">
+        <svg width="22" height="22" fill="none" stroke="var(--color-success)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+      </div>
+      <div class="stat-big-number finished" id="countFinished">0</div>
+      <div class="stat-big-title">Completed</div>
+      <div class="stat-big-desc">View finished research and download results</div>
+    </div>
+    <div class="stat-big-card" onclick="navigate('page-failed')">
+      <div class="stat-big-icon failed">
+        <svg width="22" height="22" fill="none" stroke="var(--color-error)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+      </div>
+      <div class="stat-big-number failed" id="countFailed">0</div>
+      <div class="stat-big-title">Failed</div>
+      <div class="stat-big-desc">Check failed processes and review error details</div>
+    </div>
+  </div>
+
+  <!-- BOTTOM INFO CARDS -->
+  <div class="home-bottom-grid">
+    <div class="home-info-card">
+      <div class="home-info-card-header">
+        <svg width="16" height="16" fill="none" stroke="var(--color-warning)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <div class="home-info-card-title">Quick Start Guide</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Add hotel names</div>
+            <div class="step-desc">Type and click Add, or press Enter</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Select mode &amp; categories</div>
+            <div class="step-desc">MMT Writing or Raw Research</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Click Run Research</div>
+            <div class="step-desc">Results delivered structured instantly</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="home-info-card">
+      <div class="home-info-card-header">
+        <svg width="16" height="16" fill="none" stroke="var(--color-cta)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div class="home-info-card-title">Recent Searches</div>
+      </div>
+      <div class="recent-list" id="recentList">
+        <div class="recent-item" onclick="loadRecent('The Leela Palace New Delhi','mmt','brown_text')">
+          <div class="recent-dot"></div>
+          <div style="flex:1">
+            <div class="recent-name">The Leela Palace New Delhi</div>
+            <div class="recent-meta">MMT Content Mode &#8226; Brown Text</div>
+          </div>
+          <div class="recent-time">2 hours ago</div>
+        </div>
+        <div class="recent-item" onclick="loadRecent('Taj Mahal Palace Mumbai','raw','all')">
+          <div class="recent-dot"></div>
+          <div style="flex:1">
+            <div class="recent-name">Taj Mahal Palace Mumbai</div>
+            <div class="recent-meta">Raw Research Mode &#8226; All Categories</div>
+          </div>
+          <div class="recent-time">1 day ago</div>
+        </div>
+        <div class="recent-item" onclick="loadRecent('ITC Maurya New Delhi','mmt','experience_cards')">
+          <div class="recent-dot"></div>
+          <div style="flex:1">
+            <div class="recent-name">ITC Maurya New Delhi</div>
+            <div class="recent-meta">MMT Content Mode &#8226; Experience Cards</div>
+          </div>
+          <div class="recent-time">2 days ago</div>
+        </div>
+      </div>
+      <a class="view-all-link" onclick="navigate('page-completed')">View All History</a>
+    </div>
+  </div>
+</div>
+
+<!-- ========== COMPLETED PAGE ========== -->
+<div class="page" id="page-completed">
+  <header class="header">
+    <div class="header-brand">
+      <div class="mmt-logo">M</div>
+      <span class="header-title">MakeMyTrip - Scribe (Powered by Gemini)</span>
+      <span class="header-sep">|</span>
+      <span class="header-sub" onclick="navigate('page-home')">Content Intelligence</span>
+    </div>
+    <div class="header-right">
+      <div class="badge-official">Official Website Only</div>
+      <button class="btn-header" onclick="navigate('page-categories')">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+        Manage Categories
+      </button>
+      <div class="user-chip">MMT12726 ▾</div>
+    </div>
+  </header>
+  <div class="listing-content">
+    <div class="listing-header">
+      <button class="btn-back" onclick="navigate('page-home')">← Back to Home</button>
+      <div>
+        <div class="listing-title">Completed</div>
+        <div class="listing-count" id="completedCount">2558 processes found</div>
+      </div>
+      <div class="listing-search-row">
+        <input class="search-input" placeholder="Search by Process ID, Hotel Name or Hotel ID" oninput="filterTable(this.value,'completed')" />
+        <button class="filter-btn">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="table-card">
+      <table class="data-table" id="completedTable">
+        <thead>
+          <tr>
+            <th>Process ID</th><th>User ID</th><th>Hotel / Batch Name</th>
+            <th>Type</th><th>Status</th><th>Hotel ID / Batch ID</th>
+            <th>Completed At</th><th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="completedBody"></tbody>
+      </table>
+      <div class="table-footer">
+        <div class="table-count-text" id="completedFooterText">Showing 1 to 8 of 2558 results</div>
+        <div class="pagination" id="completedPagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== IN PROGRESS PAGE ========== -->
+<div class="page" id="page-inprogress">
+  <header class="header">
+    <div class="header-brand">
+      <div class="mmt-logo">M</div>
+      <span class="header-title">MakeMyTrip - Scribe (Powered by Gemini)</span>
+      <span class="header-sep">|</span>
+      <span class="header-sub" onclick="navigate('page-home')">Content Intelligence</span>
+    </div>
+    <div class="header-right">
+      <div class="badge-official">Official Website Only</div>
+      <button class="btn-header" onclick="navigate('page-categories')">Manage Categories</button>
+      <div class="user-chip">MMT12726 ▾</div>
+    </div>
+  </header>
+  <div class="listing-content">
+    <div class="listing-header">
+      <button class="btn-back" onclick="navigate('page-home')">← Back to Home</button>
+      <div>
+        <div class="listing-title">In Progress</div>
+        <div class="listing-count" id="inprogressCount">0 processes found</div>
+      </div>
+      <div class="listing-search-row">
+        <input class="search-input" id="inprogressSearch" placeholder="Search by Process ID, Hotel Name or Hotel ID" oninput="filterTable(this.value,'inprogress')" />
+        <button class="filter-btn"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></button>
+      </div>
+    </div>
+    <div class="table-card">
+      <table class="data-table">
+        <thead>
+          <tr><th>Process ID</th><th>User ID</th><th>Hotel / Batch Name</th><th>Type</th><th>Status</th><th>Hotel ID / Batch ID</th><th>Started At</th><th>Action</th></tr>
+        </thead>
+        <tbody id="inprogressBody"></tbody>
+      </table>
+      <div class="table-footer">
+        <div class="table-count-text" id="inprogressFooterText">Showing 0 results</div>
+        <div class="pagination" id="inprogressPagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FAILED PAGE ========== -->
+<div class="page" id="page-failed">
+  <header class="header">
+    <div class="header-brand">
+      <div class="mmt-logo">M</div>
+      <span class="header-title">MakeMyTrip - Scribe (Powered by Gemini)</span>
+      <span class="header-sep">|</span>
+      <span class="header-sub" onclick="navigate('page-home')">Content Intelligence</span>
+    </div>
+    <div class="header-right">
+      <div class="badge-official">Official Website Only</div>
+      <button class="btn-header" onclick="navigate('page-categories')">Manage Categories</button>
+      <div class="user-chip">MMT12726 ▾</div>
+    </div>
+  </header>
+  <div class="listing-content">
+    <div class="listing-header">
+      <button class="btn-back" onclick="navigate('page-home')">← Back to Home</button>
+      <div>
+        <div class="listing-title">Failed</div>
+        <div class="listing-count" id="failedCount">0 processes found</div>
+      </div>
+      <div class="listing-search-row">
+        <input class="search-input" id="failedSearch" placeholder="Search by Process ID, Hotel Name or Hotel ID" oninput="filterTable(this.value,'failed')" />
+        <button class="filter-btn"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></button>
+      </div>
+    </div>
+    <div class="table-card">
+      <table class="data-table">
+        <thead>
+          <tr><th>Process ID</th><th>User ID</th><th>Hotel / Batch Name</th><th>Type</th><th>Status</th><th>Hotel ID / Batch ID</th><th>Failed At</th><th>Action</th></tr>
+        </thead>
+        <tbody id="failedBody"></tbody>
+      </table>
+      <div class="table-footer">
+        <div class="table-count-text" id="failedFooterText">Showing 0 results</div>
+        <div class="pagination" id="failedPagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== RESULTS PAGE (REDESIGNED) ========== -->
+<div class="page" id="page-results">
+
+  <!-- Sticky Header (compact, shared) -->
+  <header class="header" style="position:sticky;top:0;z-index:100;">
+    <div class="header-brand">
+      <div class="mmt-logo">M</div>
+      <span class="header-title">MMT Hotel Research</span>
+      <span class="header-sep">/</span>
+      <span class="header-sub" onclick="navigate('page-home')">Content Intelligence</span>
+    </div>
+    <div class="header-right">
+      <div class="badge-official">Official Website Only</div>
+      <button class="btn-header" onclick="navigate('page-categories')">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+        Manage Categories
+      </button>
+      <div class="user-chip" onclick="openApiModal()">MMT12726 ▾</div>
+    </div>
+  </header>
+
+  <!-- Dark Purple Hero Banner -->
+  <div class="rp-hero" id="rpHero">
+    <div class="rp-hero-top-bar">
+      <button class="rp-hero-back-btn" onclick="navigate('page-completed')">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+        Back to Completed
+      </button>
+      <div style="display:flex;align-items:center;gap:var(--space-3)">
+        <div class="rp-hero-badge success" id="rpHeroBadge">Finished • Single Hotel</div>
+        <div class="rp-hero-actions">
+          <button class="rp-hero-btn rp-hero-btn-primary" onclick="exportPDF()">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PDF
+          </button>
+          <button class="rp-hero-btn rp-hero-btn-secondary" onclick="exportWord()">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Word
+          </button>
+          <button class="rp-hero-btn rp-hero-btn-secondary" onclick="copyAllContent()">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            Copy All
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="rp-hero-title" id="rpHeroTitle">Hotel Name</div>
+    <div class="rp-hero-meta-row" id="rpHeroMeta"></div>
+    <div class="rp-hero-stats" id="rpHeroStats"></div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="rp-tabs-bar" id="rpTabsBar"></div>
+
+  <!-- Content Area -->
+  <div class="rp-content">
+    <div class="rp-content-layout">
+      <!-- Main Content -->
+      <div class="rp-main" id="rpMainContent"></div>
+      <!-- Right Sidebar -->
+      <div class="rp-sidebar" id="rpSidebar"></div>
+    </div>
+  </div>
+</div>
+<!-- ========== CATEGORIES PAGE ========== -->
+<div class="page" id="page-categories">
+  <header class="header">
+    <div class="header-brand">
+      <div class="mmt-logo">M</div>
+      <span class="header-title">MakeMyTrip - Scribe (Powered by Gemini)</span>
+      <span class="header-sep">|</span>
+      <span class="header-sub" onclick="navigate('page-home')">Content Intelligence</span>
+    </div>
+    <div class="header-right">
+      <div class="badge-official">Official Website Only</div>
+      <div class="user-chip">MMT12726 ▾</div>
+    </div>
+  </header>
+  <div class="manage-content">
+    <div class="listing-header" style="margin-bottom:0">
+      <button class="btn-back" onclick="navigate('page-home')">← Back to Home</button>
+      <div>
+        <div class="listing-title">Manage Categories</div>
+        <div class="listing-count">Define extraction rules and output schemas for each category</div>
+      </div>
+    </div>
+    <div class="cats-grid">
+      <div class="cats-sidebar">
+        <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:var(--space-3)">Filter by Mode</div>
+        <div class="cat-tab active" onclick="filterCats(this,'all')"><span>All Categories</span><span class="cat-count">11</span></div>
+        <div class="cat-tab" onclick="filterCats(this,'mmt')"><span>MMT Content Mode</span><span class="cat-count">3</span></div>
+        <div class="cat-tab" onclick="filterCats(this,'raw')"><span>Raw Research Mode</span><span class="cat-count">8</span></div>
+        <div style="margin-top:var(--space-4);padding-top:var(--space-4);border-top:1px solid var(--color-divider)">
+          <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:var(--space-3)">SOP Upload</div>
+          <div style="border:2px dashed var(--color-divider);border-radius:var(--radius-lg);padding:var(--space-6);text-align:center;cursor:pointer;transition:all var(--transition)" onmouseover="this.style.borderColor='var(--color-cta)'" onmouseout="this.style.borderColor='var(--color-divider)'" onclick="document.getElementById('sopFile').click()">
+            <div style="font-size:24px;margin-bottom:var(--space-2)">📄</div>
+            <div style="font-size:var(--text-xs);font-weight:500;margin-bottom:4px">Upload SOP File</div>
+            <div style="font-size:11px;color:var(--color-text-faint)">PDF, DOCX, TXT, MD</div>
+          </div>
+          <input type="file" id="sopFile" accept=".pdf,.docx,.txt,.md" style="display:none" onchange="handleSOPUpload(this)"/>
+        </div>
+      </div>
+      <div class="cats-main">
+        <div class="cats-toolbar">
+          <button class="btn-primary" onclick="showNewCategoryForm()">+ New Category</button>
+          <button class="btn-secondary">Import</button>
+          <button class="btn-secondary">Export</button>
+        </div>
+        <div id="catsTableBody"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<script>
+// ===== STATE =====
+let state = {
+  apiKey: '',
+  model: 'gemini-2.0-flash',
+  currentMode: 'mmt',
+  selectedOutput: 'brown_text',
+  selectedCats: [],
+  hotelTags: [],
+  processes: [],
+  nextId: 3524,
+  currentResult: null,
+  catFilter: 'all'
+};
+
+// ===== SEED DATA =====
+const seedProcesses = [
+  {id:3523,userId:'MMT11972',name:'The Leela Palace New Delhi',hotelName:'The Leela Palace New Delhi',type:'single',status:'finished',hotelId:'1778502621384',completedAt:'12 May 2026, 9:45 AM',mode:'raw',outputType:'brown_text',cats:['overview','rooms','dining','amenities','location','policies'],
+    result:{
+      hotelName:'The Leela Palace New Delhi',officialWebsite:'https://www.theleela.com/new-delhi',researchMode:'raw_research_mode',
+      selectedCategories:['overview','rooms','dining','amenities','location','policies'],status:'completed',
+      summary:{shortAnswer:'The Leela Palace New Delhi is an ultra-luxury 5-star property set in the diplomatic enclave of Chanakyapuri. Drawing from Lutyens imperial Delhi architecture, it features soaring marble ceilings, gold-leaf accents and hand-woven silk carpets across 254 rooms and suites — all spread over six landscaped acres with sweeping views of the Rajpath.',confidence:'high',missingInformation:[]},
+      sections:[
+        {title:'Overview',fields:[
+          {label:'Star Category',value:'5-Star Luxury',sourceUrl:'https://www.theleela.com/new-delhi/overview',confidence:'high'},
+          {label:'Total Rooms & Suites',value:'254 Rooms & Suites',sourceUrl:'https://www.theleela.com/new-delhi/rooms',confidence:'high'},
+          {label:'Year of Opening',value:'2011',sourceUrl:'https://www.theleela.com/new-delhi/about',confidence:'high'},
+          {label:'Area',value:'6 Acres',sourceUrl:'https://www.theleela.com/new-delhi/about',confidence:'medium'},
+          {label:'Property Type',value:'Luxury Urban Palace',sourceUrl:'https://www.theleela.com/new-delhi/overview',confidence:'high'},
+          {label:'Hotel Chain',value:'The Leela Palaces & Hotels',sourceUrl:'https://www.theleela.com',confidence:'high'},
+          {label:'Nearest Airport',value:'IGI Airport (~15 km)',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'high'},
+          {label:'Nearest Metro',value:'Udyog Bhawan (~1 km)',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'medium'}
+        ]},
+        {title:'Rooms & Accommodation',fields:[
+          {label:'Deluxe Room - Size',value:'42 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/deluxe-room',confidence:'high'},
+          {label:'Deluxe Room - Bed',value:'King / Twin',sourceUrl:'https://www.theleela.com/new-delhi/rooms/deluxe-room',confidence:'high'},
+          {label:'Deluxe Room - View',value:'City / Courtyard',sourceUrl:'https://www.theleela.com/new-delhi/rooms/deluxe-room',confidence:'high'},
+          {label:'Deluxe Room - Max Occupancy',value:'2 Adults',sourceUrl:'https://www.theleela.com/new-delhi/rooms/deluxe-room',confidence:'high'},
+          {label:'Deluxe Room - Amenities',value:'Free High-Speed WiFi, 55" Smart TV, Minibar, Electronic Safe, Bathrobe & Slippers, Rainfall Shower, Dual Vanity Basin, Nespresso Machine, 24hr Room Service, Pillow Menu, Dedicated Butler, Marble Bathroom, Iron & Ironing Board, Hair Dryer, Turndown Service',sourceUrl:'https://www.theleela.com/new-delhi/rooms/deluxe-room',confidence:'high'},
+          {label:'Premier Room - Size',value:'55 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/premier-room',confidence:'high'},
+          {label:'Premier Room - Bed',value:'King',sourceUrl:'https://www.theleela.com/new-delhi/rooms/premier-room',confidence:'high'},
+          {label:'Premier Room - View',value:'Garden / Pool',sourceUrl:'https://www.theleela.com/new-delhi/rooms/premier-room',confidence:'high'},
+          {label:'Premier Room - Max Occupancy',value:'2 Adults',sourceUrl:'https://www.theleela.com/new-delhi/rooms/premier-room',confidence:'high'},
+          {label:'Premier Room - Amenities',value:'WiFi, Jacuzzi, Butler Service, Separate Work Area, Premium Toiletries, Express Laundry',sourceUrl:'https://www.theleela.com/new-delhi/rooms/premier-room',confidence:'high'},
+          {label:'Club Room - Size',value:'60 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/club-room',confidence:'high'},
+          {label:'Club Room - Bed',value:'King',sourceUrl:'https://www.theleela.com/new-delhi/rooms/club-room',confidence:'high'},
+          {label:'Club Room - View',value:'City / Garden',sourceUrl:'https://www.theleela.com/new-delhi/rooms/club-room',confidence:'high'},
+          {label:'Club Room - Max Occupancy',value:'2 Adults',sourceUrl:'https://www.theleela.com/new-delhi/rooms/club-room',confidence:'high'},
+          {label:'Club Room - Amenities',value:'Club Lounge Access, WiFi, Butler Service, Private Check-in, 10% off Spa',sourceUrl:'https://www.theleela.com/new-delhi/rooms/club-room',confidence:'high'},
+          {label:'Junior Suite - Size',value:'90 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/junior-suite',confidence:'high'},
+          {label:'Junior Suite - Bed',value:'King',sourceUrl:'https://www.theleela.com/new-delhi/rooms/junior-suite',confidence:'high'},
+          {label:'Junior Suite - View',value:'Garden',sourceUrl:'https://www.theleela.com/new-delhi/rooms/junior-suite',confidence:'high'},
+          {label:'Junior Suite - Max Occupancy',value:'3 Guests',sourceUrl:'https://www.theleela.com/new-delhi/rooms/junior-suite',confidence:'high'},
+          {label:'Junior Suite - Amenities',value:'Separate Living Room, Butler Service, Dining Area, Premium Bar, Walk-in Closet',sourceUrl:'https://www.theleela.com/new-delhi/rooms/junior-suite',confidence:'high'},
+          {label:'Grand Suite - Size',value:'180 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/grand-suite',confidence:'high'},
+          {label:'Grand Suite - Bed',value:'King',sourceUrl:'https://www.theleela.com/new-delhi/rooms/grand-suite',confidence:'high'},
+          {label:'Grand Suite - View',value:'Panoramic City',sourceUrl:'https://www.theleela.com/new-delhi/rooms/grand-suite',confidence:'high'},
+          {label:'Grand Suite - Max Occupancy',value:'3 Guests',sourceUrl:'https://www.theleela.com/new-delhi/rooms/grand-suite',confidence:'high'},
+          {label:'Grand Suite - Amenities',value:'Private Terrace, Dining Room, Study, Pantry, Personal Butler',sourceUrl:'https://www.theleela.com/new-delhi/rooms/grand-suite',confidence:'high'},
+          {label:'Royal Suite - Size',value:'280 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/royal-suite',confidence:'high'},
+          {label:'Royal Suite - Bed',value:'King',sourceUrl:'https://www.theleela.com/new-delhi/rooms/royal-suite',confidence:'high'},
+          {label:'Royal Suite - View',value:'Panoramic 180°',sourceUrl:'https://www.theleela.com/new-delhi/rooms/royal-suite',confidence:'high'},
+          {label:'Royal Suite - Max Occupancy',value:'4 Guests',sourceUrl:'https://www.theleela.com/new-delhi/rooms/royal-suite',confidence:'high'},
+          {label:'Royal Suite - Amenities',value:'Private Pool, Library, Dining Room, Chef on Call, Personal Butler, Helipad Access',sourceUrl:'https://www.theleela.com/new-delhi/rooms/royal-suite',confidence:'high'}
+        ]},
+        {title:'Dining',fields:[
+          {label:'Le Cirque Signature - Cuisine',value:'Italian Fine Dining',sourceUrl:'https://www.theleela.com/new-delhi/dining',confidence:'high'},
+          {label:'Le Cirque Signature - Description',value:"New York's iconic Le Cirque comes to New Delhi — authentic Italian cuisine in a dramatic circus-inspired setting with floor-to-ceiling garden views.",sourceUrl:'https://www.theleela.com/new-delhi/dining/le-cirque',confidence:'high'},
+          {label:'Le Cirque Signature - Timings',value:'12:30–2:45 PM, 7–11:30 PM',sourceUrl:'https://www.theleela.com/new-delhi/dining/le-cirque',confidence:'high'},
+          {label:'Le Cirque Signature - Capacity',value:'80 Covers',sourceUrl:'https://www.theleela.com/new-delhi/dining/le-cirque',confidence:'medium'},
+          {label:'Le Cirque Signature - Dress Code',value:'Smart Casual',sourceUrl:'https://www.theleela.com/new-delhi/dining/le-cirque',confidence:'high'},
+          {label:'Le Cirque Signature - Reservations',value:'Required',sourceUrl:'https://www.theleela.com/new-delhi/dining/le-cirque',confidence:'high'},
+          {label:'MEGU - Cuisine',value:'Japanese',sourceUrl:'https://www.theleela.com/new-delhi/dining',confidence:'high'},
+          {label:'MEGU - Description',value:'A sophisticated Japanese restaurant with a 1,000kg bronze Buddha suspended above the dining floor. Premium sushi, sashimi and robata-grilled specialties.',sourceUrl:'https://www.theleela.com/new-delhi/dining/megu',confidence:'high'},
+          {label:'MEGU - Timings',value:'7:00 PM – 11:30 PM',sourceUrl:'https://www.theleela.com/new-delhi/dining/megu',confidence:'high'},
+          {label:'MEGU - Capacity',value:'120 Covers',sourceUrl:'https://www.theleela.com/new-delhi/dining/megu',confidence:'medium'},
+          {label:'MEGU - Dress Code',value:'Smart Casual',sourceUrl:'https://www.theleela.com/new-delhi/dining/megu',confidence:'high'},
+          {label:'MEGU - Reservations',value:'Recommended',sourceUrl:'https://www.theleela.com/new-delhi/dining/megu',confidence:'high'}
+        ]},
+        {title:'Amenities & Facilities',fields:[
+          {label:'Swimming Pool',value:'Outdoor temperature-controlled pool',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
+          {label:'Spa',value:'The Spa by ESPA — 7 treatment rooms',sourceUrl:'https://www.theleela.com/new-delhi/spa',confidence:'high'},
+          {label:'Fitness Centre',value:'24-hour state-of-the-art gym',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
+          {label:'Business Centre',value:'24-hour fully equipped business centre',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
+          {label:'Conference Facilities',value:'8 meeting rooms, ballroom (600 pax)',sourceUrl:'https://www.theleela.com/new-delhi/events',confidence:'high'},
+          {label:'WiFi',value:'Complimentary high-speed WiFi throughout',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
+          {label:'Parking',value:'Valet parking available',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
+          {label:'Airport Transfer',value:'Luxury airport transfers available',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
+          {label:'Butler Service',value:'24-hour dedicated butler service',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
+          {label:'Concierge',value:'24-hour concierge desk',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'}
+        ]},
+        {title:'Location',fields:[
+          {label:'Address',value:'Chanakyapuri, Diplomatic Enclave, New Delhi 110023',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'high'},
+          {label:'Distance from Airport',value:'~15 km from IGI Airport',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'high'},
+          {label:'Distance from City Centre',value:'~7 km from Connaught Place',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'high'},
+          {label:'Nearby Attractions',value:'India Gate (2 km), Rashtrapati Bhavan (1.5 km), National Museum (3 km)',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'high'},
+          {label:'Metro Connectivity',value:'Udyog Bhawan Metro (~1 km)',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'medium'}
+        ]},
+        {title:'Policies',fields:[
+          {label:'Check-in Time',value:'3:00 PM',sourceUrl:'https://www.theleela.com/new-delhi/policies',confidence:'high'},
+          {label:'Check-out Time',value:'12:00 PM',sourceUrl:'https://www.theleela.com/new-delhi/policies',confidence:'high'},
+          {label:'Cancellation Policy',value:'Free cancellation up to 24 hours before check-in',sourceUrl:'https://www.theleela.com/new-delhi/policies',confidence:'high'},
+          {label:'Child Policy',value:'Children under 12 stay free with parents',sourceUrl:'https://www.theleela.com/new-delhi/policies',confidence:'high'},
+          {label:'Pet Policy',value:'Pets not allowed',sourceUrl:'https://www.theleela.com/new-delhi/policies',confidence:'high'}
+        ]}
+      ],
+      contentOutputs:[],
+      rawEvidence:[{pageTitle:'The Leela Palace New Delhi',url:'https://www.theleela.com/new-delhi',extractedText:''}],
+      errors:[]
+    }
+  },
+  {id:3522,userId:'MMT12726',name:'The Elgin Mount Pandim - Heritage Resort & Spa',type:'single',status:'finished',hotelId:'201103041130544788',completedAt:'May 14, 2025 | 09:48 AM'},
+  {id:3521,userId:'MMT12637',name:'The Kipling Lodge - Nature Kalp',type:'single',status:'finished',hotelId:'201508171825374345',completedAt:'May 14, 2025 | 09:15 AM'},
+  {id:3520,userId:'MMT12637',name:'Hotel Batch 2 - The Kipling Lodge - Nature Kalp',type:'batch',status:'finished',hotelId:'BATCH_20250514_0002',completedAt:'May 14, 2025 | 08:52 AM'},
+  {id:3519,userId:'MMT12637',name:'The Orchid Rishivan, Rishikesh',type:'single',status:'finished',hotelId:'202507231604246207',completedAt:'May 14, 2025 | 08:31 AM'},
+  {id:3518,userId:'MMT12637',name:'Lakeside Chalet Marriott Executive Apartments',type:'single',status:'finished',hotelId:'201202131507131861',completedAt:'May 14, 2025 | 08:05 AM'},
+  {id:3517,userId:'MMT11457',name:'Sofitel Mumbai BKC',type:'single',status:'finished',hotelId:'201201101024268076',completedAt:'May 14, 2025 | 07:42 AM'},
+  {id:3516,userId:'MMT11457',name:'Xandari Pearl Beach Resort',type:'single',status:'finished',hotelId:'201503201659592979',completedAt:'May 14, 2025 | 07:18 AM'},
+];
+state.processes = [...seedProcesses];
+
+// ===== CATEGORIES =====
+const defaultCategories = [
+  {id:'brown_text',name:'Brown Text',mode:'mmt',desc:'Write-ready hotel descriptions with key selling points',active:true},
+  {id:'experience_cards',name:'Experience Cards',mode:'mmt',desc:'Guest experiences and highlights in card format',active:true},
+  {id:'property_description',name:'Property Description',mode:'mmt',desc:'Detailed property descriptions for listing pages',active:true},
+  {id:'rooms',name:'Rooms & Accommodation',mode:'raw',desc:'Room types, amenities, size, occupancy',active:true},
+  {id:'dining',name:'Dining',mode:'raw',desc:'Restaurants, bars, cuisines, timings',active:true},
+  {id:'amenities',name:'Amenities & Facilities',mode:'raw',desc:'Hotel facilities, services, wellness',active:true},
+  {id:'location',name:'Location',mode:'raw',desc:'Address, nearby attractions, transport',active:true},
+  {id:'policies',name:'Policies',mode:'raw',desc:'Check-in/out, cancellation, child policy',active:true},
+  {id:'images',name:'Images & Media',mode:'raw',desc:'Image URLs, galleries, videos',active:true},
+  {id:'reviews',name:'Reviews & Ratings',mode:'raw',desc:'Guest reviews, ratings summary',active:true},
+  {id:'overview',name:'Hotel Overview / About',mode:'raw',desc:'General hotel description and history',active:true},
+];
+let categories = [...defaultCategories];
+
+// ===== NAVIGATION =====
+let _liveRefreshTimer = null;
+
+function navigate(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  if (pageId === 'page-completed') renderTable('completed');
+  if (pageId === 'page-inprogress') {
+    renderTable('inprogress');
+    // Start live auto-refresh while on in-progress tab
+    clearInterval(_liveRefreshTimer);
+    _liveRefreshTimer = setInterval(() => {
+      const activePage = document.querySelector('.page.active');
+      if (activePage && activePage.id === 'page-inprogress') {
+        renderTable('inprogress');
+      } else {
+        clearInterval(_liveRefreshTimer);
+      }
+    }, 1500);
+  } else {
+    clearInterval(_liveRefreshTimer);
+  }
+  if (pageId === 'page-failed') renderTable('failed');
+  if (pageId === 'page-categories') renderCategories();
+  window.scrollTo(0,0);
+}
+
+// ===== HOTEL TAGS =====
+function addHotel() {
+  const input = document.getElementById('hotelInput');
+  const val = input.value.trim();
+  if (!val) return;
+  val.split(',').forEach(h => {
+    const name = h.trim();
+    if (name && !state.hotelTags.includes(name)) {
+      state.hotelTags.push(name);
+    }
+  });
+  input.value = '';
+  renderTags();
+}
+document.getElementById('hotelInput').addEventListener('keypress', e => {
+  if (e.key === 'Enter') addHotel();
+});
+
+function renderTags() {
+  const wrap = document.getElementById('hotelTags');
+  wrap.innerHTML = state.hotelTags.map((t,i) => `
+    <div style="display:inline-flex;align-items:center;gap:4px;background:var(--color-accent-bg);border:1px solid var(--color-accent-border);border-radius:var(--radius-full);padding:3px 10px;font-size:11px;font-weight:500;color:var(--color-cta)">
+      ${t}
+      <span onclick="removeTag(${i})" style="cursor:pointer;opacity:0.6;margin-left:2px">×</span>
+    </div>
+  `).join('');
+}
+
+function removeTag(i) {
+  state.hotelTags.splice(i, 1);
+  renderTags();
+}
+
+// ===== MODE =====
+function selectMode(mode) {
+  state.currentMode = mode;
+  document.getElementById('modeMMT').classList.toggle('active', mode === 'mmt');
+  document.getElementById('modeRaw').classList.toggle('active', mode === 'raw');
+  const mmtEl = document.getElementById('mmtOptions');
+  const rawEl = document.getElementById('rawOptions');
+  if (mode === 'mmt') {
+    mmtEl.style.display = 'flex';
+    rawEl.style.display = 'none';
+    const runBtn = document.getElementById('runBtn');
+    if (runBtn) runBtn.textContent = '';
+    const btn = document.getElementById('runBtn');
+    if (btn) { btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points=\"5 3 19 12 5 21 5 3\"/></svg> Start Writing'; }
+  } else {
+    mmtEl.style.display = 'none';
+    rawEl.style.display = 'flex';
+    const btn = document.getElementById('runBtn');
+    if (btn) { btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points=\"5 3 19 12 5 21 5 3\"/></svg> Run Research'; }
+  }
+}
+
+function selectOutput(el, val) {
+  document.querySelectorAll('.radio-opt').forEach(r => r.classList.remove('selected'));
+  el.classList.add('selected');
+  state.selectedOutput = val;
+}
+function selectOutputPill(el, val) {
+  document.querySelectorAll('.output-pill[id^="pill-"]').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  state.selectedOutput = val;
+}
+
+function toggleCat(el, val) {
+  // Support both old checkbox-opt style and new pill style
+  const isActive = el.classList.contains('active') || el.classList.contains('checked');
+  el.classList.toggle('active', !isActive);
+  el.classList.toggle('checked', !isActive);
+  if (val === 'all') {
+    const nowActive = !isActive;
+    document.querySelectorAll('#categoryList .output-pill, #categoryList .checkbox-opt').forEach(c => {
+      c.classList.toggle('active', nowActive);
+      c.classList.toggle('checked', nowActive);
+    });
+    state.selectedCats = nowActive ? ['rooms','dining','amenities','location','policies','images','reviews','overview'] : [];
+    return;
+  }
+  if (!isActive) {
+    if (!state.selectedCats.includes(val)) state.selectedCats.push(val);
+  } else {
+    state.selectedCats = state.selectedCats.filter(c => c !== val);
+  }
+}
+
+// ===== PROMPT COUNTER =====
+function updatePromptCounter() {
+  const ta = document.getElementById('promptTextarea');
+  document.getElementById('promptCounter').textContent = `${ta.value.length}/1500 characters`;
+}
+updatePromptCounter();
+
+// ===== API KEY =====
+function openApiModal() {
+  document.getElementById('apiModal').classList.add('active');
+  document.getElementById('apiKeyInput').value = state.apiKey;
+}
+function closeApiModal() {
+  document.getElementById('apiModal').classList.remove('active');
+}
+function saveApiKey() {
+  state.apiKey = document.getElementById('apiKeyInput').value.trim();
+  state.model = document.getElementById('modelSelect').value;
+  closeApiModal();
+  showToast('API key saved!', 'success');
+  if (state.apiKey) document.getElementById('userChipText').textContent = 'API Configured ✓';
+}
+
+// ===== RUN RESEARCH =====
+async function runResearch() {
+  // Parse any hotels typed into the input box
+  const hotelInput = document.getElementById('hotelInput').value.trim();
+  if (hotelInput) {
+    hotelInput.split(',').forEach(h => {
+      const n = h.trim();
+      if (n && !state.hotelTags.includes(n)) state.hotelTags.push(n);
+    });
+    document.getElementById('hotelInput').value = '';
+    renderTags();
+  }
+  if (state.hotelTags.length === 0) {
+    showToast('Please enter at least one hotel name', 'error');
+    return;
+  }
+  if (!state.apiKey) {
+    openApiModal();
+    showToast('Please configure your Gemini API key first', 'error');
+    return;
+  }
+
+  const hotels = [...state.hotelTags];
+  const mode = state.currentMode;
+  const outputType = state.selectedOutput;
+  const cats = state.currentMode === 'raw' ? [...state.selectedCats] : [outputType];
+  const prompt = document.getElementById('promptTextarea').value;
+
+  // Create process records (in-progress)
+  const newProcesses = hotels.map((h, i) => ({
+    id: state.nextId++,
+    userId: 'MMT12726',
+    name: hotels.length > 1 && i === 0 ? `Hotel Batch ${Math.floor(Math.random()*9)+1} - ${h}` : h,
+    type: hotels.length > 1 ? 'batch' : 'single',
+    status: 'in_progress',
+    hotelId: hotels.length > 1 ? `BATCH_${new Date().toISOString().slice(0,10).replace(/-/g,'')}_${String(i+1).padStart(4,'0')}` : String(Date.now()).slice(0,18),
+    startedAt: new Date().toLocaleString('en-IN', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+    completedAt: null,
+    result: null,
+    hotelName: h, mode, outputType, cats
+  }));
+
+  newProcesses.forEach(p => state.processes.unshift(p));
+  document.getElementById('countProgress').textContent = newProcesses.length;
+  if (document.querySelector('.page.active')?.id === 'page-inprogress') renderTable('inprogress');
+
+  // Show loading overlay
+  const overlay = document.getElementById('loadingOverlay');
+  const errBox = document.getElementById('loadingError');
+  if (errBox) { errBox.style.display = 'none'; errBox.textContent = ''; }
+  overlay.classList.add('active');
+
+  // Reset loading bar animation
+  const bar = document.getElementById('loadingBar');
+  bar.style.animation = 'none';
+  bar.offsetHeight; // force reflow
+  bar.style.animation = 'progress 10s ease-in-out forwards';
+
+  const results = [];
+
+  for (let hotelIndex = 0; hotelIndex < hotels.length; hotelIndex++) {
+    const h = hotels[hotelIndex];
+    try {
+      document.getElementById('loadingText').textContent = `Researching ${h}...`;
+      document.getElementById('loadingStage').textContent = `Hotel ${hotelIndex + 1} of ${hotels.length} — calling Gemini API...`;
+
+      const result = await callGemini(h, mode, outputType, cats, prompt);
+      results.push(result);
+
+      const proc = newProcesses[hotelIndex];
+      proc.status = result.success ? 'finished' : 'failed';
+      proc.result = result.data;
+      proc.completedAt = new Date().toLocaleString('en-IN', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      if (!result.success) {
+        const failedIdx = state.processes.findIndex(p => p.id === proc.id);
+        if (failedIdx !== -1) state.processes.splice(failedIdx, 1);
+        state.processes.push({...proc});
+      }
+      if (document.querySelector('.page.active')?.id === 'page-inprogress') renderTable('inprogress');
+
+      // Hard 12-second pause between hotels to respect 5 RPM free-tier limit
+      if (hotelIndex < hotels.length - 1) {
+        let countdown = 12;
+        document.getElementById('loadingStage').textContent = `Rate limit: Waiting ${countdown}s before next hotel...`;
+        await new Promise(resolve => {
+          const tick = setInterval(() => {
+            countdown--;
+            document.getElementById('loadingStage').textContent =
+              countdown > 0 ? `Rate limit: Waiting ${countdown}s before next hotel...` : 'Starting next hotel...';
+            if (countdown <= 0) { clearInterval(tick); resolve(); }
+          }, 1000);
+        });
+      }
+
+    } catch (err) {
+      console.error(`Error researching ${h}:`, err);
+      document.getElementById('loadingText').textContent = '❌ Research Failed';
+      document.getElementById('loadingStage').textContent = `Error on: ${h}`;
+      if (errBox) { errBox.style.display = 'block'; errBox.textContent = `[${h}] ${err.message}`; }
+      const closeBtn = document.getElementById('overlayCloseBtn');
+      if (closeBtn) closeBtn.style.display = 'block';
+      showToast(`Failed: ${err.message}`, 'error');
+      console.error('FULL ERROR:', err);
+      results.push({ success: false, data: null });
+      const proc = newProcesses[hotelIndex];
+      if (proc) {
+        proc.status = 'failed';
+        proc.errorMessage = err.message;
+        proc.completedAt = new Date().toLocaleString('en-IN', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      }
+      // Brief pause before moving on after an error
+      if (hotelIndex < hotels.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 3000));
+      }
+    }
+  }
+
+  const finished = results.filter(r => r.success).length;
+  const failed   = results.filter(r => !r.success).length;
+  document.getElementById('countProgress').textContent = 0;
+  document.getElementById('countFinished').textContent = parseInt(document.getElementById('countFinished').textContent) + finished;
+  document.getElementById('countFailed').textContent   = parseInt(document.getElementById('countFailed').textContent)   + failed;
+
+  overlay.classList.remove('active');
+  state.hotelTags = [];
+  renderTags();
+
+  if (finished > 0 && newProcesses.length === 1) {
+    showResults(newProcesses[0]);
+  } else {
+    navigate('page-completed');
+    showToast(`Research complete! ${finished} finished, ${failed} failed.`, finished > 0 ? 'success' : 'error');
+  }
+}
+
+
+// ===== GEMINI API =====
+// ===== API DEBUG TEST =====
+async function testApi() {
+  if (!state.apiKey) { alert('No API key set! Click the user icon top-right to configure.'); return; }
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${state.model}:generateContent?key=${state.apiKey}`;
+  showToast('Testing API connection...', 'success');
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: 'Say OK' }] }], generationConfig: { temperature: 0 } })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'no text';
+      alert('\u2705 API WORKS!\nModel: ' + state.model + '\nResponse: ' + reply);
+    } else {
+      alert('\u274C API FAILED\nStatus: ' + res.status + '\n\nError: ' + (data.error?.message || JSON.stringify(data)));
+    }
+  } catch(e) {
+    alert('\u274C FETCH ERROR: ' + e.message);
+  }
+}
+
+async function callGemini(hotelName, mode, outputType, cats, userPrompt) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${state.model}:generateContent?key=${state.apiKey}`;
+
+  const fetchWithTimeout = async (body, timeoutMs = 60000) => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        signal: controller.signal
+      });
+      clearTimeout(timer);
+      return res;
+    } catch(e) {
+      clearTimeout(timer);
+      if (e.name === 'AbortError') throw new Error('Request timed out after 60 seconds. Try gemini-2.0-flash for faster responses.');
+      throw e;
+    }
+  };
+
+  const updateStage = (msg) => {
+    const el = document.getElementById('loadingStage');
+    if (el) el.textContent = msg;
+  };
+
+  // ── CALL 1: Web search grounding ─────────────────────────────────────────
+  updateStage(`[1/2] Searching web for ${hotelName}...`);
+  let groundedText = '';
+  let sources = [];
+
+  try {
+    const searchRes = await fetchWithTimeout({
+      contents: [{ parts: [{ text: `Research the hotel "${hotelName}". Find: official website URL, full address, room types, dining outlets with cuisine types, all amenities, check-in/out times, policies, and unique highlights. Be factual and concise.` }] }],
+      tools: [{ googleSearch: {} }],
+      generationConfig: { temperature: 0.1, maxOutputTokens: 1500 }
+    }, 60000);
+
+    if (searchRes.ok) {
+      const d = await searchRes.json();
+      groundedText = d.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      sources = (d.candidates?.[0]?.groundingMetadata?.groundingChunks || [])
+        .map(c => ({ pageTitle: c.web?.title || '', url: c.web?.uri || '', extractedText: '' }));
+    }
+  } catch(e) {
+    console.warn('Search call failed:', e.message);
+    updateStage(`[1/2] Using direct knowledge for ${hotelName}...`);
+  }
+
+  // ── CALL 2: Format into JSON — NO responseMimeType, explicit JSON-only instruction ─
+  updateStage(`[2/2] Structuring data for ${hotelName}...`);
+
+  const modeDesc = mode === 'mmt'
+    ? `MMT Content Mode — output type: ${outputType.replace(/_/g, ' ')}`
+    : `Raw Research Mode — extract data for: ${cats.join(', ')}`;
+
+  const formatPrompt = `You are a hotel data specialist. Output ONLY a valid JSON object for "${hotelName}". No markdown, no code fences, no explanation. Start your response with { and end with }.
+
+RESEARCH DATA:
+${groundedText ? groundedText.slice(0, 2500) : 'Use your knowledge about ' + hotelName}
+
+MODE: ${modeDesc}
+USER NOTES: ${userPrompt.slice(0, 150)}
+
+${mode === 'mmt' ? `Write for contentOutputs array:
+- type "brown_text": 150-250 word compelling hotel description
+- type "experience_card": 3-5 unique experience cards, each with title and 2-3 sentences
+- type "property_description": detailed listing page description
+Set sections to []` : `Fill sections array with one entry per category: ${cats.join(', ')}
+Each section has title and fields array with label/value/sourceUrl/confidence
+Set contentOutputs to []`}
+
+JSON structure (fill ALL fields with real data):
+{
+  "hotelName": "${hotelName}",
+  "officialWebsite": "real URL here",
+  "researchMode": "${mode === 'mmt' ? 'mmt_content_mode' : 'raw_research_mode'}",
+  "selectedCategories": ${JSON.stringify(mode === 'mmt' ? [outputType] : cats)},
+  "status": "completed",
+  "summary": { "shortAnswer": "2-3 sentence hotel summary", "confidence": "high", "missingInformation": [] },
+  "sections": [],
+  "contentOutputs": [],
+  "rawEvidence": [],
+  "errors": []
+}`;
+
+  let text = '';
+  try {
+    const formatRes = await fetchWithTimeout({
+      contents: [{ parts: [{ text: formatPrompt }] }],
+      generationConfig: { temperature: 0.1, maxOutputTokens: 3000 }
+    }, 60000);
+
+    if (formatRes.ok) {
+      const d = await formatRes.json();
+      text = d.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    } else {
+      const errData = await formatRes.json().catch(() => ({}));
+      throw new Error(`[${formatRes.status}] ${errData.error?.message || 'API error'}`);
+    }
+  } catch(e) {
+    throw new Error('Format call failed: ' + e.message);
+  }
+
+  return parseAndReturn(text, hotelName, mode, outputType, sources);
+}
+
+
+
+
+function buildSchema() {
+  return `{
+  "hotelName": "string",
+  "officialWebsite": "string (real URL)",
+  "researchMode": "mmt_content_mode or raw_research_mode",
+  "selectedCategories": ["string"],
+  "status": "completed",
+  "summary": {
+    "shortAnswer": "2-3 sentence hotel summary",
+    "confidence": "high or medium or low",
+    "missingInformation": ["string"]
+  },
+  "sections": [
+    {
+      "title": "Category name",
+      "fields": [
+        {
+          "label": "Field name",
+          "value": "Actual value or not_found",
+          "sourceUrl": "real URL",
+          "sourceExcerpt": "exact text from source",
+          "confidence": "high or medium or low"
+        }
+      ]
+    }
+  ],
+  "contentOutputs": [
+    {
+      "type": "brown_text or experience_card or property_description",
+      "title": "string",
+      "copy": "full written content here",
+      "supportingEvidence": [{"sourceUrl": "string", "sourceExcerpt": "string"}],
+      "warnings": []
+    }
+  ],
+  "rawEvidence": [{"pageTitle": "string", "url": "string", "extractedText": "string"}],
+  "errors": []
+}`;
+}
+
+function parseAndReturn(text, hotelName, mode, outputType, sources) {
+  function tryParse(str) {
+    if (!str || typeof str !== 'string') return null;
+    str = str.trim();
+    try { return JSON.parse(str); } catch {}
+    const fence = str.match(/```(?:json)?\s*([\s\S]+?)```/i);
+    if (fence) { try { return JSON.parse(fence[1].trim()); } catch {} }
+    const brace = str.match(/(\{[\s\S]*\})/);
+    if (brace) { try { return JSON.parse(brace[1]); } catch {} }
+    return null;
+  }
+
+  let parsed = tryParse(text);
+
+  if (!parsed) {
+    return { success: true, data: {
+      hotelName, status: 'completed',
+      researchMode: mode === 'mmt' ? 'mmt_content_mode' : 'raw_research_mode',
+      officialWebsite: '', selectedCategories: [], sections: [],
+      contentOutputs: [{ type: outputType||'raw', title: 'Research Result', copy: text, supportingEvidence: [], warnings: ['Could not parse structured response'] }],
+      rawEvidence: sources,
+      summary: { shortAnswer: '', confidence: 'low', missingInformation: [] },
+      errors: ['JSON parse failed']
+    }};
+  }
+
+  // Unwrap nested JSON from contentOutputs[0].copy
+  const copy0 = parsed.contentOutputs?.[0]?.copy;
+  if (copy0 && typeof copy0 === 'string') {
+    const inner = tryParse(copy0);
+    if (inner && (inner.sections !== undefined || inner.officialWebsite !== undefined || inner.summary !== undefined)) {
+      parsed = inner;
+    }
+  }
+
+  // Clean summary.shortAnswer if it's a JSON string
+  if (parsed.summary?.shortAnswer) {
+    const sa = String(parsed.summary.shortAnswer).trim();
+    if (sa.startsWith('{') || sa.startsWith('[')) {
+      const inner = tryParse(sa);
+      if (inner?.summary?.shortAnswer) parsed.summary.shortAnswer = inner.summary.shortAnswer;
+      else parsed.summary.shortAnswer = '';
+    }
+  }
+
+  // Merge grounding sources
+  if (sources.length > 0 && (!parsed.rawEvidence || parsed.rawEvidence.length === 0)) {
+    parsed.rawEvidence = sources;
+  }
+
+  parsed.hotelName = parsed.hotelName || hotelName;
+  parsed.sections = Array.isArray(parsed.sections) ? parsed.sections : [];
+  parsed.contentOutputs = Array.isArray(parsed.contentOutputs) ? parsed.contentOutputs : [];
+  parsed.rawEvidence = Array.isArray(parsed.rawEvidence) ? parsed.rawEvidence : sources;
+  parsed.summary = parsed.summary || { shortAnswer: '', confidence: 'medium', missingInformation: [] };
+  parsed.errors = parsed.errors || [];
+
+  return { success: true, data: parsed };
+}
+
+function makeFallback(hotelName, mode, outputType, text, sources) {
+  return {
+    hotelName, status: 'completed',
+    researchMode: mode === 'mmt' ? 'mmt_content_mode' : 'raw_research_mode',
+    officialWebsite: '', selectedCategories: [], sections: [],
+    contentOutputs: [{ type: outputType, title: 'Research Result', copy: text, supportingEvidence: [], warnings: ['Raw text response — JSON formatting failed'] }],
+    rawEvidence: sources,
+    summary: { shortAnswer: text.slice(0, 300), confidence: 'medium', missingInformation: [] },
+    errors: []
+  };
+}
+
+
+
+
+
+
+
+// ===== RESULTS =====
+
+function isOfficialSource(url, hotelName) {
+  if (!url) return false;
+  const otas = ['booking.com','agoda.com','trivago','expedia','hotels.com','tripadvisor','makemytrip.com',
+    'goibibo','cleartrip','yatra','airbnb','hostelworld','hotel.com','kayak','priceline',
+    'hotelscombined','guestreservations','justdial','youtube.com'];
+  const lower = url.toLowerCase();
+  return !otas.some(ota => lower.includes(ota));
+}
+
+// ===== RESULTS (REDESIGNED) =====
+
+let _rpCurrentTab = 'Overview';
+let _rpCurrentResult = null;
+let _rpCurrentSections = [];
+let _rpExpandedDetail = null;
+
+function showResults(proc) {
+  state.currentResult = proc;
+  _rpCurrentResult = proc;
+  navigate('page-results');
+
+  const r = proc.result || {};
+  const sections = r.sections || [];
+  _rpCurrentSections = sections;
+
+  // ── Hero Banner ────────────────────────────────────────────────────────
+  document.getElementById('rpHeroTitle').textContent = proc.hotelName || proc.name;
+
+  const modeLabel = proc.mode === 'mmt' ? 'MMT Content Mode' : 'Raw Research Mode';
+  const dateStr = proc.completedAt || proc.startedAt || '';
+  document.getElementById('rpHeroMeta').innerHTML = `
+    <div class="rp-hero-meta-item">
+      <span class="rp-hero-meta-icon">🆔</span>
+      <span>MMT ID: ${proc.hotelId || 'N/A'}</span>
+    </div>
+    <span style="color:rgba(255,255,255,0.2)">•</span>
+    <div class="rp-hero-meta-item">
+      <span class="rp-hero-meta-icon">🔬</span>
+      <span>${modeLabel}</span>
+    </div>
+    <span style="color:rgba(255,255,255,0.2)">•</span>
+    <div class="rp-hero-meta-item">
+      <span class="rp-hero-meta-icon">🌐</span>
+      <span>Official Website Only</span>
+    </div>
+    <span style="color:rgba(255,255,255,0.2)">•</span>
+    <div class="rp-hero-meta-item">
+      <span class="rp-hero-meta-icon">📅</span>
+      <span>${dateStr}</span>
+    </div>
+  `;
+
+  // Build hero stat cards
+  const roomsSec = sections.find(s => /room/i.test(s.title));
+  const diningSec = sections.find(s => /din/i.test(s.title));
+  const amenitySec = sections.find(s => /amenit/i.test(s.title));
+
+  const roomCount = roomsSec ? countValidFields(roomsSec) : '?';
+  const diningCount = diningSec ? countValidFields(diningSec) : '?';
+  const amenityCount = amenitySec ? countValidFields(amenitySec) : '?';
+  const roomTypes = roomsSec ? extractRoomTypes(roomsSec).length : '?';
+  const confidence = r.summary?.confidence || 'medium';
+  const rating = extractRating(r) || '★★★★★';
+
+  document.getElementById('rpHeroStats').innerHTML = `
+    <div class="rp-hero-stat">
+      <div class="rp-hero-stat-stars">${rating}</div>
+      <div class="rp-hero-stat-label">Rating</div>
+    </div>
+    <div class="rp-hero-stat">
+      <div class="rp-hero-stat-value">${roomCount}</div>
+      <div class="rp-hero-stat-label">Rooms</div>
+    </div>
+    <div class="rp-hero-stat">
+      <div class="rp-hero-stat-value">${roomTypes}</div>
+      <div class="rp-hero-stat-label">Room Types</div>
+    </div>
+    <div class="rp-hero-stat">
+      <div class="rp-hero-stat-value">${diningCount}</div>
+      <div class="rp-hero-stat-label">Restaurants</div>
+    </div>
+    <div class="rp-hero-stat">
+      <div class="rp-hero-stat-value" style="font-size:var(--text-lg)">${capitalize(confidence)}</div>
+      <div class="rp-hero-stat-label">Confidence</div>
+    </div>
+  `;
+
+  // ── Tab Navigation ─────────────────────────────────────────────────────
+  const tabIcons = {
+    'Overview': '🏨', 'Rooms': '🛏', 'Rooms & Accommodation': '🛏',
+    'Dining': '🍽', 'Amenities': '🏊', 'Amenities & Facilities': '🏊',
+    'Location': '📍', 'Policies': '📋', 'Images': '🖼',
+    'Reviews': '⭐', 'Reviews & Ratings': '⭐', 'Experiences': '🏅',
+    'Content Output': '✨'
+  };
+
+  const sectionTitles = sections.map(s => s.title);
+  const hasContent = r.contentOutputs && r.contentOutputs.length > 0;
+  const hasOverview = sectionTitles.length > 0 || r.summary?.shortAnswer;
+
+  const tabItems = [];
+  // Only add auto-Overview if there's no explicit Overview section
+  const hasExplicitOverview = sectionTitles.some(t => t === 'Overview');
+  if (hasOverview && !hasExplicitOverview) {
+    tabItems.push({ key: 'Overview', label: 'Overview', icon: tabIcons['Overview'], count: null });
+  }
+  sectionTitles.forEach(title => {
+    const shortName = title.replace(/ & Accommodation/g, '').replace(/ & Facilities/g, '').replace(/ & Ratings/g, '').replace(/ & Media/g, '');
+    const sec = sections.find(s => s.title === title);
+    const count = sec ? countValidFields(sec) : null;
+    tabItems.push({ key: title, label: shortName, icon: tabIcons[title] || '📄', count: count });
+  });
+  if (hasContent) tabItems.push({ key: 'Content Output', label: 'Experiences', icon: tabIcons['Experiences'] || '✨', count: r.contentOutputs.length });
+
+  // Store for tab switching
+  _rpTabItems = tabItems;
+  _rpCurrentTab = tabItems.length > 0 ? tabItems[0].key : 'Overview';
+
+  renderTabs();
+
+  // ── Render Content ─────────────────────────────────────────────────────
+  renderTabContent(_rpCurrentTab);
+  renderSidebar(proc, r, sections);
+}
+
+function renderTabs() {
+  const bar = document.getElementById('rpTabsBar');
+  if (!bar || !_rpTabItems) return;
+  bar.innerHTML = _rpTabItems.map(t => `
+    <button class="rp-tab ${_rpCurrentTab === t.key ? 'active' : ''}" onclick="switchRpTab('${t.key.replace(/'/g, "\'")}')">
+      <span>${t.icon}</span>
+      <span>${t.label}</span>
+      ${t.count !== null ? `<span class="rp-tab-badge">${t.count}</span>` : ''}
+    </button>
+  `).join('');
+}
+
+function switchRpTab(tabKey) {
+  _rpCurrentTab = tabKey;
+  _rpExpandedDetail = null;
+  renderTabs();
+  renderTabContent(tabKey);
+}
+
+function renderTabContent(tabKey) {
+  const main = document.getElementById('rpMainContent');
+  if (!main) return;
+
+  const r = _rpCurrentResult?.result || {};
+  const sections = r.sections || [];
+
+  if (tabKey === 'Overview') {
+    main.innerHTML = buildOverviewHTML(r, sections);
+  } else if (tabKey === 'Content Output') {
+    main.innerHTML = buildContentOutputHTML(r);
+  } else {
+    const section = sections.find(s => s.title === tabKey);
+    if (section) {
+      main.innerHTML = buildSectionHTML(section, tabKey);
+    } else {
+      main.innerHTML = '';
+    }
+  }
+}
+
+function buildOverviewHTML(r, sections) {
+  const roomsSec = sections.find(s => /room/i.test(s.title));
+  const diningSec = sections.find(s => /din/i.test(s.title));
+  const amenitySec = sections.find(s => /amenit/i.test(s.title));
+  const locationSec = sections.find(s => /location/i.test(s.title));
+  const policiesSec = sections.find(s => /polic/i.test(s.title));
+
+  let html = '';
+
+  // Vibe & Architecture section (if summary exists)
+  const shortAnswer = r.summary?.shortAnswer || '';
+  if (shortAnswer && !shortAnswer.trim().startsWith('{')) {
+    const vibeTags = extractVibeTags(shortAnswer);
+    html += `
+    <div class="rp-section" id="section-Overview-vibe">
+      <div class="rp-section-body">
+        <div class="rp-section-title" style="margin-bottom:var(--space-3)">🏰 Vibe & Architecture</div>
+        <div class="rp-overview-vibe">${escapeHtml(shortAnswer)}</div>
+        ${vibeTags.length ? `<div class="rp-tag-row">${vibeTags.map(t => `<span class="rp-tag">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
+        ${r.officialWebsite ? `<button class="rp-source-link" onclick="window.open('${r.officialWebsite}','_blank')">🔗 ${escapeHtml(r.officialWebsite)}</button>` : ''}
+      </div>
+    </div>`;
+  }
+
+  // Quick Facts section
+  const quickFacts = extractQuickFacts(r, sections);
+  if (quickFacts.length > 0) {
+    html += `
+    <div class="rp-section" id="section-Overview-facts">
+      <div class="rp-section-header">
+        <div class="rp-section-title">📊 Quick Facts</div>
+      </div>
+      <div class="rp-section-body">
+        <div class="rp-facts-grid">
+          ${quickFacts.map(f => `
+            <div class="rp-fact-card">
+              <div class="rp-fact-label">${escapeHtml(f.label)}</div>
+              <div class="rp-fact-value ${f.isStars ? 'rp-fact-stars' : ''}">${f.isStars ? '★★★★★ ' : ''}${escapeHtml(f.value)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  return html;
+}
+
+function buildSectionHTML(section, tabKey) {
+  const tabIcons = {
+    'Overview': '🏨', 'Rooms': '🛏', 'Rooms & Accommodation': '🛏',
+    'Dining': '🍽', 'Amenities': '🏊', 'Amenities & Facilities': '🏊',
+    'Location': '📍', 'Policies': '📋', 'Images': '🖼',
+    'Reviews': '⭐', 'Reviews & Ratings': '⭐', 'Experiences': '🏅'
+  };
+
+  const isRooms = /room/i.test(section.title);
+  const isDining = /din/i.test(section.title);
+  const validFields = section.fields.filter(f => f.value !== 'not_found');
+  const count = validFields.length;
+
+  let html = '';
+  const sectionId = 'section-' + section.title.replace(/\W/g, '_');
+
+  // Section header with actions
+  html += `<div class="rp-section" id="${sectionId}">`;
+
+  if (isRooms && count > 0) {
+    // Rooms table view
+    const roomData = parseRoomData(section);
+    html += `
+      <div class="rp-section-header">
+        <div>
+          <span class="rp-section-title">🛏 ${escapeHtml(section.title)}</span>
+          <span class="rp-section-subtitle"> — ${count} room types found</span>
+        </div>
+        <div class="rp-section-actions">
+          <button class="rp-btn-copy" onclick="copySectionText('${section.title.replace(/'/g, "\'")}')">📋 Copy All Rooms</button>
+          <button class="rp-btn-details" onclick="exportSectionTable('${section.title.replace(/'/g, "\'")}')">⬇ Export Table</button>
+        </div>
+      </div>
+      <div class="rp-section-body" style="padding:0">
+        <table class="rp-data-table">
+          <thead>
+            <tr>
+              <th>Room Type</th>
+              <th>Size</th>
+              <th>Bed</th>
+              <th>View</th>
+              <th>Max Occ.</th>
+              <th>Key Amenities</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${roomData.map((room, idx) => `
+              <tr>
+                <td class="col-name">${escapeHtml(room.name)}</td>
+                <td>${escapeHtml(room.size)}</td>
+                <td>${escapeHtml(room.bed)}</td>
+                <td>${escapeHtml(room.view)}</td>
+                <td>${escapeHtml(room.occupancy)}</td>
+                <td><div class="col-amenities">${room.amenities.slice(0,3).map(a => `<span class="col-amenity-tag">${escapeHtml(a)}</span>`).join('')}${room.amenities.length > 3 ? `<span class="col-amenity-tag">+${room.amenities.length - 3} more</span>` : ''}</div></td>
+                <td><button class="rp-btn-details" onclick="toggleRoomDetail(${idx})">Details ⬇</button></td>
+              </tr>
+              ${_rpExpandedDetail === idx ? `
+              <tr><td colspan="7" style="padding:0;background:#f9fafb">
+                <div class="rp-detail-panel" style="margin:var(--space-3);border-radius:var(--radius-lg)">
+                  <div class="rp-detail-panel-header">
+                    <div class="rp-detail-panel-title">🛏 ${escapeHtml(room.name)} — Full Details</div>
+                    <div class="rp-detail-panel-actions">
+                      <button class="rp-btn-copy" onclick="copyToClipboard('${escapeHtml(room.rawValue || room.name).replace(/'/g, "\'")}')">📋 Copy</button>
+                      <button class="rp-btn-close" onclick="toggleRoomDetail(${idx})">✕</button>
+                    </div>
+                  </div>
+                  <div class="rp-detail-grid">
+                    <div class="rp-detail-item"><div class="rp-detail-label">Size</div><div class="rp-detail-value">${escapeHtml(room.size)}</div></div>
+                    <div class="rp-detail-item"><div class="rp-detail-label">Bed</div><div class="rp-detail-value">${escapeHtml(room.bed)}</div></div>
+                    <div class="rp-detail-item"><div class="rp-detail-label">View</div><div class="rp-detail-value">${escapeHtml(room.view)}</div></div>
+                    <div class="rp-detail-item"><div class="rp-detail-label">Max Occupancy</div><div class="rp-detail-value">${escapeHtml(room.occupancy)}</div></div>
+                  </div>
+                  ${room.amenities.length ? `<div class="rp-detail-amenities-row">${room.amenities.map(a => `<span class="rp-tag rp-tag-outline">${escapeHtml(a)}</span>`).join('')}</div>` : ''}
+                  ${room.sourceUrl ? `<div style="padding:0 var(--space-5) var(--space-4)"><button class="rp-source-link" onclick="window.open('${room.sourceUrl}','_blank')">🔗 ${escapeHtml(room.sourceUrl.slice(0, 50))}</button></div>` : ''}
+                </div>
+              </td></tr>` : ''}
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+  } else if (isDining && count > 0) {
+    // Dining cards view
+    const diningItems = parseDiningData(section);
+    html += `
+      <div class="rp-section-header">
+        <div>
+          <span class="rp-section-title">🍽 ${escapeHtml(section.title)}</span>
+          <span class="rp-section-subtitle"> — ${diningItems.length} restaurants & bars</span>
+        </div>
+        <div class="rp-section-actions">
+          <button class="rp-btn-copy" onclick="copySectionText('${section.title.replace(/'/g, "\'")}')">📋 Copy All</button>
+        </div>
+      </div>
+      <div class="rp-section-body">
+        <div class="rp-dining-grid">
+          ${diningItems.map(item => `
+            <div class="rp-dining-card">
+              <div class="rp-dining-name">${escapeHtml(item.name)}</div>
+              ${item.cuisine ? `<span class="rp-dining-cuisine">${escapeHtml(item.cuisine)}</span>` : ''}
+              <div class="rp-dining-desc">${escapeHtml(item.description)}</div>
+              <div class="rp-dining-facts">
+                ${item.timings ? `<div class="rp-detail-item"><div class="rp-detail-label">Timings</div><div class="rp-detail-value">${escapeHtml(item.timings)}</div></div>` : ''}
+                ${item.capacity ? `<div class="rp-detail-item"><div class="rp-detail-label">Capacity</div><div class="rp-detail-value">${escapeHtml(item.capacity)}</div></div>` : ''}
+                ${item.dressCode ? `<div class="rp-detail-item"><div class="rp-detail-label">Dress Code</div><div class="rp-detail-value">${escapeHtml(item.dressCode)}</div></div>` : ''}
+                ${item.reservations ? `<div class="rp-detail-item"><div class="rp-detail-label">Reservations</div><div class="rp-detail-value">${escapeHtml(item.reservations)}</div></div>` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+  } else {
+    // Generic section with key-value grid
+    html += `
+      <div class="rp-section-header">
+        <div class="rp-section-title">${tabIcons[section.title] || '📄'} ${escapeHtml(section.title)}</div>
+        <span style="font-size:11px;color:var(--color-text-muted)">${count} fields found</span>
+      </div>
+      <div class="rp-section-body">
+        <div class="rp-facts-grid">
+          ${section.fields.map(field => `
+            <div class="rp-fact-card">
+              <div class="rp-fact-label">${escapeHtml(field.label)}</div>
+              <div class="rp-fact-value">
+                ${field.value === 'not_found' ? '<span style="color:var(--color-text-faint);font-style:italic">Not found</span>' : escapeHtml(String(field.value))}
+              </div>
+              ${field.sourceUrl && field.sourceUrl !== 'not_found' ? `<div style="margin-top:var(--space-1)"><a href="${field.sourceUrl}" target="_blank" rel="noopener" style="font-size:10px;color:#7c3aed">🔗 ${escapeHtml(field.sourceUrl.slice(0,40))}</a></div>` : ''}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  html += '</div>';
+  return html;
+}
+
+function buildContentOutputHTML(r) {
+  if (!r.contentOutputs || !r.contentOutputs.length) return '';
+
+  let html = '';
+  r.contentOutputs.forEach((out, idx) => {
+    html += `
+    <div class="rp-content-output">
+      <div class="rp-content-output-header">
+        <div class="rp-content-output-title">✨ ${escapeHtml(out.title || out.type.replace(/_/g, ' '))}</div>
+        <span class="pill pill-finished">Ready to use</span>
+      </div>
+      <div class="rp-content-output-body">${escapeHtml(out.copy || '')}</div>
+      ${out.warnings?.length ? `<div style="padding:var(--space-2) var(--space-5);background:var(--color-warning-bg)">${out.warnings.map(w => `<div style="font-size:11px;color:var(--color-warning)">⚠ ${escapeHtml(w)}</div>`).join('')}</div>` : ''}
+    </div>`;
+  });
+  return html;
+}
+
+function renderSidebar(proc, r, sections) {
+  const sidebar = document.getElementById('rpSidebar');
+  if (!sidebar) return;
+
+  const locationSec = sections.find(s => /location/i.test(s.title));
+  const addressFields = locationSec?.fields.filter(f => f.value !== 'not_found') || [];
+  const shortAnswer = r.summary?.shortAnswer || '';
+  const highlights = shortAnswer ? shortAnswer.split('.').filter(s => s.trim().length > 10).slice(0, 5) : [];
+  const vibeTags = extractVibeTags(shortAnswer);
+
+  // Extract sidebar quick facts
+  const starRating = extractFieldValue(sections, ['star', 'rating', 'category'], '5-Star Luxury');
+  const totalRooms = extractFieldValue(sections, ['total room', 'inventory', 'number of room'], '—');
+  const yearOpened = extractFieldValue(sections, ['year', 'opened', 'established'], '—');
+  const propertyType = extractFieldValue(sections, ['property type', 'hotel type'], '—');
+  const area = extractFieldValue(sections, ['area', 'acre', 'sprawling'], '—');
+  const chain = extractFieldValue(sections, ['chain', 'brand', 'group'], '—');
+
+  sidebar.innerHTML = `
+    <!-- Hotel Overview -->
+    <div class="rp-sidebar-card">
+      <div class="rp-sidebar-title">🏨 Hotel Overview</div>
+      <div class="rp-sidebar-text">${shortAnswer && !shortAnswer.trim().startsWith('{') ? escapeHtml(shortAnswer) : 'Research completed. View sections for detailed information.'}</div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="rp-sidebar-card">
+      <div class="rp-sidebar-fact-grid">
+        <div class="rp-fact-card" style="padding:var(--space-3)">
+          <div class="rp-fact-label">Star Rating</div>
+          <div class="rp-fact-value rp-fact-stars">★★★★★</div>
+        </div>
+        <div class="rp-fact-card" style="padding:var(--space-3)">
+          <div class="rp-fact-label">Total Rooms</div>
+          <div class="rp-fact-value">${escapeHtml(totalRooms)}</div>
+        </div>
+        <div class="rp-fact-card" style="padding:var(--space-3)">
+          <div class="rp-fact-label">Opened</div>
+          <div class="rp-fact-value">${escapeHtml(yearOpened)}</div>
+        </div>
+        <div class="rp-fact-card" style="padding:var(--space-3)">
+          <div class="rp-fact-label">Property Type</div>
+          <div class="rp-fact-value">${escapeHtml(propertyType)}</div>
+        </div>
+        <div class="rp-fact-card" style="padding:var(--space-3)">
+          <div class="rp-fact-label">Area</div>
+          <div class="rp-fact-value">${escapeHtml(area)}</div>
+        </div>
+        <div class="rp-fact-card" style="padding:var(--space-3)">
+          <div class="rp-fact-label">Chain</div>
+          <div class="rp-fact-value">${escapeHtml(chain)}</div>
+        </div>
+      </div>
+      ${vibeTags.length ? `
+      <div class="rp-sidebar-divider"></div>
+      <div class="rp-sidebar-section-title">Tags</div>
+      <div class="rp-sidebar-tags">
+        ${vibeTags.slice(0, 8).map(t => `<span class="rp-tag">${escapeHtml(t)}</span>`).join('')}
+      </div>` : ''}
+    </div>
+
+    <!-- Official Factsheet -->
+    <div class="rp-sidebar-card">
+      <div class="rp-sidebar-section-title">Official Hotel Factsheet</div>
+      <button class="rp-sidebar-btn" onclick="exportJSON()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Official Factsheet (JSON)
+      </button>
+      <div style="font-size:10px;color:var(--color-text-faint);margin-top:var(--space-3);text-align:center">
+        Sourced directly from ${r.officialWebsite ? escapeHtml(r.officialWebsite.replace(/https?:\/\/(www\.)?/,'').split('/')[0]) : 'official website'} • Last fetched ${new Date().toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}
+      </div>
+    </div>
+  `;
+}
+
+// ── Detail panel toggle ──────────────────────────────────────────────────
+function toggleRoomDetail(idx) {
+  _rpExpandedDetail = _rpExpandedDetail === idx ? null : idx;
+  renderTabContent(_rpCurrentTab);
+}
+
+// ── Tab scroll ───────────────────────────────────────────────────────────
+function scrollToSection(id) {
+  // For tab-based nav: switch to the appropriate tab
+  const sectionMap = {
+    'section-Overview': 'Overview',
+    'section-Content_Output': 'Content Output'
+  };
+  const tabKey = sectionMap[id] || id.replace('section-', '');
+  if (_rpTabItems && _rpTabItems.find(t => t.key === tabKey)) {
+    switchRpTab(tabKey);
+  }
+}
+
+// ── Export functions ─────────────────────────────────────────────────────
+function exportPDF() {
+  window.print();
+}
+
+function exportWord() {
+  showToast('Word export coming soon', 'success');
+}
+
+function copyAllContent() {
+  const r = _rpCurrentResult?.result;
+  if (!r) return;
+  const text = JSON.stringify(r, null, 2);
+  copyToClipboard(text);
+  showToast('All content copied to clipboard!', 'success');
+}
+
+function copySectionText(sectionTitle) {
+  const sections = _rpCurrentResult?.result?.sections || [];
+  const sec = sections.find(s => s.title === sectionTitle);
+  if (!sec) return;
+  const text = sec.fields.map(f => `${f.label}: ${f.value}`).join('\n');
+  copyToClipboard(text);
+  showToast(`${sectionTitle} copied!`, 'success');
+}
+
+function exportSectionTable(sectionTitle) {
+  showToast(`Exporting ${sectionTitle}...`, 'success');
+}
+
+function copyToClipboard(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text);
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+}
+
+// ── Data extraction helpers ──────────────────────────────────────────────
+function countValidFields(section) {
+  return section.fields.filter(f => f.value !== 'not_found').length;
+}
+
+function extractRoomTypes(section) {
+  return section.fields.filter(f => f.value !== 'not_found' && /room|suite|villa|chalet/i.test(f.label)).map(f => f.label);
+}
+
+function extractRating(r) {
+  const stars = r.summary?.shortAnswer?.match(/(\d)\s*star/i);
+  if (stars) {
+    const n = parseInt(stars[1]);
+    return '★'.repeat(Math.min(n, 5)) + '☆'.repeat(5 - Math.min(n, 5));
+  }
+  return '★★★★★';
+}
+
+function extractVibeTags(text) {
+  if (!text) return [];
+  const commonTags = ['Heritage', 'Luxury', 'Boutique', 'Palace', 'Colonial', 'Modern', 'Beachfront',
+    'Garden', 'Spa', 'Business', 'Resort', 'Eco-Friendly', 'Romantic', 'Family', 'Wellness',
+    'Contemporary', 'Traditional', 'Rajasthani', 'Mughal', 'Victorian', 'Art Deco',
+    'Marble', 'Architecture', 'Serene', 'Historic', 'Iconic', 'Premium', 'Budget'];
+  return commonTags.filter(tag => text.toLowerCase().includes(tag.toLowerCase()));
+}
+
+function extractQuickFacts(r, sections) {
+  const facts = [];
+  const allFields = sections.flatMap(s => s.fields);
+
+  const findField = (patterns) => {
+    return allFields.find(f => patterns.some(p => f.label.toLowerCase().includes(p)) && f.value !== 'not_found');
+  };
+
+  const starField = findField(['star', 'rating', 'category']);
+  if (starField) facts.push({ label: 'Star Category', value: starField.value, isStars: true });
+
+  const invField = findField(['total room', 'inventory', 'rooms & suites', 'number of room']);
+  if (invField) facts.push({ label: 'Total Inventory', value: invField.value });
+
+  const yearField = findField(['year', 'opened', 'established', 'built']);
+  if (yearField) facts.push({ label: 'Year of Opening', value: yearField.value });
+
+  const areaField = findField(['area', 'acre', 'sprawling']);
+  if (areaField) facts.push({ label: 'Area (Acres)', value: areaField.value });
+
+  const typeField = findField(['property type', 'hotel type']);
+  if (typeField) facts.push({ label: 'Property Type', value: typeField.value });
+
+  const chainField = findField(['chain', 'brand', 'group', 'hotel chain']);
+  if (chainField) facts.push({ label: 'Hotel Chain', value: chainField.value });
+
+  const airportField = findField(['airport', 'nearest airport']);
+  if (airportField) facts.push({ label: 'Nearest Airport', value: airportField.value });
+
+  const metroField = findField(['metro', 'station', 'nearest metro']);
+  if (metroField) facts.push({ label: 'Nearest Metro', value: metroField.value });
+
+  return facts;
+}
+
+function extractFieldValue(sections, patterns, fallback) {
+  const allFields = sections.flatMap(s => s.fields);
+  const field = allFields.find(f => patterns.some(p => f.label.toLowerCase().includes(p)) && f.value !== 'not_found');
+  return field ? field.value : fallback;
+}
+
+function parseRoomData(section) {
+  // Try to parse structured room data from fields
+  const fields = section.fields.filter(f => f.value !== 'not_found');
+  const rooms = [];
+
+  // Group fields by room name prefix or pattern
+  const roomNames = [];
+  fields.forEach(f => {
+    const match = f.label.match(/^(.*?)(?:\s*[-—:]\s*|\s+)(?:room|suite|villa|size|area|bed|view|occupancy|amenity)/i);
+    if (match && !roomNames.includes(match[1].trim())) {
+      roomNames.push(match[1].trim());
+    }
+  });
+
+  if (roomNames.length === 0) {
+    // Fallback: treat each field as a separate room entry
+    return fields.slice(0, 10).map(f => ({
+      name: f.label,
+      size: '—',
+      bed: '—',
+      view: '—',
+      occupancy: '—',
+      amenities: [String(f.value).slice(0, 50)],
+      rawValue: String(f.value),
+      sourceUrl: f.sourceUrl
+    }));
+  }
+
+  return roomNames.slice(0, 10).map(name => {
+    const nameFields = fields.filter(f => f.label.toLowerCase().includes(name.toLowerCase()));
+    const sizeField = nameFields.find(f => /size|area|sqm|sq ft|square/i.test(f.label));
+    const bedField = nameFields.find(f => /bed/i.test(f.label));
+    const viewField = nameFields.find(f => /view/i.test(f.label));
+    const occField = nameFields.find(f => /occupancy|guest|max/i.test(f.label));
+    const amenityField = nameFields.find(f => /amenity|feature/i.test(f.label));
+
+    const allAmenities = [];
+    if (amenityField) {
+      allAmenities.push(...String(amenityField.value).split(/[,;]/).map(s => s.trim()).filter(Boolean));
+    }
+
+    return {
+      name,
+      size: sizeField ? String(sizeField.value) : '—',
+      bed: bedField ? String(bedField.value) : '—',
+      view: viewField ? String(viewField.value) : '—',
+      occupancy: occField ? String(occField.value) : '—',
+      amenities: allAmenities.length ? allAmenities : ['—'],
+      rawValue: nameFields.map(f => `${f.label}: ${f.value}`).join('\n'),
+      sourceUrl: sizeField?.sourceUrl || bedField?.sourceUrl || ''
+    };
+  });
+}
+
+function parseDiningData(section) {
+  const fields = section.fields.filter(f => f.value !== 'not_found');
+  const items = [];
+
+  // Try to group by restaurant name
+  const restNames = [];
+  fields.forEach(f => {
+    const match = f.label.match(/^(.*?)(?:\s*[-—:]\s*|\s+)(?:cuisine|type|timing|capacity|dress|reservation|desc)/i);
+    if (match && !restNames.includes(match[1].trim())) {
+      restNames.push(match[1].trim());
+    }
+  });
+
+  if (restNames.length === 0) {
+    return fields.slice(0, 8).map(f => ({
+      name: f.label,
+      cuisine: '',
+      description: String(f.value).slice(0, 200),
+      timings: '',
+      capacity: '',
+      dressCode: '',
+      reservations: ''
+    }));
+  }
+
+  return restNames.slice(0, 8).map(name => {
+    const nameFields = fields.filter(f => f.label.toLowerCase().includes(name.toLowerCase()));
+    const cuisineField = nameFields.find(f => /cuisine|type/i.test(f.label));
+    const timingField = nameFields.find(f => /timing|hour|open/i.test(f.label));
+    const capacityField = nameFields.find(f => /capacity|cover|seat/i.test(f.label));
+    const dressField = nameFields.find(f => /dress/i.test(f.label));
+    const resField = nameFields.find(f => /reservation|booking/i.test(f.label));
+
+    return {
+      name,
+      cuisine: cuisineField ? String(cuisineField.value) : '',
+      description: nameFields.map(f => f.value).join('. ').slice(0, 200),
+      timings: timingField ? String(timingField.value) : '',
+      capacity: capacityField ? String(capacityField.value) : '',
+      dressCode: dressField ? String(dressField.value) : '',
+      reservations: resField ? String(resField.value) : ''
+    };
+  });
+}
+
+function capitalize(s) {
+  return String(s).charAt(0).toUpperCase() + String(s).slice(1);
+}
+
+function exportJSON() {
+  if (!state.currentResult?.result) return;
+  const json = JSON.stringify(state.currentResult.result, null, 2);
+  const blob = new Blob([json], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${(state.currentResult.hotelName||'hotel').replace(/\s+/g,'-').toLowerCase()}-research.json`;
+  a.click();
+  showToast('JSON exported!', 'success');
+}
+
+// ===== TABLE RENDERING =====
+function renderTable(type) {
+  let data, bodyId, countId, footerId;
+  if (type === 'completed') {
+    data = state.processes.filter(p => p.status === 'finished');
+    bodyId = 'completedBody'; countId = 'completedCount'; footerId = 'completedFooterText';
+  } else if (type === 'inprogress') {
+    data = state.processes.filter(p => p.status === 'in_progress');
+    bodyId = 'inprogressBody'; countId = 'inprogressCount'; footerId = 'inprogressFooterText';
+  } else {
+    data = state.processes.filter(p => p.status === 'failed');
+    bodyId = 'failedBody'; countId = 'failedCount'; footerId = 'failedFooterText';
+  }
+
+  document.getElementById(countId).textContent = `${data.length} processes found`;
+
+  const tbody = document.getElementById(bodyId);
+  if (!tbody) return;
+
+  const page = data.slice(0, 8);
+  const timeCol = type === 'completed' ? 'completedAt' : type === 'inprogress' ? 'startedAt' : 'completedAt';
+
+  tbody.innerHTML = page.map(p => `
+    <tr>
+      <td style="font-weight:600">${p.id}</td>
+      <td style="color:var(--color-text-muted)">${p.userId}</td>
+      <td style="font-weight:500;max-width:260px">${escapeHtml(p.name)}</td>
+      <td><span class="pill ${p.type==='batch'?'pill-batch':'pill-single'}">${p.type==='batch'?'Batch':'Single Hotel'}</span></td>
+      <td><span class="pill ${p.status==='finished'?'pill-finished':p.status==='in_progress'?'pill-progress':'pill-failed'}">${p.status==='finished'?'Finished':p.status==='in_progress'?'In Progress':'Failed'}</span></td>
+      <td style="font-family:monospace;font-size:11px;color:var(--color-text-muted)">${p.hotelId}</td>
+      <td style="color:var(--color-text-muted);white-space:nowrap">${p[timeCol]||'—'}</td>
+      <td><button class="btn-view" onclick="viewProcess(${p.id})">View Details →</button></td>
+    </tr>
+  `).join('');
+
+  if (footerId) {
+    const footerEl = document.getElementById(footerId);
+    if (footerEl) footerEl.textContent = `Showing 1 to ${Math.min(8, data.length)} of ${data.length} results`;
+  }
+
+  // Pagination for completed
+  if (type === 'completed') {
+    const total = Math.ceil(data.length / 8);
+    const pag = document.getElementById('completedPagination');
+    if (pag) {
+      pag.innerHTML = `
+        <button class="page-btn disabled">‹</button>
+        <button class="page-btn active">1</button>
+        ${total > 1 ? '<button class="page-btn">2</button>' : ''}
+        ${total > 2 ? '<button class="page-btn">3</button>' : ''}
+        ${total > 4 ? '<button class="page-btn" disabled>...</button>' : ''}
+        ${total > 3 ? `<button class="page-btn">${total}</button>` : ''}
+        <button class="page-btn ${total <= 1 ? 'disabled' : ''}">›</button>
+      `;
+    }
+  }
+}
+
+function filterTable(query, type) {
+  // Simple client-side filter
+  const q = query.toLowerCase();
+  const rows = document.querySelectorAll(`#${type === 'completed' ? 'completed' : type}Body tr`);
+  rows.forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+function viewProcess(id) {
+  const proc = state.processes.find(p => p.id === id);
+  if (!proc) return;
+  if (proc.result) {
+    showResults(proc);
+  } else if (proc.status === 'failed') {
+    // Show a lightweight error details panel
+    state.currentResult = proc;
+    navigate('page-results');
+    const container = document.getElementById('resultsContainer');
+    if (container) {
+      container.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-16) var(--space-8);">
+          <div style="width:56px;height:56px;border-radius:var(--radius-full);background:var(--color-error-bg);display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-4);">
+            <svg width="28" height="28" fill="none" stroke="var(--color-error)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h3 style="font-size:var(--text-lg);font-weight:700;margin-bottom:var(--space-2);color:var(--color-text)">Research Failed</h3>
+          <p style="font-size:var(--text-sm);color:var(--color-text-muted);max-width:44ch;margin-bottom:var(--space-6);">
+            The research job for <strong>${escapeHtml(proc.hotelName || proc.name)}</strong> could not be completed.
+            This may be due to an API error, invalid hotel name, or network issue.
+          </p>
+          <div style="background:var(--color-error-bg);border:1px solid #fca5a5;border-radius:var(--radius-lg);padding:var(--space-4) var(--space-6);text-align:left;max-width:480px;width:100%;margin-bottom:var(--space-6);">
+            <div style="font-size:var(--text-xs);font-weight:600;color:var(--color-error);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:var(--space-2);">Process Details</div>
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--space-1) var(--space-4);font-size:var(--text-xs);">
+              <span style="color:var(--color-text-muted)">Process ID</span><span style="font-weight:600">${proc.id}</span>
+              <span style="color:var(--color-text-muted)">Hotel</span><span style="font-weight:600">${escapeHtml(proc.hotelName || proc.name)}</span>
+              <span style="color:var(--color-text-muted)">Mode</span><span>${proc.mode === 'mmt' ? 'MMT Content Mode' : 'Raw Research Mode'}</span>
+              <span style="color:var(--color-text-muted)">Failed At</span><span>${proc.completedAt || '—'}</span>
+            </div>
+          </div>
+          <button class="btn-run" style="max-width:200px;" onclick="retryProcess(${proc.id})">↺ Retry Research</button>
+        </div>`;
+    }
+  } else if (proc.status === 'in_progress') {
+    showToast('This process is still running. Please wait…', '');
+  } else {
+    showToast('No results available for this process', 'error');
+  }
+}
+
+// ===== CATEGORIES =====
+function renderCategories() {
+  const filter = state.catFilter;
+  const filtered = filter === 'all' ? categories : categories.filter(c => c.mode === filter);
+
+  const body = document.getElementById('catsTableBody');
+  body.innerHTML = filtered.map(cat => `
+    <div class="cat-row" data-mode="${cat.mode}">
+      <div>
+        <div class="cat-name">${escapeHtml(cat.name)}</div>
+        <div class="cat-mode-label">${cat.mode === 'mmt' ? 'MMT Content Mode' : 'Raw Research Mode'} • ${escapeHtml(cat.desc)}</div>
+      </div>
+      <span class="pill ${cat.mode==='mmt'?'pill-batch':'pill-single'}">${cat.mode==='mmt'?'MMT Content':'Raw Research'}</span>
+      <div class="toggle ${cat.active?'on':''}" onclick="toggleCatActive('${cat.id}', this)"></div>
+      <button class="btn-secondary" onclick="editCategory('${cat.id}')">Edit</button>
+    </div>
+  `).join('');
+}
+
+function filterCats(el, mode) {
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  state.catFilter = mode;
+  renderCategories();
+}
+
+function toggleCatActive(id, el) {
+  const cat = categories.find(c => c.id === id);
+  if (cat) { cat.active = !cat.active; el.classList.toggle('on', cat.active); }
+}
+
+function editCategory(id) {
+  showToast('Category editor coming soon', 'success');
+}
+
+function showNewCategoryForm() {
+  const name = prompt('Category name:');
+  if (!name) return;
+  const mode = confirm('MMT Content Mode? (OK = MMT, Cancel = Raw)') ? 'mmt' : 'raw';
+  categories.push({ id: Date.now().toString(), name, mode, desc: 'Custom category', active: true });
+  renderCategories();
+  showToast('Category created!', 'success');
+}
+
+function handleSOPUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  showToast(`SOP "${file.name}" uploaded. Processing with Gemini...`, 'success');
+  setTimeout(() => {
+    const name = file.name.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ');
+    const mode = confirm(`Assign "${name}" to MMT Content Mode? (OK=MMT, Cancel=Raw)`) ? 'mmt' : 'raw';
+    categories.push({ id: Date.now().toString(), name, mode, desc: 'Imported from SOP', active: false });
+    renderCategories();
+    showToast('Category created from SOP! Please review before activating.', 'success');
+  }, 1500);
+}
+
+// ===== RECENT =====
+function loadRecent(hotel, mode, output) {
+  document.getElementById('hotelInput').value = hotel;
+  selectMode(mode);
+  if (mode === 'mmt') {
+    document.querySelectorAll('.radio-opt').forEach(r => r.classList.remove('selected'));
+    document.querySelectorAll('.radio-opt').forEach(r => {
+      if (r.getAttribute('onclick')?.includes(output)) r.classList.add('selected');
+    });
+    state.selectedOutput = output;
+  }
+  window.scrollTo(0,0);
+  showToast(`Loaded: ${hotel}`, 'success');
+}
+
+// ===== UTILS =====
+function escapeHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function retryProcess(id) {
+  const proc = state.processes.find(p => p.id === id);
+  if (!proc) return;
+  // Reset to in_progress and re-run
+  proc.status = 'in_progress';
+  proc.result = null;
+  proc.completedAt = null;
+  proc.startedAt = new Date().toLocaleString('en-IN', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  // Re-trigger via home page
+  state.hotelTags = [proc.hotelName];
+  state.currentMode = proc.mode;
+  state.selectedOutput = proc.outputType;
+  state.selectedCats = proc.cats || [];
+  navigate('page-home');
+  showToast(`Retrying research for "${proc.hotelName}"…`, 'success');
+  setTimeout(() => runResearch(), 300);
+}
+
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type}`;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ===== INIT =====
+renderTable('completed');
+selectMode('mmt');
+
+function togglePromptVisibility() {
+  const wrap = document.getElementById('promptWrap');
+  if (!wrap) return;
+  const hidden = wrap.style.display === 'none';
+  wrap.style.display = hidden ? '' : 'none';
+}
+
+</script>
+</body>
+</html>
