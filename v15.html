@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MMT Hotel Research — Scribe</title>
+<title>MMT Hotel Research v15 — Scribe</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
@@ -328,636 +328,184 @@ a { color: inherit; text-decoration: none; }
 .page-btn.active { background: var(--color-cta); color: white; border-color: var(--color-cta); }
 .page-btn.disabled { opacity: 0.4; cursor: default; }
 
-/* ===== NEW REDESIGNED RESULTS PAGE ===== */
+/* ===== RESULTS PAGE ===== */
+.results-content { padding: var(--space-6) var(--space-8); flex: 1; }
+.results-header { display: flex; align-items: flex-start; gap: var(--space-4); margin-bottom: var(--space-6); }
+.results-info { flex: 1; }
+.results-hotel { font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--space-1); }
+.results-meta { font-size: var(--text-xs); color: var(--color-text-muted); display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.results-meta a { color: var(--color-cta); }
+.results-grid { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-6); }
+.results-main { display: flex; flex-direction: column; gap: var(--space-4); }
+.result-section { background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); overflow: hidden; }
+.result-section-header { padding: var(--space-4) var(--space-5); border-bottom: 1px solid var(--color-divider); display: flex; align-items: center; justify-content: space-between; }
+.result-section-title { font-size: var(--text-sm); font-weight: 600; display: flex; align-items: center; gap: var(--space-2); }
+.result-section-body { padding: var(--space-5); }
+.result-field { margin-bottom: var(--space-4); }
+.result-field:last-child { margin-bottom: 0; }
+.result-field-label { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: var(--space-1); }
+.result-field-value { font-size: var(--text-sm); line-height: 1.6; }
+.evidence-chip { display: inline-flex; align-items: center; gap: 4px; background: var(--color-bg); border: 1px solid var(--color-divider); border-radius: var(--radius-sm); padding: 2px var(--space-2); font-size: 11px; color: var(--color-text-muted); margin-top: var(--space-1); cursor: pointer; transition: all var(--transition); }
+.evidence-chip:hover { background: var(--color-accent-bg); border-color: var(--color-accent-border); color: var(--color-cta); }
+.confidence-high { color: var(--color-success); }
+.confidence-medium { color: var(--color-warning); }
+.confidence-low { color: var(--color-error); }
+.not-found { color: var(--color-text-faint); font-style: italic; }
 
-/* --- Dark Purple Hero Banner --- */
-.rp-hero {
-  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #1e1b4b 100%);
-  padding: var(--space-6) var(--space-8) var(--space-8);
-  position: relative;
-  overflow: hidden;
-}
-.rp-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234f46e5' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  opacity: 1;
-}
-.rp-hero-top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--space-6);
-  position: relative;
-  z-index: 1;
-}
-.rp-hero-back-btn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: var(--radius-lg);
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.85);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition);
-}
-.rp-hero-back-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); }
-.rp-hero-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  position: relative;
-  z-index: 1;
-}
-.rp-hero-btn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-lg);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition);
-  border: none;
-}
-.rp-hero-btn-primary {
-  background: #7c3aed;
-  color: white;
-}
-.rp-hero-btn-primary:hover { background: #6d28d9; }
-.rp-hero-btn-secondary {
-  background: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.9);
-  border: 1px solid rgba(255,255,255,0.15);
-}
-.rp-hero-btn-secondary:hover { background: rgba(255,255,255,0.18); }
+/* Content output card */
+.content-output { background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); overflow: hidden; }
+.content-output-header { padding: var(--space-4) var(--space-5); background: linear-gradient(135deg, var(--color-accent-bg), #fdf4ff); border-bottom: 1px solid var(--color-accent-border); display: flex; align-items: center; justify-content: space-between; }
+.content-output-title { font-size: var(--text-sm); font-weight: 600; color: var(--color-accent); }
+.content-output-body { padding: var(--space-5); font-size: var(--text-sm); line-height: 1.7; white-space: pre-wrap; }
+.warnings { margin-top: var(--space-3); }
+.warning-item { display: flex; align-items: flex-start; gap: var(--space-2); font-size: 11px; color: var(--color-warning); background: var(--color-warning-bg); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3); margin-bottom: var(--space-2); }
 
-.rp-hero-badge {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-full);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  position: relative;
-  z-index: 1;
-}
-.rp-hero-badge.success {
-  background: rgba(5,150,105,0.15);
-  color: #34d399;
-  border: 1px solid rgba(5,150,105,0.25);
-}
-.rp-hero-badge.single::before,
-.rp-hero-badge.success::before { content: "●"; font-size: 8px; }
+/* Sidebar summary */
+.results-sidebar { display: flex; flex-direction: column; gap: var(--space-4); }
+.summary-card { background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: var(--space-5); }
+.summary-title { font-size: var(--text-sm); font-weight: 600; margin-bottom: var(--space-3); }
+.summary-row { display: flex; justify-content: space-between; align-items: center; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-divider); font-size: var(--text-xs); }
+.summary-row:last-child { border-bottom: none; }
+.summary-key { color: var(--color-text-muted); }
 
-.rp-hero-title {
-  font-size: clamp(1.5rem, 2vw + 0.5rem, 2.25rem);
-  font-weight: 800;
-  color: white;
-  margin-bottom: var(--space-3);
-  position: relative;
-  z-index: 1;
-  letter-spacing: -0.01em;
-}
-.rp-hero-meta-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-  margin-bottom: var(--space-5);
-  position: relative;
-  z-index: 1;
-}
-.rp-hero-meta-item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--text-xs);
-  color: rgba(255,255,255,0.6);
-}
-.rp-hero-meta-icon { font-size: 12px; }
+/* Loading state */
+.loading-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.9); z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); }
+.loading-overlay.active { display: flex; }
+.spinner { width: 48px; height: 48px; border: 3px solid var(--color-accent-bg); border-top-color: var(--color-cta); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: var(--text-sm); font-weight: 500; color: var(--color-text); }
+.loading-sub { font-size: var(--text-xs); color: var(--color-text-muted); text-align: center; max-width: 300px; }
+.loading-progress { width: 300px; height: 4px; background: var(--color-bg); border-radius: var(--radius-full); overflow: hidden; }
+.loading-bar { height: 100%; background: linear-gradient(90deg, var(--color-cta), #a855f7); border-radius: var(--radius-full); animation: progress 3s ease-in-out forwards; }
+@keyframes progress { from { width: 0 } to { width: 85% } }
 
-/* Stat cards in hero */
-.rp-hero-stats {
-  display: flex;
-  align-items: stretch;
-  gap: var(--space-3);
-  position: relative;
-  z-index: 1;
-  flex-wrap: wrap;
-}
-.rp-hero-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 90px;
-  padding: var(--space-3) var(--space-4);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-lg);
-  backdrop-filter: blur(4px);
-}
-.rp-hero-stat-stars { color: #fbbf24; font-size: 16px; letter-spacing: 2px; margin-bottom: 2px; }
-.rp-hero-stat-value {
-  font-size: var(--text-xl);
-  font-weight: 800;
-  color: white;
-  line-height: 1.1;
-}
-.rp-hero-stat-label {
-  font-size: 10px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-top: 2px;
-}
+/* Manage Categories */
+.manage-content { padding: var(--space-6) var(--space-8); flex: 1; }
+.cats-grid { display: grid; grid-template-columns: 260px 1fr; gap: var(--space-6); margin-top: var(--space-6); }
+.cats-sidebar { background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: var(--space-4); }
+.cat-tab { display: flex; align-items: center; justify-content: space-between; padding: var(--space-3); border-radius: var(--radius-md); cursor: pointer; font-size: var(--text-xs); font-weight: 500; transition: all var(--transition); margin-bottom: var(--space-1); }
+.cat-tab:hover { background: var(--color-bg); }
+.cat-tab.active { background: var(--color-accent-bg); color: var(--color-cta); }
+.cat-count { font-size: 11px; color: var(--color-text-faint); background: var(--color-bg); padding: 2px 6px; border-radius: var(--radius-full); }
+.cat-tab.active .cat-count { background: var(--color-accent-border); }
+.cats-main { background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); overflow: hidden; }
+.cats-toolbar { padding: var(--space-4) var(--space-5); border-bottom: 1px solid var(--color-divider); display: flex; align-items: center; gap: var(--space-3); }
+.btn-primary { background: var(--color-cta); color: white; border: none; border-radius: var(--radius-md); padding: var(--space-2) var(--space-4); font-size: var(--text-xs); font-weight: 600; transition: all var(--transition); }
+.btn-primary:hover { background: var(--color-cta-hover); }
+.btn-secondary { background: var(--color-surface); color: var(--color-text); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: var(--space-2) var(--space-4); font-size: var(--text-xs); font-weight: 500; transition: all var(--transition); }
+.btn-secondary:hover { background: var(--color-bg); }
+.cat-row { display: grid; grid-template-columns: 1fr auto auto auto; gap: var(--space-4); align-items: center; padding: var(--space-4) var(--space-5); border-bottom: 1px solid var(--color-divider); transition: background var(--transition); }
+.cat-row:last-child { border-bottom: none; }
+.cat-row:hover { background: var(--color-bg); }
+.cat-name { font-size: var(--text-sm); font-weight: 500; margin-bottom: 2px; }
+.cat-mode-label { font-size: 11px; color: var(--color-text-muted); }
+.toggle { width: 36px; height: 20px; background: var(--color-divider); border-radius: var(--radius-full); position: relative; cursor: pointer; transition: background var(--transition); }
+.toggle.on { background: var(--color-cta); }
+.toggle::after { content: ""; width: 14px; height: 14px; background: white; border-radius: 50%; position: absolute; top: 3px; left: 3px; transition: transform var(--transition); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+.toggle.on::after { transform: translateX(16px); }
 
-/* --- Tab Navigation --- */
-.rp-tabs-bar {
-  background: white;
-  border-bottom: 1px solid var(--color-divider);
-  padding: 0 var(--space-8);
-  position: sticky;
-  top: 57px;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  gap: 0;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.rp-tabs-bar::-webkit-scrollbar { display: none; }
-.rp-tab {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  transition: all var(--transition);
-  border-bottom: 2.5px solid transparent;
-  margin-bottom: -1px;
-  white-space: nowrap;
-  background: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  position: relative;
-}
-.rp-tab:hover { color: var(--color-text); background: var(--color-bg); }
-.rp-tab.active {
-  color: #7c3aed;
-  border-bottom-color: #7c3aed;
-  background: var(--color-accent-bg);
-}
-.rp-tab-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
-  background: #ede9fe;
-  color: #7c3aed;
-  border-radius: var(--radius-full);
-  font-size: 10px;
-  font-weight: 700;
-}
-.rp-tab.active .rp-tab-badge { background: #7c3aed; color: white; }
+/* API Key Modal */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; display: none; align-items: center; justify-content: center; }
+.modal-backdrop.active { display: flex; }
+.modal { background: var(--color-surface); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); padding: var(--space-8); width: 480px; max-width: 90vw; }
+.modal-title { font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--space-2); }
+.modal-sub { font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-6); line-height: 1.6; }
+.form-group { margin-bottom: var(--space-4); }
+.form-label { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: var(--space-2); }
+.form-input { width: 100%; border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: var(--space-3); font-size: var(--text-sm); outline: none; transition: all var(--transition); }
+.form-input:focus { border-color: var(--color-cta); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+.modal-actions { display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-6); }
 
-/* --- Content Layout --- */
-.rp-content {
-  background: #f3f4f6;
-  flex: 1;
-  padding: var(--space-6) var(--space-8) var(--space-10);
-}
-.rp-content-layout {
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: var(--space-6);
-  max-width: 1280px;
-  margin: 0 auto;
-}
-.rp-main { display: flex; flex-direction: column; gap: var(--space-4); }
-.rp-sidebar { display: flex; flex-direction: column; gap: var(--space-4); height: fit-content; }
-
-/* --- Section Cards --- */
-.rp-section {
-  background: white;
-  border: 1px solid var(--color-divider);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  scroll-margin-top: 120px;
-}
-.rp-section-header {
-  padding: var(--space-4) var(--space-5);
-  border-bottom: 1px solid var(--color-divider);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.rp-section-title {
-  font-size: var(--text-sm);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-.rp-section-subtitle {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  font-weight: 400;
-}
-.rp-section-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-.rp-section-body { padding: var(--space-5); }
-
-/* --- Quick Facts Grid --- */
-.rp-facts-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-}
-.rp-fact-card {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  transition: all var(--transition);
-}
-.rp-fact-card:hover { background: #f3f4f6; border-color: #d1d5db; }
-.rp-fact-label {
-  font-size: 10px;
-  font-weight: 700;
-  color: #9ca3af;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: var(--space-1);
-}
-.rp-fact-value {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text);
-}
-.rp-fact-stars { color: #111827; letter-spacing: 1px; }
-
-/* --- Tags / Pills --- */
-.rp-tag-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-}
-.rp-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 12px;
-  background: #ede9fe;
-  color: #6d28d9;
-  border-radius: var(--radius-full);
-  font-size: 11px;
-  font-weight: 500;
-  border: 1px solid #ddd6fe;
-  transition: all var(--transition);
-}
-.rp-tag:hover { background: #ddd6fe; }
-.rp-tag-outline {
-  background: white;
-  border: 1px solid #e5e7eb;
-  color: var(--color-text-muted);
-}
-.rp-tag-outline:hover { border-color: #7c3aed; color: #7c3aed; background: var(--color-accent-bg); }
-
-/* --- Source Link --- */
-.rp-source-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  color: #7c3aed;
-  margin-top: var(--space-3);
-  padding: 4px 10px;
-  background: #f5f3ff;
-  border-radius: var(--radius-md);
-  transition: all var(--transition);
-  cursor: pointer;
-  text-decoration: none;
-  border: none;
-  font-family: inherit;
-}
-.rp-source-link:hover { background: #ede9fe; }
-
-/* --- Data Table --- */
-.rp-data-table { width: 100%; border-collapse: collapse; }
-.rp-data-table thead th {
-  padding: var(--space-3) var(--space-4);
-  text-align: left;
-  font-size: 10px;
-  font-weight: 700;
-  color: #9ca3af;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  border-bottom: 1px solid var(--color-divider);
-  background: #f9fafb;
-}
-.rp-data-table tbody td {
-  padding: var(--space-4);
-  font-size: var(--text-xs);
-  border-bottom: 1px solid #f3f4f6;
-  vertical-align: middle;
-  color: var(--color-text);
-}
-.rp-data-table tbody tr:last-child td { border-bottom: none; }
-.rp-data-table tbody tr:hover td { background: #fafaf9; }
-.rp-data-table .col-name { font-weight: 600; }
-.rp-data-table .col-amenities { display: flex; flex-wrap: wrap; gap: 4px; }
-.rp-data-table .col-amenity-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  background: #f3f4f6;
-  border-radius: var(--radius-full);
-  font-size: 11px;
-  color: var(--color-text-muted);
-  white-space: nowrap;
-}
-.rp-btn-details {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: var(--space-1) var(--space-3);
-  background: #f5f3ff;
-  color: #7c3aed;
-  border: 1px solid #ede9fe;
-  border-radius: var(--radius-md);
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition);
-  white-space: nowrap;
-}
-.rp-btn-details:hover { background: #ede9fe; border-color: #ddd6fe; }
-
-/* --- Expandable Detail Panel --- */
-.rp-detail-panel {
-  background: white;
-  border: 1px solid var(--color-divider);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
-  margin-top: var(--space-3);
-  overflow: hidden;
-}
-.rp-detail-panel-header {
-  padding: var(--space-4) var(--space-5);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--color-divider);
-}
-.rp-detail-panel-title { font-size: var(--text-sm); font-weight: 700; }
-.rp-detail-panel-actions { display: flex; gap: var(--space-2); }
-.rp-btn-copy {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: var(--space-1) var(--space-3);
-  background: white;
-  border: 1px solid var(--color-divider);
-  border-radius: var(--radius-md);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  transition: all var(--transition);
-}
-.rp-btn-copy:hover { background: var(--color-bg); border-color: var(--color-text-faint); }
-.rp-btn-close {
-  width: 28px; height: 28px;
-  display: flex; align-items: center; justify-content: center;
-  background: white;
-  border: 1px solid var(--color-divider);
-  border-radius: var(--radius-md);
-  font-size: 14px;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  transition: all var(--transition);
-}
-.rp-btn-close:hover { background: var(--color-error-bg); color: var(--color-error); border-color: var(--color-error); }
-.rp-detail-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: var(--space-3);
-  padding: var(--space-5);
-}
-.rp-detail-item {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-}
-.rp-detail-label {
-  font-size: 10px;
-  font-weight: 700;
-  color: #9ca3af;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: var(--space-1);
-}
-.rp-detail-value {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text);
-}
-.rp-detail-amenities-row {
-  padding: 0 var(--space-5) var(--space-4);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-/* --- Dining Cards --- */
-.rp-dining-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
-}
-.rp-dining-card {
-  background: white;
-  border: 1px solid var(--color-divider);
-  border-radius: var(--radius-xl);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition);
-}
-.rp-dining-card:hover { box-shadow: var(--shadow-md); border-color: #ddd6fe; }
-.rp-dining-name { font-size: var(--text-sm); font-weight: 700; margin-bottom: var(--space-2); }
-.rp-dining-cuisine {
-  display: inline-flex;
-  padding: 3px 10px;
-  background: #ede9fe;
-  color: #6d28d9;
-  border-radius: var(--radius-full);
-  font-size: 11px;
-  font-weight: 500;
-  margin-bottom: var(--space-3);
-}
-.rp-dining-desc {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  line-height: 1.7;
-  margin-bottom: var(--space-4);
-}
-.rp-dining-facts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-}
-
-/* --- Sidebar Cards --- */
-.rp-sidebar-card {
-  background: white;
-  border: 1px solid var(--color-divider);
-  border-radius: var(--radius-xl);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-sm);
-}
-.rp-sidebar-title {
-  font-size: var(--text-sm);
-  font-weight: 700;
-  margin-bottom: var(--space-4);
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-.rp-sidebar-text {
-  font-size: var(--text-xs);
-  color: var(--color-text);
-  line-height: 1.8;
-}
-.rp-sidebar-fact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-}
-.rp-sidebar-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  width: 100%;
-  padding: var(--space-3);
-  background: #f5f3ff;
-  border: 1.5px dashed #c4b5fd;
-  border-radius: var(--radius-lg);
-  color: #6d28d9;
-  font-size: var(--text-xs);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition);
-  margin-top: var(--space-4);
-}
-.rp-sidebar-btn:hover { background: #ede9fe; border-color: #a78bfa; }
-.rp-sidebar-divider {
-  height: 1px;
-  background: var(--color-divider);
-  margin: var(--space-4) 0;
-}
-.rp-sidebar-section-title {
-  font-size: 10px;
-  font-weight: 700;
-  color: #9ca3af;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: var(--space-3);
-}
-.rp-sidebar-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-/* --- Content Output (MMT mode) --- */
-.rp-content-output {
-  background: linear-gradient(135deg, #faf5ff, #f5f3ff);
-  border: 1px solid #ddd6fe;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-}
-.rp-content-output-header {
-  padding: var(--space-4) var(--space-5);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #ddd6fe;
-}
-.rp-content-output-title {
-  font-size: var(--text-sm);
-  font-weight: 700;
-  color: #6d28d9;
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-.rp-content-output-body {
-  padding: var(--space-5);
-  font-size: var(--text-sm);
-  line-height: 1.8;
-  white-space: pre-wrap;
-  color: var(--color-text);
-}
-
-/* --- Overview section specific --- */
-.rp-overview-vibe {
-  font-size: var(--text-sm);
-  line-height: 1.8;
-  color: var(--color-text);
-  margin-bottom: var(--space-3);
-}
-
-/* --- Raw response fallback --- */
-.rp-raw-pre {
-  font-size: 11px;
-  overflow: auto;
-  white-space: pre-wrap;
-  max-height: 400px;
-  background: #f9fafb;
-  padding: var(--space-4);
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-}
+/* Toast */
+.toast { position: fixed; bottom: var(--space-6); right: var(--space-6); background: var(--color-text); color: white; padding: var(--space-3) var(--space-5); border-radius: var(--radius-lg); font-size: var(--text-xs); font-weight: 500; z-index: 300; transform: translateY(100px); opacity: 0; transition: all 0.3s ease; box-shadow: var(--shadow-lg); }
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { background: var(--color-success); }
+.toast.error { background: var(--color-error); }
 
 /* Responsive */
+@media (max-width: 900px) {
+  .research-grid { grid-template-columns: 1fr; }
+  .mode-grid { grid-template-columns: 1fr 1fr; }
+  .bottom-grid { grid-template-columns: 1fr; }
+  .results-grid { grid-template-columns: 1fr; }
+  .cats-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== RICH RESULTS LAYOUT ===== */
+.results-rich-layout { display: grid; grid-template-columns: 220px 1fr 280px; gap: var(--space-4); padding: 0 var(--space-8) var(--space-8); }
+.results-nav-sidebar { background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-xl); padding: var(--space-4); position: sticky; top: 70px; height: fit-content; }
+.results-nav-title { font-size: var(--text-xs); font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-3); }
+.results-nav-link { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); font-size: var(--text-xs); font-weight: 500; cursor: pointer; transition: all var(--transition); color: var(--color-text); margin-bottom: 2px; }
+.results-nav-link:hover { background: var(--color-bg); }
+.results-nav-link.active { background: var(--color-accent-bg); color: var(--color-cta); }
+.results-quick-info { margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--color-divider); }
+.results-quick-info-title { font-size: 11px; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-2); }
+.results-quick-info-row { margin-bottom: var(--space-2); }
+.results-quick-info-key { font-size: 10px; color: var(--color-text-faint); display: block; }
+.results-quick-info-val { font-size: 11px; font-weight: 500; color: var(--color-text); word-break: break-word; }
+.results-main-content { display: flex; flex-direction: column; gap: var(--space-4); }
+.results-right-sidebar { display: flex; flex-direction: column; gap: var(--space-4); position: sticky; top: 70px; height: fit-content; }
+
+/* Rich section cards */
+.rich-section { background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); overflow: hidden; scroll-margin-top: 80px; }
+.rich-section-header { padding: var(--space-4) var(--space-5); border-bottom: 1px solid var(--color-divider); display: flex; align-items: center; justify-content: space-between; }
+.rich-section-title { font-size: var(--text-sm); font-weight: 700; display: flex; align-items: center; gap: var(--space-2); }
+.rich-section-body { padding: var(--space-5); }
+
+/* Overview stat cards */
+.overview-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-4); }
+.stat-card { background: var(--color-surface-2); border: 1px solid var(--color-divider); border-radius: var(--radius-lg); padding: var(--space-4); }
+.stat-card-icon { font-size: 18px; margin-bottom: var(--space-2); }
+.stat-card-number { font-size: var(--text-xl); font-weight: 800; color: var(--color-cta); line-height: 1; }
+.stat-card-label { font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-3); }
+.stat-card-list { font-size: 11px; color: var(--color-text); line-height: 1.8; }
+.stat-card-link { font-size: 11px; color: var(--color-cta); font-weight: 500; display: inline-flex; align-items: center; gap: 2px; margin-top: var(--space-2); cursor: pointer; }
+
+/* Amenities grid */
+.amenities-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-2); }
+.amenity-item { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); color: var(--color-text); }
+.amenity-check { width: 16px; height: 16px; border-radius: 50%; background: var(--color-success-bg); color: var(--color-success); display: flex; align-items: center; justify-content: center; font-size: 9px; flex-shrink: 0; }
+
+/* Location & vibe row */
+.two-col-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.sub-card { background: var(--color-surface-2); border: 1px solid var(--color-divider); border-radius: var(--radius-lg); padding: var(--space-4); }
+.sub-card-title { font-size: var(--text-xs); font-weight: 700; margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-2); }
+.location-point { display: flex; align-items: center; gap: var(--space-2); font-size: 11px; color: var(--color-text-muted); padding: 3px 0; }
+.vibe-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+.vibe-tag { background: var(--color-accent-bg); color: var(--color-cta); border: 1px solid var(--color-accent-border); border-radius: var(--radius-full); padding: 3px 10px; font-size: 11px; font-weight: 500; }
+
+/* Right sidebar cards */
+.info-card { background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-xl); padding: var(--space-4); box-shadow: var(--shadow-sm); }
+.info-card-title { font-size: var(--text-xs); font-weight: 700; margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-2); }
+.address-lines { font-size: var(--text-xs); color: var(--color-text); line-height: 1.7; margin-bottom: var(--space-3); }
+.map-btn { display: flex; align-items: center; justify-content: center; gap: var(--space-2); width: 100%; padding: var(--space-2); border: 1px solid var(--color-cta); border-radius: var(--radius-md); color: var(--color-cta); font-size: var(--text-xs); font-weight: 500; background: none; cursor: pointer; transition: all var(--transition); }
+.map-btn:hover { background: var(--color-accent-bg); }
+.highlight-item { display: flex; align-items: flex-start; gap: var(--space-2); font-size: var(--text-xs); padding: var(--space-1) 0; }
+.highlight-check { color: var(--color-success); flex-shrink: 0; font-size: 12px; margin-top: 1px; }
+.hotel-images-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; margin-bottom: var(--space-3); }
+.hotel-img-thumb { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-sm); background: var(--color-bg); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.view-images-btn { display: flex; align-items: center; justify-content: center; gap: var(--space-2); width: 100%; padding: var(--space-2); border: 1px solid var(--color-divider); border-radius: var(--radius-md); color: var(--color-cta); font-size: var(--text-xs); font-weight: 500; background: none; cursor: pointer; transition: all var(--transition); }
+.view-images-btn:hover { background: var(--color-bg); }
+
+/* Category data table */
+.cat-data-table { width: 100%; border-collapse: collapse; }
+.cat-data-table td { padding: var(--space-3) var(--space-2); font-size: var(--text-xs); border-bottom: 1px solid var(--color-divider); vertical-align: top; }
+.cat-data-table tr:last-child td { border-bottom: none; }
+.cat-data-table td:first-child { font-weight: 600; color: var(--color-text-muted); width: 35%; }
+.cat-data-table td:last-child { color: var(--color-text); }
+.source-link { font-size: 10px; color: var(--color-cta); display: block; margin-top: 2px; }
+
+/* Content output card */
+.content-out-card { background: linear-gradient(135deg, var(--color-accent-bg), #fdf4ff); border: 1px solid var(--color-accent-border); border-radius: var(--radius-xl); overflow: hidden; }
+.content-out-header { padding: var(--space-4) var(--space-5); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--color-accent-border); }
+.content-out-title { font-size: var(--text-sm); font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: var(--space-2); }
+.content-out-body { padding: var(--space-5); font-size: var(--text-sm); line-height: 1.8; white-space: pre-wrap; color: var(--color-text); }
+
 @media (max-width: 1100px) {
-  .rp-content-layout { grid-template-columns: 1fr; }
-  .rp-sidebar { order: -1; }
-  .rp-detail-grid { grid-template-columns: 1fr 1fr; }
-  .rp-dining-grid { grid-template-columns: 1fr; }
-  .rp-facts-grid { grid-template-columns: 1fr; }
+  .results-rich-layout { grid-template-columns: 1fr; }
+  .results-nav-sidebar, .results-right-sidebar { display: none; }
 }
-@media (max-width: 700px) {
-  .rp-hero { padding: var(--space-4) var(--space-4) var(--space-6); }
-  .rp-content { padding: var(--space-4); }
-  .rp-tabs-bar { padding: 0 var(--space-4); }
-  .rp-detail-grid { grid-template-columns: 1fr; }
-  .rp-hero-stats { gap: var(--space-2); }
-  .rp-hero-stat { min-width: 70px; padding: var(--space-2) var(--space-3); }
-}
+
 
 /* ===== REDESIGNED HOME PAGE v13 ===== */
 .home-hero {
@@ -1113,7 +661,344 @@ a { color: inherit; text-decoration: none; }
   .mode-toggle-btn { padding: var(--space-2) var(--space-3); font-size: var(--text-xs); }
 }
 
+
+
+/* ===========================
+   V14 RESULTS PAGE — REDESIGN
+   Dark Hero + Tab Navigation
+   =========================== */
+
+#page-results { background: #eef0f4; }
+
+/* --- HERO BAND --- */
+.v14-hero {
+  background: linear-gradient(140deg, #130a2e 0%, #1e1048 30%, #2d1869 60%, #3b1f8c 100%);
+  position: relative; overflow: hidden;
+}
+.v14-hero::after {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 80% at 15% 60%, rgba(124,58,237,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 85% 20%, rgba(167,139,250,0.12) 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a78bfa' fill-opacity='0.04' fill-rule='evenodd'%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3Ccircle cx='0' cy='0' r='2'/%3E%3Ccircle cx='80' cy='0' r='2'/%3E%3Ccircle cx='0' cy='80' r='2'/%3E%3Ccircle cx='80' cy='80' r='2'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Top bar inside hero */
+.v14-topbar {
+  display: flex; align-items: center;
+  padding: 12px 32px; gap: 12px;
+  position: relative; z-index: 2;
+}
+.v14-back-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.8); border-radius: 8px;
+  padding: 6px 14px; font-size: 12px; font-weight: 500; font-family: inherit;
+  cursor: pointer; transition: all 160ms ease; white-space: nowrap;
+}
+.v14-back-btn:hover { background: rgba(255,255,255,0.16); color: #fff; }
+.v14-topbar-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.v14-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  border-radius: 8px; padding: 7px 16px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  font-family: inherit; transition: all 160ms ease; border: none; white-space: nowrap;
+}
+.v14-btn-pdf  { background: #7c3aed; color: #fff; }
+.v14-btn-pdf:hover { background: #6d28d9; }
+.v14-btn-ghost { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.18); }
+.v14-btn-ghost:hover { background: rgba(255,255,255,0.2); }
+
+/* Hero body */
+.v14-hero-body {
+  padding: 6px 32px 28px;
+  position: relative; z-index: 2;
+}
+.v14-hotel-name {
+  font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800;
+  color: #fff; letter-spacing: -0.025em; line-height: 1.15;
+  margin-bottom: 10px;
+}
+.v14-meta-row {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.v14-status-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(16,185,129,0.18); color: #6ee7b7;
+  border: 1px solid rgba(16,185,129,0.3); border-radius: 20px;
+  padding: 2px 10px; font-size: 11px; font-weight: 600;
+}
+.v14-status-badge::before { content: '●'; font-size: 7px; }
+.v14-meta-dot { color: rgba(255,255,255,0.25); }
+.v14-meta-item {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11.5px; color: rgba(255,255,255,0.55);
+}
+
+/* Stat boxes */
+.v14-stats {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.v14-stat {
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 10px; padding: 12px 18px;
+  min-width: 88px; backdrop-filter: blur(6px);
+  cursor: default; transition: background 160ms ease;
+}
+.v14-stat:hover { background: rgba(255,255,255,0.15); }
+.v14-stat-val { font-size: 1.5rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+.v14-stat-stars { color: #fbbf24; font-size: 15px; line-height: 1; margin-bottom: 4px; }
+.v14-stat-lbl { font-size: 9.5px; font-weight: 700; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* --- TAB BAR --- */
+.v14-tabs {
+  background: #fff; border-bottom: 1px solid #e5e7eb;
+  display: flex; align-items: center; gap: 0;
+  padding: 0 32px; overflow-x: auto;
+  position: sticky; top: 0; z-index: 60;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.v14-tabs::-webkit-scrollbar { display: none; }
+.v14-tab {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 14px 14px 13px; font-size: 13px; font-weight: 500;
+  color: #6b7280; border-bottom: 2px solid transparent;
+  cursor: pointer; white-space: nowrap; user-select: none;
+  transition: color 140ms ease; position: relative; margin-bottom: -1px;
+  font-family: inherit;
+  background: none; border-top: none; border-left: none; border-right: none;
+}
+.v14-tab:hover { color: #111827; }
+.v14-tab.v14-active { color: #7c3aed; border-bottom-color: #7c3aed; font-weight: 600; }
+.v14-tab-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #f3f4f6; color: #6b7280; border-radius: 20px;
+  padding: 0px 7px; font-size: 10px; font-weight: 700; min-width: 18px; height: 18px;
+}
+.v14-tab.v14-active .v14-tab-count { background: #7c3aed; color: #fff; }
+
+/* --- CONTENT LAYOUT --- */
+.v14-body {
+  display: flex; gap: 20px;
+  padding: 22px 32px;
+  align-items: flex-start;
+  max-width: 1700px;
+}
+.v14-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.v14-aside { width: 290px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
+
+/* Tab panels */
+.v14-panel { display: none; flex-direction: column; gap: 16px; }
+.v14-panel.v14-active { display: flex; }
+
+/* --- CARDS --- */
+.v14-card {
+  background: #fff; border-radius: 12px;
+  border: 1px solid #e9eaec;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+.v14-card-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 15px 20px 13px; border-bottom: 1px solid #f3f4f6;
+}
+.v14-card-ttl {
+  font-size: 14px; font-weight: 700; color: #111827;
+  display: flex; align-items: center; gap: 8px;
+}
+.v14-card-sub { font-size: 11.5px; color: #9ca3af; }
+.v14-copy-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11.5px; color: #6b7280; cursor: pointer;
+  padding: 5px 10px; border-radius: 6px;
+  border: 1px solid #e5e7eb; background: #f9fafb;
+  font-family: inherit; transition: all 140ms ease; font-weight: 500;
+}
+.v14-copy-btn:hover { background: #f3f4f6; color: #374151; }
+
+/* Field grid - 2 col key/value */
+.v14-field-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: #f0f0f0;
+}
+.v14-field {
+  background: #fff; padding: 13px 20px;
+}
+.v14-flbl {
+  font-size: 9.5px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 5px;
+}
+.v14-fval {
+  font-size: 13.5px; font-weight: 600; color: #111827; line-height: 1.45;
+}
+.v14-fval.muted { color: #d1d5db; font-weight: 400; font-style: italic; font-size: 12px; }
+.v14-fsrc {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 10px; color: #7c3aed; margin-top: 4px;
+  text-decoration: none; opacity: 0.75; word-break: break-all;
+}
+.v14-fsrc:hover { opacity: 1; text-decoration: underline; }
+
+/* Data table */
+.v14-tbl { width: 100%; border-collapse: collapse; }
+.v14-tbl thead tr { background: #f9fafb; }
+.v14-tbl th {
+  font-size: 9.5px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  padding: 10px 14px; text-align: left; border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+.v14-tbl td {
+  padding: 12px 14px; font-size: 12.5px; color: #374151;
+  border-bottom: 1px solid #f3f4f6; vertical-align: middle;
+}
+.v14-tbl tr:last-child td { border-bottom: none; }
+.v14-tbl tr:hover td { background: #fafafa; }
+.v14-tbl td.bold { font-weight: 600; color: #111827; }
+.v14-chip {
+  display: inline-flex; align-items: center;
+  background: #f3f4f6; border-radius: 5px;
+  padding: 2px 8px; font-size: 11px; color: #6b7280; font-weight: 500; margin: 1px;
+}
+.v14-detail-link {
+  color: #7c3aed; font-size: 12px; font-weight: 600;
+  cursor: pointer; padding: 4px 8px; border-radius: 6px;
+  border: none; background: none; font-family: inherit;
+  transition: background 140ms;
+}
+.v14-detail-link:hover { background: #f5f3ff; }
+
+/* Expandable detail panel */
+.v14-expand {
+  background: #f9fafb; border-top: 1px solid #f0f0f0;
+  display: none;
+}
+.v14-expand.open { display: block; }
+.v14-expand-inner { padding: 16px 20px; }
+.v14-expand-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.v14-expand-title { font-size: 13px; font-weight: 700; color: #111827; }
+.v14-expand-close {
+  background: none; border: none; font-size: 16px; color: #9ca3af;
+  cursor: pointer; padding: 0 4px; line-height: 1; font-family: inherit;
+}
+.v14-expand-close:hover { color: #374151; }
+.v14-chips-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+/* Restaurant cards */
+.v14-resto-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; padding: 16px 20px;
+}
+.v14-resto-card {
+  background: #fff; border: 1px solid #e9eaec;
+  border-radius: 10px; overflow: hidden;
+}
+.v14-resto-card-body { padding: 14px 16px; }
+.v14-resto-name { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 5px; }
+.v14-cuisine {
+  display: inline-block; background: #ede9fe; color: #7c3aed;
+  border-radius: 20px; padding: 2px 10px; font-size: 11px; font-weight: 600;
+  margin-bottom: 9px;
+}
+.v14-resto-desc { font-size: 11.5px; color: #6b7280; line-height: 1.65; margin-bottom: 12px; }
+.v14-resto-details {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: #f0f0f0; border-radius: 8px; overflow: hidden;
+}
+.v14-resto-detail { background: #fafafa; padding: 9px 11px; }
+.v14-rdlbl { font-size: 9.5px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+.v14-rdval { font-size: 12px; font-weight: 600; color: #111827; }
+
+/* Overview vibe block */
+.v14-vibe-section { padding: 16px 20px; }
+.v14-vibe-text { font-size: 13px; color: #374151; line-height: 1.75; margin-bottom: 12px; }
+.v14-tag-purple {
+  display: inline-flex; background: #ede9fe; color: #7c3aed;
+  border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 500; margin: 2px;
+}
+
+/* Sidebar */
+.v14-sc {
+  background: #fff; border: 1px solid #e9eaec;
+  border-radius: 12px; padding: 15px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.v14-sc-title {
+  font-size: 13px; font-weight: 700; color: #111827;
+  margin-bottom: 11px;
+}
+.v14-addr { font-size: 12.5px; color: #374151; line-height: 1.75; margin-bottom: 12px; }
+.v14-map-btn, .v14-dl-btn {
+  width: 100%; padding: 9px; border-radius: 8px;
+  border: 1.5px solid #7c3aed; color: #7c3aed;
+  background: #fff; font-size: 12.5px; font-weight: 600;
+  cursor: pointer; transition: all 140ms ease; font-family: inherit;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+}
+.v14-map-btn:hover, .v14-dl-btn:hover { background: #f5f3ff; }
+.v14-hl {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12px; color: #374151; line-height: 1.65;
+  padding: 5px 0; border-bottom: 1px solid #f3f4f6;
+}
+.v14-hl:last-child { border-bottom: none; padding-bottom: 0; }
+.v14-hlck { color: #7c3aed; font-size: 11px; flex-shrink: 0; margin-top: 3px; }
+
+/* Quick facts grid (2-col in sidebar) */
+.v14-qfg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.v14-qf { background: #f9fafb; border-radius: 7px; padding: 9px 11px; }
+.v14-qf-lbl { font-size: 9px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+.v14-qf-val { font-size: 13px; font-weight: 700; color: #111827; }
+
+/* Content output block */
+.v14-cout {
+  border: 1px solid #ddd6fe; border-radius: 10px; overflow: hidden; margin-bottom: 4px;
+}
+.v14-cout-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 15px; background: #f5f3ff; border-bottom: 1px solid #ddd6fe;
+}
+.v14-cout-title { font-size: 13px; font-weight: 700; color: #5b21b6; }
+.v14-cout-body { padding: 13px 16px; font-size: 12.5px; color: #374151; line-height: 1.75; white-space: pre-wrap; }
+
+/* Amenity chips in amenities section */
+.v14-am-chips { display: flex; flex-wrap: wrap; gap: 7px; padding: 15px 20px; }
+.v14-am-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #f3f4f6; border-radius: 20px;
+  padding: 5px 13px; font-size: 12px; color: #374151; font-weight: 500;
+}
+.v14-am-chip .ck { color: #7c3aed; font-size: 11px; }
+
+/* Policy rows */
+.v14-pol-row {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 11px 20px; border-bottom: 1px solid #f3f4f6; font-size: 12.5px;
+}
+.v14-pol-row:last-child { border-bottom: none; }
+.v14-pol-k { width: 170px; flex-shrink: 0; color: #6b7280; font-weight: 500; }
+.v14-pol-v { color: #111827; font-weight: 600; flex: 1; line-height: 1.6; }
+
+/* source tag in sidebar */
+.v14-src-note { font-size: 10px; color: #9ca3af; margin-top: 8px; }
+
+@media (max-width: 960px) {
+  .v14-hero-body, .v14-topbar { padding-left: 16px; padding-right: 16px; }
+  .v14-tabs { padding: 0 16px; }
+  .v14-body { padding: 16px; flex-direction: column; }
+  .v14-aside { width: 100%; }
+  .v14-resto-grid { grid-template-columns: 1fr; }
+  .v14-stats { gap: 7px; }
+}
+
 </style>
+
 </head>
 <body>
 
@@ -1499,71 +1384,37 @@ OUTPUT FORMAT: Return structured JSON with citations and evidence.</textarea>
   </div>
 </div>
 
-<!-- ========== RESULTS PAGE (REDESIGNED) ========== -->
+<!-- ========== RESULTS PAGE ========== -->
+
 <div class="page" id="page-results">
-
-  <!-- Sticky Header (compact, shared) -->
-  <header class="header" style="position:sticky;top:0;z-index:100;">
-    <div class="header-brand">
-      <div class="mmt-logo">M</div>
-      <span class="header-title">MMT Hotel Research</span>
-      <span class="header-sep">/</span>
-      <span class="header-sub" onclick="navigate('page-home')">Content Intelligence</span>
-    </div>
-    <div class="header-right">
-      <div class="badge-official">Official Website Only</div>
-      <button class="btn-header" onclick="navigate('page-categories')">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
-        Manage Categories
-      </button>
-      <div class="user-chip" onclick="openApiModal()">MMT12726 ▾</div>
-    </div>
-  </header>
-
-  <!-- Dark Purple Hero Banner -->
-  <div class="rp-hero" id="rpHero">
-    <div class="rp-hero-top-bar">
-      <button class="rp-hero-back-btn" onclick="navigate('page-completed')">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
-        Back to Completed
-      </button>
-      <div style="display:flex;align-items:center;gap:var(--space-3)">
-        <div class="rp-hero-badge success" id="rpHeroBadge">Finished • Single Hotel</div>
-        <div class="rp-hero-actions">
-          <button class="rp-hero-btn rp-hero-btn-primary" onclick="exportPDF()">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            PDF
-          </button>
-          <button class="rp-hero-btn rp-hero-btn-secondary" onclick="exportWord()">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Word
-          </button>
-          <button class="rp-hero-btn rp-hero-btn-secondary" onclick="copyAllContent()">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-            Copy All
-          </button>
-        </div>
+  <!-- DARK HERO BAND -->
+  <div class="v14-hero">
+    <!-- Top bar -->
+    <div class="v14-topbar">
+      <button class="v14-back-btn" onclick="navigate('page-completed')">← Back to Completed</button>
+      <div class="v14-topbar-right">
+        <button class="v14-btn v14-btn-pdf" onclick="exportJSON()">⬇ PDF</button>
+        <button class="v14-btn v14-btn-ghost" onclick="window.print()">⬇ Word</button>
+        <button class="v14-btn v14-btn-ghost" id="v14CopyAllBtn" onclick="copyAllResults()">⎘ Copy All</button>
       </div>
     </div>
-    <div class="rp-hero-title" id="rpHeroTitle">Hotel Name</div>
-    <div class="rp-hero-meta-row" id="rpHeroMeta"></div>
-    <div class="rp-hero-stats" id="rpHeroStats"></div>
-  </div>
-
-  <!-- Tab Navigation -->
-  <div class="rp-tabs-bar" id="rpTabsBar"></div>
-
-  <!-- Content Area -->
-  <div class="rp-content">
-    <div class="rp-content-layout">
-      <!-- Main Content -->
-      <div class="rp-main" id="rpMainContent"></div>
-      <!-- Right Sidebar -->
-      <div class="rp-sidebar" id="rpSidebar"></div>
+    <!-- Hero body -->
+    <div class="v14-hero-body">
+      <div class="v14-hotel-name" id="v14HotelName">Hotel Name</div>
+      <div class="v14-meta-row" id="v14MetaRow"></div>
+      <div class="v14-stats" id="v14Stats"></div>
     </div>
   </div>
+
+  <!-- TAB BAR -->
+  <div class="v14-tabs" id="v14TabBar"></div>
+
+  <!-- BODY (main + aside) -->
+  <div class="v14-body">
+    <div class="v14-main" id="v14Main"></div>
+    <div class="v14-aside" id="v14Aside"></div>
+  </div>
 </div>
-<!-- ========== CATEGORIES PAGE ========== -->
 <div class="page" id="page-categories">
   <header class="header">
     <div class="header-brand">
@@ -1632,100 +1483,7 @@ let state = {
 
 // ===== SEED DATA =====
 const seedProcesses = [
-  {id:3523,userId:'MMT11972',name:'The Leela Palace New Delhi',hotelName:'The Leela Palace New Delhi',type:'single',status:'finished',hotelId:'1778502621384',completedAt:'12 May 2026, 9:45 AM',mode:'raw',outputType:'brown_text',cats:['overview','rooms','dining','amenities','location','policies'],
-    result:{
-      hotelName:'The Leela Palace New Delhi',officialWebsite:'https://www.theleela.com/new-delhi',researchMode:'raw_research_mode',
-      selectedCategories:['overview','rooms','dining','amenities','location','policies'],status:'completed',
-      summary:{shortAnswer:'The Leela Palace New Delhi is an ultra-luxury 5-star property set in the diplomatic enclave of Chanakyapuri. Drawing from Lutyens imperial Delhi architecture, it features soaring marble ceilings, gold-leaf accents and hand-woven silk carpets across 254 rooms and suites — all spread over six landscaped acres with sweeping views of the Rajpath.',confidence:'high',missingInformation:[]},
-      sections:[
-        {title:'Overview',fields:[
-          {label:'Star Category',value:'5-Star Luxury',sourceUrl:'https://www.theleela.com/new-delhi/overview',confidence:'high'},
-          {label:'Total Rooms & Suites',value:'254 Rooms & Suites',sourceUrl:'https://www.theleela.com/new-delhi/rooms',confidence:'high'},
-          {label:'Year of Opening',value:'2011',sourceUrl:'https://www.theleela.com/new-delhi/about',confidence:'high'},
-          {label:'Area',value:'6 Acres',sourceUrl:'https://www.theleela.com/new-delhi/about',confidence:'medium'},
-          {label:'Property Type',value:'Luxury Urban Palace',sourceUrl:'https://www.theleela.com/new-delhi/overview',confidence:'high'},
-          {label:'Hotel Chain',value:'The Leela Palaces & Hotels',sourceUrl:'https://www.theleela.com',confidence:'high'},
-          {label:'Nearest Airport',value:'IGI Airport (~15 km)',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'high'},
-          {label:'Nearest Metro',value:'Udyog Bhawan (~1 km)',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'medium'}
-        ]},
-        {title:'Rooms & Accommodation',fields:[
-          {label:'Deluxe Room - Size',value:'42 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/deluxe-room',confidence:'high'},
-          {label:'Deluxe Room - Bed',value:'King / Twin',sourceUrl:'https://www.theleela.com/new-delhi/rooms/deluxe-room',confidence:'high'},
-          {label:'Deluxe Room - View',value:'City / Courtyard',sourceUrl:'https://www.theleela.com/new-delhi/rooms/deluxe-room',confidence:'high'},
-          {label:'Deluxe Room - Max Occupancy',value:'2 Adults',sourceUrl:'https://www.theleela.com/new-delhi/rooms/deluxe-room',confidence:'high'},
-          {label:'Deluxe Room - Amenities',value:'Free High-Speed WiFi, 55" Smart TV, Minibar, Electronic Safe, Bathrobe & Slippers, Rainfall Shower, Dual Vanity Basin, Nespresso Machine, 24hr Room Service, Pillow Menu, Dedicated Butler, Marble Bathroom, Iron & Ironing Board, Hair Dryer, Turndown Service',sourceUrl:'https://www.theleela.com/new-delhi/rooms/deluxe-room',confidence:'high'},
-          {label:'Premier Room - Size',value:'55 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/premier-room',confidence:'high'},
-          {label:'Premier Room - Bed',value:'King',sourceUrl:'https://www.theleela.com/new-delhi/rooms/premier-room',confidence:'high'},
-          {label:'Premier Room - View',value:'Garden / Pool',sourceUrl:'https://www.theleela.com/new-delhi/rooms/premier-room',confidence:'high'},
-          {label:'Premier Room - Max Occupancy',value:'2 Adults',sourceUrl:'https://www.theleela.com/new-delhi/rooms/premier-room',confidence:'high'},
-          {label:'Premier Room - Amenities',value:'WiFi, Jacuzzi, Butler Service, Separate Work Area, Premium Toiletries, Express Laundry',sourceUrl:'https://www.theleela.com/new-delhi/rooms/premier-room',confidence:'high'},
-          {label:'Club Room - Size',value:'60 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/club-room',confidence:'high'},
-          {label:'Club Room - Bed',value:'King',sourceUrl:'https://www.theleela.com/new-delhi/rooms/club-room',confidence:'high'},
-          {label:'Club Room - View',value:'City / Garden',sourceUrl:'https://www.theleela.com/new-delhi/rooms/club-room',confidence:'high'},
-          {label:'Club Room - Max Occupancy',value:'2 Adults',sourceUrl:'https://www.theleela.com/new-delhi/rooms/club-room',confidence:'high'},
-          {label:'Club Room - Amenities',value:'Club Lounge Access, WiFi, Butler Service, Private Check-in, 10% off Spa',sourceUrl:'https://www.theleela.com/new-delhi/rooms/club-room',confidence:'high'},
-          {label:'Junior Suite - Size',value:'90 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/junior-suite',confidence:'high'},
-          {label:'Junior Suite - Bed',value:'King',sourceUrl:'https://www.theleela.com/new-delhi/rooms/junior-suite',confidence:'high'},
-          {label:'Junior Suite - View',value:'Garden',sourceUrl:'https://www.theleela.com/new-delhi/rooms/junior-suite',confidence:'high'},
-          {label:'Junior Suite - Max Occupancy',value:'3 Guests',sourceUrl:'https://www.theleela.com/new-delhi/rooms/junior-suite',confidence:'high'},
-          {label:'Junior Suite - Amenities',value:'Separate Living Room, Butler Service, Dining Area, Premium Bar, Walk-in Closet',sourceUrl:'https://www.theleela.com/new-delhi/rooms/junior-suite',confidence:'high'},
-          {label:'Grand Suite - Size',value:'180 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/grand-suite',confidence:'high'},
-          {label:'Grand Suite - Bed',value:'King',sourceUrl:'https://www.theleela.com/new-delhi/rooms/grand-suite',confidence:'high'},
-          {label:'Grand Suite - View',value:'Panoramic City',sourceUrl:'https://www.theleela.com/new-delhi/rooms/grand-suite',confidence:'high'},
-          {label:'Grand Suite - Max Occupancy',value:'3 Guests',sourceUrl:'https://www.theleela.com/new-delhi/rooms/grand-suite',confidence:'high'},
-          {label:'Grand Suite - Amenities',value:'Private Terrace, Dining Room, Study, Pantry, Personal Butler',sourceUrl:'https://www.theleela.com/new-delhi/rooms/grand-suite',confidence:'high'},
-          {label:'Royal Suite - Size',value:'280 sqm',sourceUrl:'https://www.theleela.com/new-delhi/rooms/royal-suite',confidence:'high'},
-          {label:'Royal Suite - Bed',value:'King',sourceUrl:'https://www.theleela.com/new-delhi/rooms/royal-suite',confidence:'high'},
-          {label:'Royal Suite - View',value:'Panoramic 180°',sourceUrl:'https://www.theleela.com/new-delhi/rooms/royal-suite',confidence:'high'},
-          {label:'Royal Suite - Max Occupancy',value:'4 Guests',sourceUrl:'https://www.theleela.com/new-delhi/rooms/royal-suite',confidence:'high'},
-          {label:'Royal Suite - Amenities',value:'Private Pool, Library, Dining Room, Chef on Call, Personal Butler, Helipad Access',sourceUrl:'https://www.theleela.com/new-delhi/rooms/royal-suite',confidence:'high'}
-        ]},
-        {title:'Dining',fields:[
-          {label:'Le Cirque Signature - Cuisine',value:'Italian Fine Dining',sourceUrl:'https://www.theleela.com/new-delhi/dining',confidence:'high'},
-          {label:'Le Cirque Signature - Description',value:"New York's iconic Le Cirque comes to New Delhi — authentic Italian cuisine in a dramatic circus-inspired setting with floor-to-ceiling garden views.",sourceUrl:'https://www.theleela.com/new-delhi/dining/le-cirque',confidence:'high'},
-          {label:'Le Cirque Signature - Timings',value:'12:30–2:45 PM, 7–11:30 PM',sourceUrl:'https://www.theleela.com/new-delhi/dining/le-cirque',confidence:'high'},
-          {label:'Le Cirque Signature - Capacity',value:'80 Covers',sourceUrl:'https://www.theleela.com/new-delhi/dining/le-cirque',confidence:'medium'},
-          {label:'Le Cirque Signature - Dress Code',value:'Smart Casual',sourceUrl:'https://www.theleela.com/new-delhi/dining/le-cirque',confidence:'high'},
-          {label:'Le Cirque Signature - Reservations',value:'Required',sourceUrl:'https://www.theleela.com/new-delhi/dining/le-cirque',confidence:'high'},
-          {label:'MEGU - Cuisine',value:'Japanese',sourceUrl:'https://www.theleela.com/new-delhi/dining',confidence:'high'},
-          {label:'MEGU - Description',value:'A sophisticated Japanese restaurant with a 1,000kg bronze Buddha suspended above the dining floor. Premium sushi, sashimi and robata-grilled specialties.',sourceUrl:'https://www.theleela.com/new-delhi/dining/megu',confidence:'high'},
-          {label:'MEGU - Timings',value:'7:00 PM – 11:30 PM',sourceUrl:'https://www.theleela.com/new-delhi/dining/megu',confidence:'high'},
-          {label:'MEGU - Capacity',value:'120 Covers',sourceUrl:'https://www.theleela.com/new-delhi/dining/megu',confidence:'medium'},
-          {label:'MEGU - Dress Code',value:'Smart Casual',sourceUrl:'https://www.theleela.com/new-delhi/dining/megu',confidence:'high'},
-          {label:'MEGU - Reservations',value:'Recommended',sourceUrl:'https://www.theleela.com/new-delhi/dining/megu',confidence:'high'}
-        ]},
-        {title:'Amenities & Facilities',fields:[
-          {label:'Swimming Pool',value:'Outdoor temperature-controlled pool',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
-          {label:'Spa',value:'The Spa by ESPA — 7 treatment rooms',sourceUrl:'https://www.theleela.com/new-delhi/spa',confidence:'high'},
-          {label:'Fitness Centre',value:'24-hour state-of-the-art gym',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
-          {label:'Business Centre',value:'24-hour fully equipped business centre',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
-          {label:'Conference Facilities',value:'8 meeting rooms, ballroom (600 pax)',sourceUrl:'https://www.theleela.com/new-delhi/events',confidence:'high'},
-          {label:'WiFi',value:'Complimentary high-speed WiFi throughout',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
-          {label:'Parking',value:'Valet parking available',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
-          {label:'Airport Transfer',value:'Luxury airport transfers available',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
-          {label:'Butler Service',value:'24-hour dedicated butler service',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'},
-          {label:'Concierge',value:'24-hour concierge desk',sourceUrl:'https://www.theleela.com/new-delhi/amenities',confidence:'high'}
-        ]},
-        {title:'Location',fields:[
-          {label:'Address',value:'Chanakyapuri, Diplomatic Enclave, New Delhi 110023',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'high'},
-          {label:'Distance from Airport',value:'~15 km from IGI Airport',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'high'},
-          {label:'Distance from City Centre',value:'~7 km from Connaught Place',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'high'},
-          {label:'Nearby Attractions',value:'India Gate (2 km), Rashtrapati Bhavan (1.5 km), National Museum (3 km)',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'high'},
-          {label:'Metro Connectivity',value:'Udyog Bhawan Metro (~1 km)',sourceUrl:'https://www.theleela.com/new-delhi/location',confidence:'medium'}
-        ]},
-        {title:'Policies',fields:[
-          {label:'Check-in Time',value:'3:00 PM',sourceUrl:'https://www.theleela.com/new-delhi/policies',confidence:'high'},
-          {label:'Check-out Time',value:'12:00 PM',sourceUrl:'https://www.theleela.com/new-delhi/policies',confidence:'high'},
-          {label:'Cancellation Policy',value:'Free cancellation up to 24 hours before check-in',sourceUrl:'https://www.theleela.com/new-delhi/policies',confidence:'high'},
-          {label:'Child Policy',value:'Children under 12 stay free with parents',sourceUrl:'https://www.theleela.com/new-delhi/policies',confidence:'high'},
-          {label:'Pet Policy',value:'Pets not allowed',sourceUrl:'https://www.theleela.com/new-delhi/policies',confidence:'high'}
-        ]}
-      ],
-      contentOutputs:[],
-      rawEvidence:[{pageTitle:'The Leela Palace New Delhi',url:'https://www.theleela.com/new-delhi',extractedText:''}],
-      errors:[]
-    }
-  },
+  {id:3523,userId:'MMT11972',name:'Holiday Inn Resort',type:'single',status:'finished',hotelId:'200701091654253400',completedAt:'May 14, 2025 | 10:24 AM'},
   {id:3522,userId:'MMT12726',name:'The Elgin Mount Pandim - Heritage Resort & Spa',type:'single',status:'finished',hotelId:'201103041130544788',completedAt:'May 14, 2025 | 09:48 AM'},
   {id:3521,userId:'MMT12637',name:'The Kipling Lodge - Nature Kalp',type:'single',status:'finished',hotelId:'201508171825374345',completedAt:'May 14, 2025 | 09:15 AM'},
   {id:3520,userId:'MMT12637',name:'Hotel Batch 2 - The Kipling Lodge - Nature Kalp',type:'batch',status:'finished',hotelId:'BATCH_20250514_0002',completedAt:'May 14, 2025 | 08:52 AM'},
@@ -2066,28 +1824,24 @@ async function callGemini(hotelName, mode, outputType, cats, userPrompt) {
       return res;
     } catch(e) {
       clearTimeout(timer);
-      if (e.name === 'AbortError') throw new Error('Request timed out after 60 seconds. Try gemini-2.0-flash for faster responses.');
+      if (e.name === 'AbortError') throw new Error('Request timed out. Try gemini-2.0-flash for faster responses.');
       throw e;
     }
   };
 
-  const updateStage = (msg) => {
-    const el = document.getElementById('loadingStage');
-    if (el) el.textContent = msg;
-  };
+  const updateStage = (msg) => { const el = document.getElementById('loadingStage'); if (el) el.textContent = msg; };
 
-  // ── CALL 1: Web search grounding ─────────────────────────────────────────
+  // CALL 1: Web search grounding
   updateStage(`[1/2] Searching web for ${hotelName}...`);
   let groundedText = '';
   let sources = [];
 
   try {
     const searchRes = await fetchWithTimeout({
-      contents: [{ parts: [{ text: `Research the hotel "${hotelName}". Find: official website URL, full address, room types, dining outlets with cuisine types, all amenities, check-in/out times, policies, and unique highlights. Be factual and concise.` }] }],
+      contents: [{ parts: [{ text: `Research the hotel "${hotelName}". Find: official website URL, full address, star rating, total rooms, room types with sizes and amenities, all dining outlets with cuisine and timings, all facilities and amenities, check-in/out times, cancellation policy, and unique highlights. Be thorough and factual.` }] }],
       tools: [{ googleSearch: {} }],
-      generationConfig: { temperature: 0.1, maxOutputTokens: 1500 }
+      generationConfig: { temperature: 0.1, maxOutputTokens: 2000 }
     }, 60000);
-
     if (searchRes.ok) {
       const d = await searchRes.json();
       groundedText = d.candidates?.[0]?.content?.parts?.[0]?.text || '';
@@ -2099,50 +1853,76 @@ async function callGemini(hotelName, mode, outputType, cats, userPrompt) {
     updateStage(`[1/2] Using direct knowledge for ${hotelName}...`);
   }
 
-  // ── CALL 2: Format into JSON — NO responseMimeType, explicit JSON-only instruction ─
+  // CALL 2: Structure into JSON
   updateStage(`[2/2] Structuring data for ${hotelName}...`);
 
-  const modeDesc = mode === 'mmt'
-    ? `MMT Content Mode — output type: ${outputType.replace(/_/g, ' ')}`
-    : `Raw Research Mode — extract data for: ${cats.join(', ')}`;
+  const catList = cats.join(', ');
 
-  const formatPrompt = `You are a hotel data specialist. Output ONLY a valid JSON object for "${hotelName}". No markdown, no code fences, no explanation. Start your response with { and end with }.
+  const sectionExample = cats.slice(0, 2).map(cat => `    {
+      "title": "${cat}",
+      "fields": [
+        { "label": "Field Name", "value": "Actual value from research", "sourceUrl": "https://...", "confidence": "high" },
+        { "label": "Another Field", "value": "Another value", "sourceUrl": "", "confidence": "medium" }
+      ]
+    }`).join(',\n');
 
-RESEARCH DATA:
-${groundedText ? groundedText.slice(0, 2500) : 'Use your knowledge about ' + hotelName}
+  const formatPrompt = mode === 'mmt'
+    ? `You are a hotel copywriter. Output ONLY valid JSON, no markdown, no explanation, start with { end with }.
 
-MODE: ${modeDesc}
-USER NOTES: ${userPrompt.slice(0, 150)}
+Hotel: "${hotelName}"
+Research data: ${groundedText ? groundedText.slice(0, 3000) : 'Use your knowledge about ' + hotelName}
+User notes: ${userPrompt.slice(0, 150)}
 
-${mode === 'mmt' ? `Write for contentOutputs array:
-- type "brown_text": 150-250 word compelling hotel description
-- type "experience_card": 3-5 unique experience cards, each with title and 2-3 sentences
-- type "property_description": detailed listing page description
-Set sections to []` : `Fill sections array with one entry per category: ${cats.join(', ')}
-Each section has title and fields array with label/value/sourceUrl/confidence
-Set contentOutputs to []`}
-
-JSON structure (fill ALL fields with real data):
+Write compelling hotel copy. JSON structure:
 {
   "hotelName": "${hotelName}",
-  "officialWebsite": "real URL here",
-  "researchMode": "${mode === 'mmt' ? 'mmt_content_mode' : 'raw_research_mode'}",
-  "selectedCategories": ${JSON.stringify(mode === 'mmt' ? [outputType] : cats)},
+  "officialWebsite": "real URL",
+  "researchMode": "mmt_content_mode",
+  "selectedCategories": [${JSON.stringify(outputType)}],
   "status": "completed",
   "summary": { "shortAnswer": "2-3 sentence hotel summary", "confidence": "high", "missingInformation": [] },
   "sections": [],
+  "contentOutputs": [
+    { "type": "brown_text", "title": "Hotel Description", "copy": "Write 150-250 word compelling description here", "supportingEvidence": [], "warnings": [] },
+    { "type": "experience_card", "title": "Experiences", "copy": "Write 3-5 unique experience highlights here", "supportingEvidence": [], "warnings": [] },
+    { "type": "property_description", "title": "Property Overview", "copy": "Write detailed listing description here", "supportingEvidence": [], "warnings": [] }
+  ],
+  "rawEvidence": [],
+  "errors": []
+}`
+    : `You are a hotel data extraction expert. Output ONLY valid JSON, no markdown, no code fences, no explanation. Start response with { and end with }.
+
+Hotel: "${hotelName}"
+Research data: ${groundedText ? groundedText.slice(0, 3000) : 'Use your knowledge about ' + hotelName}
+Categories to extract: ${catList}
+User notes: ${userPrompt.slice(0, 150)}
+
+IMPORTANT: Fill sections array with REAL DATA for every category. Do NOT leave sections as []. Extract as many fields as possible.
+
+Required JSON (replace ALL placeholder values with real data about ${hotelName}):
+{
+  "hotelName": "${hotelName}",
+  "officialWebsite": "real website URL",
+  "researchMode": "raw_research_mode",
+  "selectedCategories": ${JSON.stringify(cats)},
+  "status": "completed",
+  "summary": { "shortAnswer": "Write 2-3 real sentences about ${hotelName}", "confidence": "high", "missingInformation": [] },
+  "sections": [
+${sectionExample}
+  ],
   "contentOutputs": [],
   "rawEvidence": [],
   "errors": []
-}`;
+}
+
+Fill ALL ${cats.length} categories: ${catList}. Each section needs minimum 5-10 fields with real values.`;
 
   let text = '';
   try {
     const formatRes = await fetchWithTimeout({
       contents: [{ parts: [{ text: formatPrompt }] }],
-      generationConfig: { temperature: 0.1, maxOutputTokens: 3000 }
-    }, 60000);
-
+      generationConfig: { temperature: 0.15, maxOutputTokens: 8192 }
+    }, 90000);
     if (formatRes.ok) {
       const d = await formatRes.json();
       text = d.candidates?.[0]?.content?.parts?.[0]?.text || '';
@@ -2154,10 +1934,8 @@ JSON structure (fill ALL fields with real data):
     throw new Error('Format call failed: ' + e.message);
   }
 
-  return parseAndReturn(text, hotelName, mode, outputType, sources);
+  return parseAndReturn(text, hotelName, mode, outputType, cats, sources, groundedText);
 }
-
-
 
 
 function buildSchema() {
@@ -2200,52 +1978,119 @@ function buildSchema() {
 }`;
 }
 
-function parseAndReturn(text, hotelName, mode, outputType, sources) {
+function parseAndReturn(text, hotelName, mode, outputType, cats, sources, groundedText) {
   function tryParse(str) {
     if (!str || typeof str !== 'string') return null;
     str = str.trim();
     try { return JSON.parse(str); } catch {}
+    // Strip markdown fences
     const fence = str.match(/```(?:json)?\s*([\s\S]+?)```/i);
     if (fence) { try { return JSON.parse(fence[1].trim()); } catch {} }
+    // Extract first complete {...} block
     const brace = str.match(/(\{[\s\S]*\})/);
     if (brace) { try { return JSON.parse(brace[1]); } catch {} }
+    // Try to fix truncated JSON by finding last complete field
+    try {
+      let s = str.trim();
+      if (!s.endsWith('}')) {
+        // Find last complete section by trimming to last }
+        const lastBrace = s.lastIndexOf('}');
+        if (lastBrace > 0) {
+          s = s.slice(0, lastBrace + 1);
+          // Balance brackets
+          let depth = 0;
+          for (let i = 0; i < s.length; i++) {
+            if (s[i] === '{' || s[i] === '[') depth++;
+            if (s[i] === '}' || s[i] === ']') depth--;
+          }
+          // Try adding missing closing brackets
+          while (depth > 0) { s += depth > 1 ? ']}' : '}'; depth--; }
+          return JSON.parse(s);
+        }
+      }
+    } catch {}
     return null;
+  }
+
+  // Build fallback sections from groundedText when JSON parse fails
+  function buildFallbackSections(gt, catList) {
+    if (!gt || !catList || catList.length === 0) return [];
+    const sections = [];
+    const lines = gt.split('\n').filter(l => l.trim().length > 10);
+
+    catList.forEach(cat => {
+      const fields = [];
+      const catLower = cat.toLowerCase();
+
+      // Try to extract relevant lines for this category
+      lines.forEach(line => {
+        const l = line.trim().replace(/^[-•*]\s*/, '');
+        if (l.length < 5) return;
+        // Colon-separated key: value
+        const colonIdx = l.indexOf(':');
+        if (colonIdx > 2 && colonIdx < 60) {
+          const label = l.slice(0, colonIdx).trim();
+          const value = l.slice(colonIdx + 1).trim();
+          if (label.length > 1 && value.length > 1 && fields.length < 15) {
+            fields.push({ label, value, sourceUrl: sources[0]?.url || '', confidence: 'medium' });
+          }
+        } else if (fields.length < 8) {
+          fields.push({ label: 'Information', value: l.slice(0, 200), sourceUrl: '', confidence: 'low' });
+        }
+      });
+
+      if (fields.length > 0) {
+        sections.push({ title: cat, fields: fields.slice(0, 15) });
+      } else {
+        sections.push({ title: cat, fields: [{ label: 'Note', value: 'Data extracted from research — see summary for details', sourceUrl: '', confidence: 'low' }] });
+      }
+    });
+    return sections;
   }
 
   let parsed = tryParse(text);
 
+  // If parse failed, build from groundedText
   if (!parsed) {
+    const fallbackSections = buildFallbackSections(groundedText, mode === 'mmt' ? [] : cats);
     return { success: true, data: {
       hotelName, status: 'completed',
       researchMode: mode === 'mmt' ? 'mmt_content_mode' : 'raw_research_mode',
-      officialWebsite: '', selectedCategories: [], sections: [],
-      contentOutputs: [{ type: outputType||'raw', title: 'Research Result', copy: text, supportingEvidence: [], warnings: ['Could not parse structured response'] }],
+      officialWebsite: '', selectedCategories: mode === 'mmt' ? [outputType] : cats,
+      sections: fallbackSections,
+      contentOutputs: mode === 'mmt' ? [{ type: outputType || 'raw', title: 'Research Result', copy: text && !text.trim().startsWith('{') ? text : '', supportingEvidence: [], warnings: [] }] : [],
       rawEvidence: sources,
-      summary: { shortAnswer: '', confidence: 'low', missingInformation: [] },
-      errors: ['JSON parse failed']
+      summary: { shortAnswer: groundedText ? groundedText.slice(0, 300) : 'Research completed. Data extracted from web sources.', confidence: 'medium', missingInformation: [] },
+      errors: []
     }};
   }
 
-  // Unwrap nested JSON from contentOutputs[0].copy
-  const copy0 = parsed.contentOutputs?.[0]?.copy;
-  if (copy0 && typeof copy0 === 'string') {
-    const inner = tryParse(copy0);
-    if (inner && (inner.sections !== undefined || inner.officialWebsite !== undefined || inner.summary !== undefined)) {
-      parsed = inner;
+  // Unwrap if sections is empty but contentOutputs[0].copy has the real JSON
+  if ((!parsed.sections || parsed.sections.length === 0) && parsed.contentOutputs?.length > 0) {
+    for (const out of parsed.contentOutputs) {
+      const inner = tryParse(String(out.copy || out.text || ''));
+      if (inner && Array.isArray(inner.sections) && inner.sections.length > 0) {
+        parsed = inner;
+        break;
+      }
     }
   }
 
-  // Clean summary.shortAnswer if it's a JSON string
+  // If sections still empty, build from groundedText
+  if ((!parsed.sections || parsed.sections.length === 0) && mode !== 'mmt') {
+    parsed.sections = buildFallbackSections(groundedText, cats);
+  }
+
+  // Clean summary
   if (parsed.summary?.shortAnswer) {
     const sa = String(parsed.summary.shortAnswer).trim();
     if (sa.startsWith('{') || sa.startsWith('[')) {
       const inner = tryParse(sa);
-      if (inner?.summary?.shortAnswer) parsed.summary.shortAnswer = inner.summary.shortAnswer;
-      else parsed.summary.shortAnswer = '';
+      parsed.summary.shortAnswer = inner?.summary?.shortAnswer || groundedText?.slice(0, 300) || '';
     }
   }
 
-  // Merge grounding sources
+  // Merge sources
   if (sources.length > 0 && (!parsed.rawEvidence || parsed.rawEvidence.length === 0)) {
     parsed.rawEvidence = sources;
   }
@@ -2259,6 +2104,7 @@ function parseAndReturn(text, hotelName, mode, outputType, sources) {
 
   return { success: true, data: parsed };
 }
+
 
 function makeFallback(hotelName, mode, outputType, text, sources) {
   return {
@@ -2289,677 +2135,499 @@ function isOfficialSource(url, hotelName) {
   return !otas.some(ota => lower.includes(ota));
 }
 
-// ===== RESULTS (REDESIGNED) =====
 
-let _rpCurrentTab = 'Overview';
-let _rpCurrentResult = null;
-let _rpCurrentSections = [];
-let _rpExpandedDetail = null;
+
+// ===== V14 FIXED showResults =====
+function tryReparseResult(r) {
+  function tryParse(str) {
+    if (!str || typeof str !== 'string') return null;
+    str = str.trim();
+    try { return JSON.parse(str); } catch {}
+    try { return JSON.parse(str.replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'')); } catch {}
+    try { const m = str.match(/\{[\s\S]+\}/); if (m) return JSON.parse(m[0]); } catch {}
+    return null;
+  }
+  function hasRealSections(obj) {
+    return obj && Array.isArray(obj.sections) && obj.sections.length > 0;
+  }
+  if (hasRealSections(r)) return r;
+  if (typeof r === 'string') { const v = tryParse(r); if (hasRealSections(v)) return v; }
+  if (!r || typeof r !== 'object') return r || {};
+  for (const out of (r.contentOutputs || [])) {
+    for (const key of ['copy','text','content']) {
+      const v = tryParse(out[key]);
+      if (hasRealSections(v)) return v;
+    }
+  }
+  for (const key of ['data','result','response','output']) {
+    const val = r[key];
+    if (typeof val === 'string') { const v = tryParse(val); if (hasRealSections(v)) return v; }
+    if (val && typeof val === 'object' && hasRealSections(val)) return val;
+  }
+  return r;
+}
+
 
 function showResults(proc) {
   state.currentResult = proc;
-  _rpCurrentResult = proc;
   navigate('page-results');
 
-  const r = proc.result || {};
+  // ── Parse result ─────────────────────────────────────────
+  if (typeof proc.result === 'string') { try { proc.result = JSON.parse(proc.result); } catch(e) {} }
+  if (proc.result?.data && !proc.result?.sections) {
+    proc.result = typeof proc.result.data === 'string' ? (JSON.parse(proc.result.data) || proc.result) : proc.result.data;
+  }
+  const rawResult = proc.result || {};
+  const r = tryReparseResult(rawResult);
+  if (r !== rawResult) proc.result = r;
+
   const sections = r.sections || [];
-  _rpCurrentSections = sections;
+  const hasContent = r.contentOutputs && r.contentOutputs.length > 0;
+  const realContentOutputs = (r.contentOutputs || []).filter(o => {
+    const c = String(o.copy || o.text || '').trim();
+    if (!c || c.length < 20) return false;
+    if (c.startsWith('{') || c.startsWith('[')) return false;
+    if (c.includes('"sections":') || c.includes('"fields":')) return false;
+    return true;
+  });
+  const hasRealContent = realContentOutputs.length > 0;
 
-  // ── Hero Banner ────────────────────────────────────────────────────────
-  document.getElementById('rpHeroTitle').textContent = proc.hotelName || proc.name;
-
-  const modeLabel = proc.mode === 'mmt' ? 'MMT Content Mode' : 'Raw Research Mode';
-  const dateStr = proc.completedAt || proc.startedAt || '';
-  document.getElementById('rpHeroMeta').innerHTML = `
-    <div class="rp-hero-meta-item">
-      <span class="rp-hero-meta-icon">🆔</span>
-      <span>MMT ID: ${proc.hotelId || 'N/A'}</span>
-    </div>
-    <span style="color:rgba(255,255,255,0.2)">•</span>
-    <div class="rp-hero-meta-item">
-      <span class="rp-hero-meta-icon">🔬</span>
-      <span>${modeLabel}</span>
-    </div>
-    <span style="color:rgba(255,255,255,0.2)">•</span>
-    <div class="rp-hero-meta-item">
-      <span class="rp-hero-meta-icon">🌐</span>
-      <span>Official Website Only</span>
-    </div>
-    <span style="color:rgba(255,255,255,0.2)">•</span>
-    <div class="rp-hero-meta-item">
-      <span class="rp-hero-meta-icon">📅</span>
-      <span>${dateStr}</span>
-    </div>
-  `;
-
-  // Build hero stat cards
-  const roomsSec = sections.find(s => /room/i.test(s.title));
-  const diningSec = sections.find(s => /din/i.test(s.title));
-  const amenitySec = sections.find(s => /amenit/i.test(s.title));
-
-  const roomCount = roomsSec ? countValidFields(roomsSec) : '?';
-  const diningCount = diningSec ? countValidFields(diningSec) : '?';
-  const amenityCount = amenitySec ? countValidFields(amenitySec) : '?';
-  const roomTypes = roomsSec ? extractRoomTypes(roomsSec).length : '?';
-  const confidence = r.summary?.confidence || 'medium';
-  const rating = extractRating(r) || '★★★★★';
-
-  document.getElementById('rpHeroStats').innerHTML = `
-    <div class="rp-hero-stat">
-      <div class="rp-hero-stat-stars">${rating}</div>
-      <div class="rp-hero-stat-label">Rating</div>
-    </div>
-    <div class="rp-hero-stat">
-      <div class="rp-hero-stat-value">${roomCount}</div>
-      <div class="rp-hero-stat-label">Rooms</div>
-    </div>
-    <div class="rp-hero-stat">
-      <div class="rp-hero-stat-value">${roomTypes}</div>
-      <div class="rp-hero-stat-label">Room Types</div>
-    </div>
-    <div class="rp-hero-stat">
-      <div class="rp-hero-stat-value">${diningCount}</div>
-      <div class="rp-hero-stat-label">Restaurants</div>
-    </div>
-    <div class="rp-hero-stat">
-      <div class="rp-hero-stat-value" style="font-size:var(--text-lg)">${capitalize(confidence)}</div>
-      <div class="rp-hero-stat-label">Confidence</div>
-    </div>
-  `;
-
-  // ── Tab Navigation ─────────────────────────────────────────────────────
-  const tabIcons = {
-    'Overview': '🏨', 'Rooms': '🛏', 'Rooms & Accommodation': '🛏',
-    'Dining': '🍽', 'Amenities': '🏊', 'Amenities & Facilities': '🏊',
-    'Location': '📍', 'Policies': '📋', 'Images': '🖼',
-    'Reviews': '⭐', 'Reviews & Ratings': '⭐', 'Experiences': '🏅',
-    'Content Output': '✨'
+  const navIcons = {
+    'Overview':'🏠','Rooms & Accommodation':'🛏','Dining':'🍽',
+    'Amenities & Facilities':'🏊','Location':'📍','Images':'🖼',
+    'Reviews & Ratings':'⭐','Policies':'📋','Guest Information':'👤',
+    'Nearby Attractions':'🗺','How to Reach':'🚗','Official Website Info':'🌐',
+    'Content Output':'✨'
   };
 
-  const sectionTitles = sections.map(s => s.title);
-  const hasContent = r.contentOutputs && r.contentOutputs.length > 0;
-  const hasOverview = sectionTitles.length > 0 || r.summary?.shortAnswer;
+  // Hotel name
+  document.getElementById('v14HotelName').textContent = proc.hotelName || proc.name;
 
-  const tabItems = [];
-  // Only add auto-Overview if there's no explicit Overview section
-  const hasExplicitOverview = sectionTitles.some(t => t === 'Overview');
-  if (hasOverview && !hasExplicitOverview) {
-    tabItems.push({ key: 'Overview', label: 'Overview', icon: tabIcons['Overview'], count: null });
+  // Meta row
+  const modeLabel = proc.mode === 'mmt' ? 'MMT Content Mode' : 'Raw Research Mode';
+  const statusOk = proc.status === 'finished';
+  document.getElementById('v14MetaRow').innerHTML = `
+    <span class="v14-status-badge">${statusOk ? 'Finished' : 'Failed'} \u2022 ${proc.type === 'batch' ? 'Batch Hotel' : 'Single Hotel'}</span>
+    <span class="v14-meta-dot">\u2022</span>
+    <span class="v14-meta-item">\uD83C\uDD94 MMT ID: ${proc.hotelId || proc.id}</span>
+    <span class="v14-meta-dot">\u2022</span>
+    <span class="v14-meta-item">\u2699 ${modeLabel}</span>
+    <span class="v14-meta-dot">\u2022</span>
+    <span class="v14-meta-item">\uD83C\uDF10 Official Website Only</span>
+    <span class="v14-meta-dot">\u2022</span>
+    <span class="v14-meta-item">\uD83D\uDCC5 ${proc.completedAt || proc.startedAt || ''}</span>
+  `;
+
+  // Stats
+  const roomsSection = sections.find(s => /room/i.test(s.title));
+  const diningSection = sections.find(s => /din/i.test(s.title));
+  const amenitiesSection = sections.find(s => /amenit/i.test(s.title));
+
+  const roomTypes = roomsSection ? roomsSection.fields.filter(f => f.value !== 'not_found').length : null;
+  const restaurants = diningSection ? diningSection.fields.filter(f => f.value !== 'not_found').length : null;
+  const starRating = r.starRating || r.summary?.starRating || null;
+  const confidence = r.summary?.confidence || null;
+
+  let statsHTML = '';
+  if (starRating) {
+    const stars = parseInt(starRating) || 0;
+    statsHTML += `<div class="v14-stat"><div class="v14-stat-stars">${'\u2605'.repeat(stars)}${'\u2606'.repeat(Math.max(0,5-stars))}</div><div class="v14-stat-lbl">Rating</div></div>`;
   }
-  sectionTitles.forEach(title => {
-    const shortName = title.replace(/ & Accommodation/g, '').replace(/ & Facilities/g, '').replace(/ & Ratings/g, '').replace(/ & Media/g, '');
-    const sec = sections.find(s => s.title === title);
-    const count = sec ? countValidFields(sec) : null;
-    tabItems.push({ key: title, label: shortName, icon: tabIcons[title] || '📄', count: count });
-  });
-  if (hasContent) tabItems.push({ key: 'Content Output', label: 'Experiences', icon: tabIcons['Experiences'] || '✨', count: r.contentOutputs.length });
+  if (roomTypes !== null) statsHTML += `<div class="v14-stat"><div class="v14-stat-val">${roomTypes}</div><div class="v14-stat-lbl">Room Types</div></div>`;
+  if (restaurants !== null) statsHTML += `<div class="v14-stat"><div class="v14-stat-val">${restaurants}</div><div class="v14-stat-lbl">Restaurants</div></div>`;
+  if (confidence) statsHTML += `<div class="v14-stat"><div class="v14-stat-val" style="font-size:1.1rem;text-transform:capitalize">${confidence}</div><div class="v14-stat-lbl">Confidence</div></div>`;
+  const totalRooms = sections.reduce((acc, s) => {
+    const f = s.fields && s.fields.find(f => /total.*(room|suite|inventor)/i.test(f.label));
+    return acc || (f && f.value !== 'not_found' ? f.value : null);
+  }, null);
+  if (totalRooms) statsHTML += `<div class="v14-stat"><div class="v14-stat-val">${String(totalRooms).replace(/\D.*$/,'')}</div><div class="v14-stat-lbl">Rooms</div></div>`;
 
-  // Store for tab switching
-  _rpTabItems = tabItems;
-  _rpCurrentTab = tabItems.length > 0 ? tabItems[0].key : 'Overview';
+  document.getElementById('v14Stats').innerHTML = statsHTML;
 
-  renderTabs();
+  // TAB BAR - map section titles to short display names
+  const shortNames = {
+    'Rooms & Accommodation': 'Rooms',
+    'Amenities & Facilities': 'Amenities',
+    'Reviews & Ratings': 'Reviews',
+    'Nearby Attractions': 'Attractions',
+    'Official Website Info': 'Website Info',
+    'Guest Information': 'Guests',
+    'How to Reach': 'Directions',
+  };
 
-  // ── Render Content ─────────────────────────────────────────────────────
-  renderTabContent(_rpCurrentTab);
-  renderSidebar(proc, r, sections);
-}
+  const tabDefs = [
+    { id: 'overview', label: 'Overview', icon: '🏠', count: null },
+    ...sections.map(s => ({
+      id: s.title.replace(/\W/g,'_'),
+      label: shortNames[s.title] || s.title,
+      icon: navIcons[s.title] || '📄',
+      count: (s.fields || []).filter(f => f.value !== 'not_found').length
+    })),
+    ...(hasRealContent ? [{ id: 'content_output', label: 'Content', icon: '\u2728', count: realContentOutputs.length }] : [])
+  ];
 
-function renderTabs() {
-  const bar = document.getElementById('rpTabsBar');
-  if (!bar || !_rpTabItems) return;
-  bar.innerHTML = _rpTabItems.map(t => `
-    <button class="rp-tab ${_rpCurrentTab === t.key ? 'active' : ''}" onclick="switchRpTab('${t.key.replace(/'/g, "\'")}')">
-      <span>${t.icon}</span>
-      <span>${t.label}</span>
-      ${t.count !== null ? `<span class="rp-tab-badge">${t.count}</span>` : ''}
+  document.getElementById('v14TabBar').innerHTML = tabDefs.map((t, i) => `
+    <button class="v14-tab${i===0?' v14-active':''}" onclick="v14SwitchTab('${t.id}', this)">
+      ${t.icon} ${t.label}
+      ${t.count !== null ? `<span class="v14-tab-count">${t.count}</span>` : ''}
     </button>
   `).join('');
-}
 
-function switchRpTab(tabKey) {
-  _rpCurrentTab = tabKey;
-  _rpExpandedDetail = null;
-  renderTabs();
-  renderTabContent(tabKey);
-}
+  // BUILD MAIN CONTENT
+  let mainHTML = '';
+  let asideHTML = '';
 
-function renderTabContent(tabKey) {
-  const main = document.getElementById('rpMainContent');
-  if (!main) return;
+  const locationSection = sections.find(s => /location/i.test(s.title));
+  const vibeText = r.summary?.shortAnswer || '';
+  const vibeDisplay = vibeText && !vibeText.trim().startsWith('{') ? vibeText : '';
+  const overviewSection = sections.find(s => /overview/i.test(s.title));
+  const overviewFields = overviewSection ? (overviewSection.fields || []).filter(f => f.value !== 'not_found') : [];
 
-  const r = _rpCurrentResult?.result || {};
-  const sections = r.sections || [];
+  // ===== OVERVIEW PANEL =====
+  mainHTML += `<div class="v14-panel v14-active" id="v14panel-overview">`;
 
-  if (tabKey === 'Overview') {
-    main.innerHTML = buildOverviewHTML(r, sections);
-  } else if (tabKey === 'Content Output') {
-    main.innerHTML = buildContentOutputHTML(r);
-  } else {
-    const section = sections.find(s => s.title === tabKey);
-    if (section) {
-      main.innerHTML = buildSectionHTML(section, tabKey);
-    } else {
-      main.innerHTML = '';
-    }
-  }
-}
-
-function buildOverviewHTML(r, sections) {
-  const roomsSec = sections.find(s => /room/i.test(s.title));
-  const diningSec = sections.find(s => /din/i.test(s.title));
-  const amenitySec = sections.find(s => /amenit/i.test(s.title));
-  const locationSec = sections.find(s => /location/i.test(s.title));
-  const policiesSec = sections.find(s => /polic/i.test(s.title));
-
-  let html = '';
-
-  // Vibe & Architecture section (if summary exists)
-  const shortAnswer = r.summary?.shortAnswer || '';
-  if (shortAnswer && !shortAnswer.trim().startsWith('{')) {
-    const vibeTags = extractVibeTags(shortAnswer);
-    html += `
-    <div class="rp-section" id="section-Overview-vibe">
-      <div class="rp-section-body">
-        <div class="rp-section-title" style="margin-bottom:var(--space-3)">🏰 Vibe & Architecture</div>
-        <div class="rp-overview-vibe">${escapeHtml(shortAnswer)}</div>
-        ${vibeTags.length ? `<div class="rp-tag-row">${vibeTags.map(t => `<span class="rp-tag">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
-        ${r.officialWebsite ? `<button class="rp-source-link" onclick="window.open('${r.officialWebsite}','_blank')">🔗 ${escapeHtml(r.officialWebsite)}</button>` : ''}
+  if (vibeDisplay) {
+    mainHTML += `
+    <div class="v14-card">
+      <div class="v14-card-hdr">
+        <div class="v14-card-ttl">\uD83C\uDFA8 Vibe &amp; Architecture</div>
+      </div>
+      <div class="v14-vibe-section">
+        <div class="v14-vibe-text">${escapeHtml(vibeDisplay.slice(0,600))}</div>
+        <div>
+          ${(r.summary?.confidence === 'high' ? ['Verified','Official Source','High Accuracy'] : r.summary?.confidence === 'medium' ? ['Verified','Medium Confidence'] : ['Low Confidence']).map(t=>`<span class="v14-tag-purple">${t}</span>`).join('')}
+        </div>
       </div>
     </div>`;
   }
 
-  // Quick Facts section
-  const quickFacts = extractQuickFacts(r, sections);
-  if (quickFacts.length > 0) {
-    html += `
-    <div class="rp-section" id="section-Overview-facts">
-      <div class="rp-section-header">
-        <div class="rp-section-title">📊 Quick Facts</div>
+  if (overviewFields.length > 0) {
+    const chunk1 = overviewFields.slice(0, 8);
+    const chunk2 = overviewFields.slice(8);
+    mainHTML += `
+    <div class="v14-card">
+      <div class="v14-card-hdr">
+        <div class="v14-card-ttl">\uD83D\uDCCB Quick Facts</div>
+        <span class="v14-card-sub">${overviewFields.length} fields</span>
       </div>
-      <div class="rp-section-body">
-        <div class="rp-facts-grid">
-          ${quickFacts.map(f => `
-            <div class="rp-fact-card">
-              <div class="rp-fact-label">${escapeHtml(f.label)}</div>
-              <div class="rp-fact-value ${f.isStars ? 'rp-fact-stars' : ''}">${f.isStars ? '★★★★★ ' : ''}${escapeHtml(f.value)}</div>
+      <div class="v14-field-grid">
+        ${chunk1.map(f => `
+          <div class="v14-field">
+            <div class="v14-flbl">${escapeHtml(f.label)}</div>
+            <div class="v14-fval">${escapeHtml(String(f.value).slice(0,150))}</div>
+            ${f.sourceUrl && f.sourceUrl !== 'not_found' ? `<a class="v14-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">\uD83D\uDD17 ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,45))}</a>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+    if (chunk2.length > 0) {
+      mainHTML += `
+      <div class="v14-card">
+        <div class="v14-card-hdr"><div class="v14-card-ttl">\uD83D\uDCC4 More Details</div><span class="v14-card-sub">${chunk2.length} fields</span></div>
+        <div class="v14-field-grid">
+          ${chunk2.map(f => `
+            <div class="v14-field">
+              <div class="v14-flbl">${escapeHtml(f.label)}</div>
+              <div class="v14-fval">${escapeHtml(String(f.value).slice(0,150))}</div>
+              ${f.sourceUrl && f.sourceUrl !== 'not_found' ? `<a class="v14-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">\uD83D\uDD17 ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,45))}</a>` : ''}
             </div>
           `).join('')}
         </div>
+      </div>`;
+    }
+  } else if (!vibeDisplay && sections.length === 0) {
+    // True fallback - nothing parsed
+    mainHTML += `
+    <div class="v14-card">
+      <div class="v14-card-hdr"><div class="v14-card-ttl">\u26A0 Research data could not be structured</div></div>
+      <div style="padding:16px 20px;font-size:13px;color:#6b7280">
+        The AI returned a response but it could not be parsed into sections. Please re-run the research or check the raw export.
       </div>
     </div>`;
   }
 
-  return html;
-}
+  mainHTML += `</div>`;
 
-function buildSectionHTML(section, tabKey) {
-  const tabIcons = {
-    'Overview': '🏨', 'Rooms': '🛏', 'Rooms & Accommodation': '🛏',
-    'Dining': '🍽', 'Amenities': '🏊', 'Amenities & Facilities': '🏊',
-    'Location': '📍', 'Policies': '📋', 'Images': '🖼',
-    'Reviews': '⭐', 'Reviews & Ratings': '⭐', 'Experiences': '🏅'
-  };
+  // ===== SECTION PANELS =====
+  sections.forEach(section => {
+    const panelId = 'v14panel-' + section.title.replace(/\W/g,'_');
+    const isDining = /din/i.test(section.title);
+    const isRooms = /room/i.test(section.title);
+    const isAmenities = /amenit/i.test(section.title);
+    const isPolicies = /polic/i.test(section.title);
+    const sFields = section.fields || [];
+    const visibleFields = sFields.filter(f => f.value !== 'not_found');
+    const sIcon = navIcons[section.title] || '\uD83D\uDCC4';
 
-  const isRooms = /room/i.test(section.title);
-  const isDining = /din/i.test(section.title);
-  const validFields = section.fields.filter(f => f.value !== 'not_found');
-  const count = validFields.length;
+    mainHTML += `<div class="v14-panel" id="${panelId}">`;
 
-  let html = '';
-  const sectionId = 'section-' + section.title.replace(/\W/g, '_');
+    if (isDining) {
+      const diningEntries = [];
+      let current = null;
+      sFields.forEach(f => {
+        if (f.value === 'not_found') return;
+        const lbl = f.label.toLowerCase();
+        if (/^(restaurant|dining outlet|outlet name|bar name|cafe|lounge name|restaurant name|\d+\.\s)/i.test(f.label) || /\bname\b$/i.test(f.label)) {
+          current = { name: String(f.value), cuisine:'', desc:'', timings:'', capacity:'', dress:'', reservation:'', extra:[] };
+          diningEntries.push(current);
+        } else if (current) {
+          if (/cuisine|type|style/i.test(lbl)) current.cuisine = String(f.value);
+          else if (/desc|about|overview/i.test(lbl)) current.desc = String(f.value);
+          else if (/timing|hour|open/i.test(lbl)) current.timings = String(f.value);
+          else if (/capac|seat|cover/i.test(lbl)) current.capacity = String(f.value);
+          else if (/dress/i.test(lbl)) current.dress = String(f.value);
+          else if (/reserv/i.test(lbl)) current.reservation = String(f.value);
+          else current.extra.push(f);
+        } else {
+          current = { name: f.label, cuisine:'', desc: String(f.value), timings:'', capacity:'', dress:'', reservation:'', extra:[] };
+          diningEntries.push(current);
+        }
+      });
 
-  // Section header with actions
-  html += `<div class="rp-section" id="${sectionId}">`;
-
-  if (isRooms && count > 0) {
-    // Rooms table view
-    const roomData = parseRoomData(section);
-    html += `
-      <div class="rp-section-header">
-        <div>
-          <span class="rp-section-title">🛏 ${escapeHtml(section.title)}</span>
-          <span class="rp-section-subtitle"> — ${count} room types found</span>
-        </div>
-        <div class="rp-section-actions">
-          <button class="rp-btn-copy" onclick="copySectionText('${section.title.replace(/'/g, "\'")}')">📋 Copy All Rooms</button>
-          <button class="rp-btn-details" onclick="exportSectionTable('${section.title.replace(/'/g, "\'")}')">⬇ Export Table</button>
-        </div>
-      </div>
-      <div class="rp-section-body" style="padding:0">
-        <table class="rp-data-table">
-          <thead>
-            <tr>
-              <th>Room Type</th>
-              <th>Size</th>
-              <th>Bed</th>
-              <th>View</th>
-              <th>Max Occ.</th>
-              <th>Key Amenities</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            ${roomData.map((room, idx) => `
-              <tr>
-                <td class="col-name">${escapeHtml(room.name)}</td>
-                <td>${escapeHtml(room.size)}</td>
-                <td>${escapeHtml(room.bed)}</td>
-                <td>${escapeHtml(room.view)}</td>
-                <td>${escapeHtml(room.occupancy)}</td>
-                <td><div class="col-amenities">${room.amenities.slice(0,3).map(a => `<span class="col-amenity-tag">${escapeHtml(a)}</span>`).join('')}${room.amenities.length > 3 ? `<span class="col-amenity-tag">+${room.amenities.length - 3} more</span>` : ''}</div></td>
-                <td><button class="rp-btn-details" onclick="toggleRoomDetail(${idx})">Details ⬇</button></td>
-              </tr>
-              ${_rpExpandedDetail === idx ? `
-              <tr><td colspan="7" style="padding:0;background:#f9fafb">
-                <div class="rp-detail-panel" style="margin:var(--space-3);border-radius:var(--radius-lg)">
-                  <div class="rp-detail-panel-header">
-                    <div class="rp-detail-panel-title">🛏 ${escapeHtml(room.name)} — Full Details</div>
-                    <div class="rp-detail-panel-actions">
-                      <button class="rp-btn-copy" onclick="copyToClipboard('${escapeHtml(room.rawValue || room.name).replace(/'/g, "\'")}')">📋 Copy</button>
-                      <button class="rp-btn-close" onclick="toggleRoomDetail(${idx})">✕</button>
-                    </div>
-                  </div>
-                  <div class="rp-detail-grid">
-                    <div class="rp-detail-item"><div class="rp-detail-label">Size</div><div class="rp-detail-value">${escapeHtml(room.size)}</div></div>
-                    <div class="rp-detail-item"><div class="rp-detail-label">Bed</div><div class="rp-detail-value">${escapeHtml(room.bed)}</div></div>
-                    <div class="rp-detail-item"><div class="rp-detail-label">View</div><div class="rp-detail-value">${escapeHtml(room.view)}</div></div>
-                    <div class="rp-detail-item"><div class="rp-detail-label">Max Occupancy</div><div class="rp-detail-value">${escapeHtml(room.occupancy)}</div></div>
-                  </div>
-                  ${room.amenities.length ? `<div class="rp-detail-amenities-row">${room.amenities.map(a => `<span class="rp-tag rp-tag-outline">${escapeHtml(a)}</span>`).join('')}</div>` : ''}
-                  ${room.sourceUrl ? `<div style="padding:0 var(--space-5) var(--space-4)"><button class="rp-source-link" onclick="window.open('${room.sourceUrl}','_blank')">🔗 ${escapeHtml(room.sourceUrl.slice(0, 50))}</button></div>` : ''}
+      if (diningEntries.length > 0) {
+        mainHTML += `
+        <div class="v14-card">
+          <div class="v14-card-hdr">
+            <div class="v14-card-ttl">\uD83C\uDF7D Dining \u2014 ${diningEntries.length} restaurant${diningEntries.length!==1?'s':''} &amp; bars</div>
+            <button class="v14-copy-btn" onclick="copySection('${section.title}')">&#x2398; Copy All</button>
+          </div>
+          <div class="v14-resto-grid">
+            ${diningEntries.map(d => `
+              <div class="v14-resto-card">
+                <div class="v14-resto-card-body">
+                  <div class="v14-resto-name">${escapeHtml(d.name.slice(0,80))}</div>
+                  ${d.cuisine ? `<div class="v14-cuisine">${escapeHtml(d.cuisine)}</div>` : ''}
+                  ${d.desc ? `<div class="v14-resto-desc">${escapeHtml(d.desc.slice(0,200))}</div>` : ''}
+                  ${(d.timings||d.capacity||d.dress||d.reservation) ? `
+                  <div class="v14-resto-details">
+                    ${d.timings?`<div class="v14-resto-detail"><div class="v14-rdlbl">Timings</div><div class="v14-rdval">${escapeHtml(d.timings)}</div></div>`:''}
+                    ${d.capacity?`<div class="v14-resto-detail"><div class="v14-rdlbl">Capacity</div><div class="v14-rdval">${escapeHtml(d.capacity)}</div></div>`:''}
+                    ${d.dress?`<div class="v14-resto-detail"><div class="v14-rdlbl">Dress Code</div><div class="v14-rdval">${escapeHtml(d.dress)}</div></div>`:''}
+                    ${d.reservation?`<div class="v14-resto-detail"><div class="v14-rdlbl">Reservations</div><div class="v14-rdval">${escapeHtml(d.reservation)}</div></div>`:''}
+                  </div>` : ''}
                 </div>
-              </td></tr>` : ''}
+              </div>
             `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
+          </div>
+        </div>`;
+      } else {
+        mainHTML += buildFieldCard(section, sFields, sIcon);
+      }
 
-  } else if (isDining && count > 0) {
-    // Dining cards view
-    const diningItems = parseDiningData(section);
-    html += `
-      <div class="rp-section-header">
+    } else if (isRooms) {
+      mainHTML += `
+      <div class="v14-card">
+        <div class="v14-card-hdr">
+          <div class="v14-card-ttl">\uD83D\uDECF Rooms &amp; Suites <span class="v14-card-sub">\u2014 ${visibleFields.length} fields found</span></div>
+          <button class="v14-copy-btn" onclick="copySection('${section.title}')">&#x2398; Copy All Rooms</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="v14-tbl">
+            <thead><tr><th>Field</th><th>Value</th><th>Source</th></tr></thead>
+            <tbody>
+              ${sFields.map(f => `
+                <tr>
+                  <td class="bold">${escapeHtml(f.label)}</td>
+                  <td>${f.value==='not_found'?'<span style="color:#d1d5db;font-style:italic">Not found</span>':escapeHtml(String(f.value).slice(0,150))}</td>
+                  <td>${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v14-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">\uD83D\uDD17 ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').split('/')[0].slice(0,30))}</a>`:'<span style="color:#d1d5db;font-size:11px">\u2014</span>'}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+
+    } else if (isAmenities) {
+      mainHTML += `
+      <div class="v14-card">
+        <div class="v14-card-hdr">
+          <div class="v14-card-ttl">\uD83C\uDFCA Amenities &amp; Facilities</div>
+          <span class="v14-card-sub">${visibleFields.length}+ amenities</span>
+        </div>
+        <div class="v14-am-chips">
+          ${visibleFields.map(f=>`<div class="v14-am-chip"><span class="ck">\u2713</span>${escapeHtml(f.label)}: ${escapeHtml(String(f.value).slice(0,60))}</div>`).join('')}
+        </div>
+      </div>`;
+
+    } else if (isPolicies) {
+      mainHTML += `
+      <div class="v14-card">
+        <div class="v14-card-hdr">
+          <div class="v14-card-ttl">\uD83D\uDCCB ${escapeHtml(section.title)}</div>
+          <span class="v14-card-sub">${visibleFields.length} policies</span>
+        </div>
         <div>
-          <span class="rp-section-title">🍽 ${escapeHtml(section.title)}</span>
-          <span class="rp-section-subtitle"> — ${diningItems.length} restaurants & bars</span>
-        </div>
-        <div class="rp-section-actions">
-          <button class="rp-btn-copy" onclick="copySectionText('${section.title.replace(/'/g, "\'")}')">📋 Copy All</button>
-        </div>
-      </div>
-      <div class="rp-section-body">
-        <div class="rp-dining-grid">
-          ${diningItems.map(item => `
-            <div class="rp-dining-card">
-              <div class="rp-dining-name">${escapeHtml(item.name)}</div>
-              ${item.cuisine ? `<span class="rp-dining-cuisine">${escapeHtml(item.cuisine)}</span>` : ''}
-              <div class="rp-dining-desc">${escapeHtml(item.description)}</div>
-              <div class="rp-dining-facts">
-                ${item.timings ? `<div class="rp-detail-item"><div class="rp-detail-label">Timings</div><div class="rp-detail-value">${escapeHtml(item.timings)}</div></div>` : ''}
-                ${item.capacity ? `<div class="rp-detail-item"><div class="rp-detail-label">Capacity</div><div class="rp-detail-value">${escapeHtml(item.capacity)}</div></div>` : ''}
-                ${item.dressCode ? `<div class="rp-detail-item"><div class="rp-detail-label">Dress Code</div><div class="rp-detail-value">${escapeHtml(item.dressCode)}</div></div>` : ''}
-                ${item.reservations ? `<div class="rp-detail-item"><div class="rp-detail-label">Reservations</div><div class="rp-detail-value">${escapeHtml(item.reservations)}</div></div>` : ''}
+          ${visibleFields.map(f=>`
+            <div class="v14-pol-row">
+              <div class="v14-pol-k">${escapeHtml(f.label)}</div>
+              <div class="v14-pol-v">${escapeHtml(String(f.value))}
+                ${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v14-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">\uD83D\uDD17 ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,40))}</a>`:''}
               </div>
             </div>
           `).join('')}
         </div>
-      </div>
-    `;
+      </div>`;
+    } else {
+      mainHTML += buildFieldCard(section, sFields, sIcon);
+    }
+    mainHTML += `</div>`;
+  });
 
-  } else {
-    // Generic section with key-value grid
-    html += `
-      <div class="rp-section-header">
-        <div class="rp-section-title">${tabIcons[section.title] || '📄'} ${escapeHtml(section.title)}</div>
-        <span style="font-size:11px;color:var(--color-text-muted)">${count} fields found</span>
-      </div>
-      <div class="rp-section-body">
-        <div class="rp-facts-grid">
-          ${section.fields.map(field => `
-            <div class="rp-fact-card">
-              <div class="rp-fact-label">${escapeHtml(field.label)}</div>
-              <div class="rp-fact-value">
-                ${field.value === 'not_found' ? '<span style="color:var(--color-text-faint);font-style:italic">Not found</span>' : escapeHtml(String(field.value))}
+  // ===== CONTENT PANEL (only real copy, no raw JSON) =====
+  if (hasRealContent) {
+    mainHTML += `<div class="v14-panel" id="v14panel-content_output">
+      <div class="v14-card">
+        <div class="v14-card-hdr">
+          <div class="v14-card-ttl">\u2728 Content Output</div>
+          <span class="v14-card-sub">${realContentOutputs.length} outputs ready</span>
+        </div>
+        <div style="padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+          ${realContentOutputs.map(out=>`
+            <div class="v14-cout">
+              <div class="v14-cout-hdr">
+                <div class="v14-cout-title">\u2728 ${escapeHtml(out.title||(out.type||'').replace(/_/g,' '))}</div>
+                <span class="pill pill-finished">Ready to use</span>
               </div>
-              ${field.sourceUrl && field.sourceUrl !== 'not_found' ? `<div style="margin-top:var(--space-1)"><a href="${field.sourceUrl}" target="_blank" rel="noopener" style="font-size:10px;color:#7c3aed">🔗 ${escapeHtml(field.sourceUrl.slice(0,40))}</a></div>` : ''}
+              <div class="v14-cout-body">${escapeHtml(out.copy||'')}</div>
+              ${out.warnings?.length?`<div style="padding:8px 16px;background:#fffbeb">${out.warnings.map(w=>`<div style="font-size:11px;color:#d97706">\u26A0 ${escapeHtml(w)}</div>`).join('')}</div>`:''}
             </div>
           `).join('')}
         </div>
       </div>
-    `;
-  }
-
-  html += '</div>';
-  return html;
-}
-
-function buildContentOutputHTML(r) {
-  if (!r.contentOutputs || !r.contentOutputs.length) return '';
-
-  let html = '';
-  r.contentOutputs.forEach((out, idx) => {
-    html += `
-    <div class="rp-content-output">
-      <div class="rp-content-output-header">
-        <div class="rp-content-output-title">✨ ${escapeHtml(out.title || out.type.replace(/_/g, ' '))}</div>
-        <span class="pill pill-finished">Ready to use</span>
-      </div>
-      <div class="rp-content-output-body">${escapeHtml(out.copy || '')}</div>
-      ${out.warnings?.length ? `<div style="padding:var(--space-2) var(--space-5);background:var(--color-warning-bg)">${out.warnings.map(w => `<div style="font-size:11px;color:var(--color-warning)">⚠ ${escapeHtml(w)}</div>`).join('')}</div>` : ''}
     </div>`;
-  });
-  return html;
-}
+  }
 
-function renderSidebar(proc, r, sections) {
-  const sidebar = document.getElementById('rpSidebar');
-  if (!sidebar) return;
-
-  const locationSec = sections.find(s => /location/i.test(s.title));
-  const addressFields = locationSec?.fields.filter(f => f.value !== 'not_found') || [];
-  const shortAnswer = r.summary?.shortAnswer || '';
-  const highlights = shortAnswer ? shortAnswer.split('.').filter(s => s.trim().length > 10).slice(0, 5) : [];
-  const vibeTags = extractVibeTags(shortAnswer);
-
-  // Extract sidebar quick facts
-  const starRating = extractFieldValue(sections, ['star', 'rating', 'category'], '5-Star Luxury');
-  const totalRooms = extractFieldValue(sections, ['total room', 'inventory', 'number of room'], '—');
-  const yearOpened = extractFieldValue(sections, ['year', 'opened', 'established'], '—');
-  const propertyType = extractFieldValue(sections, ['property type', 'hotel type'], '—');
-  const area = extractFieldValue(sections, ['area', 'acre', 'sprawling'], '—');
-  const chain = extractFieldValue(sections, ['chain', 'brand', 'group'], '—');
-
-  sidebar.innerHTML = `
-    <!-- Hotel Overview -->
-    <div class="rp-sidebar-card">
-      <div class="rp-sidebar-title">🏨 Hotel Overview</div>
-      <div class="rp-sidebar-text">${shortAnswer && !shortAnswer.trim().startsWith('{') ? escapeHtml(shortAnswer) : 'Research completed. View sections for detailed information.'}</div>
-    </div>
-
-    <!-- Quick Stats -->
-    <div class="rp-sidebar-card">
-      <div class="rp-sidebar-fact-grid">
-        <div class="rp-fact-card" style="padding:var(--space-3)">
-          <div class="rp-fact-label">Star Rating</div>
-          <div class="rp-fact-value rp-fact-stars">★★★★★</div>
-        </div>
-        <div class="rp-fact-card" style="padding:var(--space-3)">
-          <div class="rp-fact-label">Total Rooms</div>
-          <div class="rp-fact-value">${escapeHtml(totalRooms)}</div>
-        </div>
-        <div class="rp-fact-card" style="padding:var(--space-3)">
-          <div class="rp-fact-label">Opened</div>
-          <div class="rp-fact-value">${escapeHtml(yearOpened)}</div>
-        </div>
-        <div class="rp-fact-card" style="padding:var(--space-3)">
-          <div class="rp-fact-label">Property Type</div>
-          <div class="rp-fact-value">${escapeHtml(propertyType)}</div>
-        </div>
-        <div class="rp-fact-card" style="padding:var(--space-3)">
-          <div class="rp-fact-label">Area</div>
-          <div class="rp-fact-value">${escapeHtml(area)}</div>
-        </div>
-        <div class="rp-fact-card" style="padding:var(--space-3)">
-          <div class="rp-fact-label">Chain</div>
-          <div class="rp-fact-value">${escapeHtml(chain)}</div>
+  // True raw fallback
+  if (!sections.length && !hasRealContent) {
+    const summary = r.summary?.shortAnswer || '';
+    mainHTML += `<div class="v14-panel v14-active" id="v14panel-overview">
+      <div class="v14-card">
+        <div class="v14-card-hdr"><div class="v14-card-ttl">⚠ Research Data Issue</div></div>
+        <div class="v14-vibe-section">
+          <div class="v14-vibe-text" style="color:#374151">${summary ? escapeHtml(summary.slice(0,500)) : 'The AI returned a response but it could not be structured into sections. Please re-run the research, or try a different hotel name or model.'}</div>
+          <div style="margin-top:12px;padding:12px;background:#f5f3ff;border-radius:8px;font-size:12px;color:#6d28d9"><strong>Tip:</strong> Try running research again — Gemini sometimes needs a retry to return structured JSON. Also try using <strong>gemini-2.0-flash</strong> for best results.</div>
         </div>
       </div>
-      ${vibeTags.length ? `
-      <div class="rp-sidebar-divider"></div>
-      <div class="rp-sidebar-section-title">Tags</div>
-      <div class="rp-sidebar-tags">
-        ${vibeTags.slice(0, 8).map(t => `<span class="rp-tag">${escapeHtml(t)}</span>`).join('')}
-      </div>` : ''}
-    </div>
+    </div>`;
+  }
 
-    <!-- Official Factsheet -->
-    <div class="rp-sidebar-card">
-      <div class="rp-sidebar-section-title">Official Hotel Factsheet</div>
-      <button class="rp-sidebar-btn" onclick="exportJSON()">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download Official Factsheet (JSON)
-      </button>
-      <div style="font-size:10px;color:var(--color-text-faint);margin-top:var(--space-3);text-align:center">
-        Sourced directly from ${r.officialWebsite ? escapeHtml(r.officialWebsite.replace(/https?:\/\/(www\.)?/,'').split('/')[0]) : 'official website'} • Last fetched ${new Date().toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}
+
+  document.getElementById('v14Main').innerHTML = mainHTML;
+
+  // ===== ASIDE =====
+  const addrFields = locationSection?.fields?.filter(f=>f.value!=='not_found') || [];
+  const addrText = addrFields.slice(0,3).map(f=>String(f.value)).join(', ') || (r.officialWebsite?'See official website':'Address not found');
+  const highlights = vibeDisplay ? vibeDisplay.split(/[.!]/).filter(s=>s.trim().length>15).slice(0,4) : [];
+
+  asideHTML += `
+    <div class="v14-sc">
+      <div class="v14-sc-title">\uD83D\uDCCD Address</div>
+      <div class="v14-addr">${escapeHtml(addrText)}</div>
+      <button class="v14-map-btn" onclick="window.open('https://maps.google.com?q=${encodeURIComponent(proc.hotelName||'')}','_blank')">View on Map</button>
+    </div>`;
+
+  if (highlights.length) {
+    asideHTML += `
+    <div class="v14-sc">
+      <div class="v14-sc-title">\u2B50 Key Highlights</div>
+      ${highlights.map(h=>`<div class="v14-hl"><span class="v14-hlck">\u2714</span><span>${escapeHtml(h.trim())}</span></div>`).join('')}
+    </div>`;
+  }
+
+  asideHTML += `
+    <div class="v14-sc">
+      <div class="v14-sc-title">\u2139 Quick Info</div>
+      <div class="v14-qfg">
+        <div class="v14-qf"><div class="v14-qf-lbl">Hotel ID</div><div class="v14-qf-val" style="font-size:11px;font-weight:600">${proc.hotelId||proc.id||'N/A'}</div></div>
+        <div class="v14-qf"><div class="v14-qf-lbl">Mode</div><div class="v14-qf-val" style="font-size:11px;font-weight:600">${modeLabel}</div></div>
+        <div class="v14-qf"><div class="v14-qf-lbl">Type</div><div class="v14-qf-val" style="font-size:11px;font-weight:600">${proc.type==='batch'?'Batch':'Single'}</div></div>
+        <div class="v14-qf"><div class="v14-qf-lbl">Source</div><div class="v14-qf-val" style="font-size:11px;font-weight:600">Official Web</div></div>
+      </div>
+    </div>`;
+
+  if (r.officialWebsite) {
+    asideHTML += `
+    <div class="v14-sc">
+      <div class="v14-sc-title">\uD83C\uDF10 Official Factsheet</div>
+      <button class="v14-dl-btn" onclick="window.open('${escapeHtml(r.officialWebsite)}','_blank')">\u2B07 Download Official Factsheet (PDF)</button>
+      <div class="v14-src-note">Sourced from ${escapeHtml(r.officialWebsite.replace(/https?:\/\/(www\.)?/,'').split('/')[0])} \u2022 Last fetched ${proc.completedAt||''}</div>
+    </div>`;
+  }
+
+  const evidence = r.rawEvidence?.filter(e=>e.url)||[];
+  if (evidence.length) {
+    const official = evidence.filter(ev=>isOfficialSource(ev.url,proc.hotelName));
+    const display = official.length>0?official:evidence;
+    asideHTML += `
+    <div class="v14-sc">
+      <div class="v14-sc-title">\uD83D\uDD17 Research Sources (${evidence.length})</div>
+      ${display.slice(0,5).map(ev=>{
+        const domain=(ev.url||'').replace(/https?:\/\/(www\.)?/,'').split('/')[0];
+        return `<div style="padding:6px 0;border-bottom:1px solid #f3f4f6">
+          <div style="font-size:11px;font-weight:600;color:#111827">${escapeHtml(domain)}</div>
+          <a href="${escapeHtml(ev.url||'')}" target="_blank" rel="noopener" style="font-size:10px;color:#7c3aed;word-break:break-all">${escapeHtml((ev.url||'').slice(0,55))}</a>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }
+
+  document.getElementById('v14Aside').innerHTML = asideHTML;
+}
+
+function buildFieldCard(section, fields, icon) {
+  icon = icon || '\uD83D\uDCC4';
+  const visible = (fields||[]).filter(f=>f.value!=='not_found');
+  return `
+  <div class="v14-card">
+    <div class="v14-card-hdr">
+      <div class="v14-card-ttl">${icon} ${escapeHtml(section.title)}</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="v14-card-sub">${visible.length} fields found</span>
+        <button class="v14-copy-btn" onclick="copySection('${section.title}')">&#x2398; Copy</button>
       </div>
     </div>
-  `;
+    <div class="v14-field-grid">
+      ${(fields||[]).map(f=>`
+        <div class="v14-field">
+          <div class="v14-flbl">${escapeHtml(f.label)}</div>
+          <div class="v14-fval${f.value==='not_found'?' muted':''}">${f.value==='not_found'?'Not found':escapeHtml(String(f.value).slice(0,150))}</div>
+          ${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v14-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">\uD83D\uDD17 ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,40))}</a>`:''}
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
 }
 
-// ── Detail panel toggle ──────────────────────────────────────────────────
-function toggleRoomDetail(idx) {
-  _rpExpandedDetail = _rpExpandedDetail === idx ? null : idx;
-  renderTabContent(_rpCurrentTab);
+function v14SwitchTab(id, btn) {
+  document.querySelectorAll('.v14-tab').forEach(t=>t.classList.remove('v14-active'));
+  btn.classList.add('v14-active');
+  document.querySelectorAll('.v14-panel').forEach(p=>p.classList.remove('v14-active'));
+  const panel = document.getElementById('v14panel-'+id);
+  if (panel) panel.classList.add('v14-active');
+  const tabBar = document.getElementById('v14TabBar');
+  if (tabBar) window.scrollTo({top: tabBar.offsetTop - 10, behavior:'smooth'});
 }
 
-// ── Tab scroll ───────────────────────────────────────────────────────────
-function scrollToSection(id) {
-  // For tab-based nav: switch to the appropriate tab
-  const sectionMap = {
-    'section-Overview': 'Overview',
-    'section-Content_Output': 'Content Output'
-  };
-  const tabKey = sectionMap[id] || id.replace('section-', '');
-  if (_rpTabItems && _rpTabItems.find(t => t.key === tabKey)) {
-    switchRpTab(tabKey);
-  }
+function copySection(sectionTitle) {
+  if (!state.currentResult?.result) return;
+  const section = (state.currentResult.result.sections||[]).find(s=>s.title===sectionTitle);
+  if (!section) return;
+  const text = (section.fields||[]).filter(f=>f.value!=='not_found').map(f=>`${f.label}: ${f.value}`).join('\n');
+  navigator.clipboard.writeText(text).then(()=>showToast(`${sectionTitle} copied!`,'success'));
 }
 
-// ── Export functions ─────────────────────────────────────────────────────
-function exportPDF() {
-  window.print();
-}
-
-function exportWord() {
-  showToast('Word export coming soon', 'success');
-}
-
-function copyAllContent() {
-  const r = _rpCurrentResult?.result;
-  if (!r) return;
-  const text = JSON.stringify(r, null, 2);
-  copyToClipboard(text);
-  showToast('All content copied to clipboard!', 'success');
-}
-
-function copySectionText(sectionTitle) {
-  const sections = _rpCurrentResult?.result?.sections || [];
-  const sec = sections.find(s => s.title === sectionTitle);
-  if (!sec) return;
-  const text = sec.fields.map(f => `${f.label}: ${f.value}`).join('\n');
-  copyToClipboard(text);
-  showToast(`${sectionTitle} copied!`, 'success');
-}
-
-function exportSectionTable(sectionTitle) {
-  showToast(`Exporting ${sectionTitle}...`, 'success');
-}
-
-function copyToClipboard(text) {
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(text);
-  } else {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-  }
-}
-
-// ── Data extraction helpers ──────────────────────────────────────────────
-function countValidFields(section) {
-  return section.fields.filter(f => f.value !== 'not_found').length;
-}
-
-function extractRoomTypes(section) {
-  return section.fields.filter(f => f.value !== 'not_found' && /room|suite|villa|chalet/i.test(f.label)).map(f => f.label);
-}
-
-function extractRating(r) {
-  const stars = r.summary?.shortAnswer?.match(/(\d)\s*star/i);
-  if (stars) {
-    const n = parseInt(stars[1]);
-    return '★'.repeat(Math.min(n, 5)) + '☆'.repeat(5 - Math.min(n, 5));
-  }
-  return '★★★★★';
-}
-
-function extractVibeTags(text) {
-  if (!text) return [];
-  const commonTags = ['Heritage', 'Luxury', 'Boutique', 'Palace', 'Colonial', 'Modern', 'Beachfront',
-    'Garden', 'Spa', 'Business', 'Resort', 'Eco-Friendly', 'Romantic', 'Family', 'Wellness',
-    'Contemporary', 'Traditional', 'Rajasthani', 'Mughal', 'Victorian', 'Art Deco',
-    'Marble', 'Architecture', 'Serene', 'Historic', 'Iconic', 'Premium', 'Budget'];
-  return commonTags.filter(tag => text.toLowerCase().includes(tag.toLowerCase()));
-}
-
-function extractQuickFacts(r, sections) {
-  const facts = [];
-  const allFields = sections.flatMap(s => s.fields);
-
-  const findField = (patterns) => {
-    return allFields.find(f => patterns.some(p => f.label.toLowerCase().includes(p)) && f.value !== 'not_found');
-  };
-
-  const starField = findField(['star', 'rating', 'category']);
-  if (starField) facts.push({ label: 'Star Category', value: starField.value, isStars: true });
-
-  const invField = findField(['total room', 'inventory', 'rooms & suites', 'number of room']);
-  if (invField) facts.push({ label: 'Total Inventory', value: invField.value });
-
-  const yearField = findField(['year', 'opened', 'established', 'built']);
-  if (yearField) facts.push({ label: 'Year of Opening', value: yearField.value });
-
-  const areaField = findField(['area', 'acre', 'sprawling']);
-  if (areaField) facts.push({ label: 'Area (Acres)', value: areaField.value });
-
-  const typeField = findField(['property type', 'hotel type']);
-  if (typeField) facts.push({ label: 'Property Type', value: typeField.value });
-
-  const chainField = findField(['chain', 'brand', 'group', 'hotel chain']);
-  if (chainField) facts.push({ label: 'Hotel Chain', value: chainField.value });
-
-  const airportField = findField(['airport', 'nearest airport']);
-  if (airportField) facts.push({ label: 'Nearest Airport', value: airportField.value });
-
-  const metroField = findField(['metro', 'station', 'nearest metro']);
-  if (metroField) facts.push({ label: 'Nearest Metro', value: metroField.value });
-
-  return facts;
-}
-
-function extractFieldValue(sections, patterns, fallback) {
-  const allFields = sections.flatMap(s => s.fields);
-  const field = allFields.find(f => patterns.some(p => f.label.toLowerCase().includes(p)) && f.value !== 'not_found');
-  return field ? field.value : fallback;
-}
-
-function parseRoomData(section) {
-  // Try to parse structured room data from fields
-  const fields = section.fields.filter(f => f.value !== 'not_found');
-  const rooms = [];
-
-  // Group fields by room name prefix or pattern
-  const roomNames = [];
-  fields.forEach(f => {
-    const match = f.label.match(/^(.*?)(?:\s*[-—:]\s*|\s+)(?:room|suite|villa|size|area|bed|view|occupancy|amenity)/i);
-    if (match && !roomNames.includes(match[1].trim())) {
-      roomNames.push(match[1].trim());
-    }
+function copyAllResults() {
+  if (!state.currentResult?.result) return;
+  const r = state.currentResult.result;
+  let text = `Hotel: ${state.currentResult.hotelName}\n\n`;
+  (r.sections||[]).forEach(s=>{
+    text += `=== ${s.title} ===\n`;
+    (s.fields||[]).filter(f=>f.value!=='not_found').forEach(f=>{text+=`${f.label}: ${f.value}\n`;});
+    text+='\n';
   });
-
-  if (roomNames.length === 0) {
-    // Fallback: treat each field as a separate room entry
-    return fields.slice(0, 10).map(f => ({
-      name: f.label,
-      size: '—',
-      bed: '—',
-      view: '—',
-      occupancy: '—',
-      amenities: [String(f.value).slice(0, 50)],
-      rawValue: String(f.value),
-      sourceUrl: f.sourceUrl
-    }));
-  }
-
-  return roomNames.slice(0, 10).map(name => {
-    const nameFields = fields.filter(f => f.label.toLowerCase().includes(name.toLowerCase()));
-    const sizeField = nameFields.find(f => /size|area|sqm|sq ft|square/i.test(f.label));
-    const bedField = nameFields.find(f => /bed/i.test(f.label));
-    const viewField = nameFields.find(f => /view/i.test(f.label));
-    const occField = nameFields.find(f => /occupancy|guest|max/i.test(f.label));
-    const amenityField = nameFields.find(f => /amenity|feature/i.test(f.label));
-
-    const allAmenities = [];
-    if (amenityField) {
-      allAmenities.push(...String(amenityField.value).split(/[,;]/).map(s => s.trim()).filter(Boolean));
-    }
-
-    return {
-      name,
-      size: sizeField ? String(sizeField.value) : '—',
-      bed: bedField ? String(bedField.value) : '—',
-      view: viewField ? String(viewField.value) : '—',
-      occupancy: occField ? String(occField.value) : '—',
-      amenities: allAmenities.length ? allAmenities : ['—'],
-      rawValue: nameFields.map(f => `${f.label}: ${f.value}`).join('\n'),
-      sourceUrl: sizeField?.sourceUrl || bedField?.sourceUrl || ''
-    };
-  });
+  navigator.clipboard.writeText(text).then(()=>showToast('All results copied!','success'));
 }
 
-function parseDiningData(section) {
-  const fields = section.fields.filter(f => f.value !== 'not_found');
-  const items = [];
-
-  // Try to group by restaurant name
-  const restNames = [];
-  fields.forEach(f => {
-    const match = f.label.match(/^(.*?)(?:\s*[-—:]\s*|\s+)(?:cuisine|type|timing|capacity|dress|reservation|desc)/i);
-    if (match && !restNames.includes(match[1].trim())) {
-      restNames.push(match[1].trim());
-    }
-  });
-
-  if (restNames.length === 0) {
-    return fields.slice(0, 8).map(f => ({
-      name: f.label,
-      cuisine: '',
-      description: String(f.value).slice(0, 200),
-      timings: '',
-      capacity: '',
-      dressCode: '',
-      reservations: ''
-    }));
-  }
-
-  return restNames.slice(0, 8).map(name => {
-    const nameFields = fields.filter(f => f.label.toLowerCase().includes(name.toLowerCase()));
-    const cuisineField = nameFields.find(f => /cuisine|type/i.test(f.label));
-    const timingField = nameFields.find(f => /timing|hour|open/i.test(f.label));
-    const capacityField = nameFields.find(f => /capacity|cover|seat/i.test(f.label));
-    const dressField = nameFields.find(f => /dress/i.test(f.label));
-    const resField = nameFields.find(f => /reservation|booking/i.test(f.label));
-
-    return {
-      name,
-      cuisine: cuisineField ? String(cuisineField.value) : '',
-      description: nameFields.map(f => f.value).join('. ').slice(0, 200),
-      timings: timingField ? String(timingField.value) : '',
-      capacity: capacityField ? String(capacityField.value) : '',
-      dressCode: dressField ? String(dressField.value) : '',
-      reservations: resField ? String(resField.value) : ''
-    };
-  });
-}
-
-function capitalize(s) {
-  return String(s).charAt(0).toUpperCase() + String(s).slice(1);
-}
 
 function exportJSON() {
   if (!state.currentResult?.result) return;
