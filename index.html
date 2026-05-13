@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MMT Hotel Research v15 — Scribe</title>
+<title>MMT Hotel Research v21</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
@@ -663,147 +663,155 @@ a { color: inherit; text-decoration: none; }
 
 
 
+
 /* ===========================
-   V14 RESULTS PAGE — REDESIGN
-   Dark Hero + Tab Navigation
+   V17 RESULTS PAGE — REDESIGN
    =========================== */
 
-#page-results { background: #eef0f4; }
+#page-results { background: #f0f2f5; }
 
-/* --- HERO BAND --- */
+/* --- HERO --- */
 .v14-hero {
-  background: linear-gradient(140deg, #130a2e 0%, #1e1048 30%, #2d1869 60%, #3b1f8c 100%);
+  background: linear-gradient(140deg, #0f0825 0%, #1a0d42 25%, #261560 55%, #32198a 100%);
   position: relative; overflow: hidden;
 }
 .v14-hero::after {
   content: '';
   position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse 60% 80% at 15% 60%, rgba(124,58,237,0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 85% 20%, rgba(167,139,250,0.12) 0%, transparent 55%),
-    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a78bfa' fill-opacity='0.04' fill-rule='evenodd'%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3Ccircle cx='0' cy='0' r='2'/%3E%3Ccircle cx='80' cy='0' r='2'/%3E%3Ccircle cx='0' cy='80' r='2'/%3E%3Ccircle cx='80' cy='80' r='2'/%3E%3C/g%3E%3C/svg%3E");
+    radial-gradient(ellipse 70% 90% at 10% 70%, rgba(109,40,217,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 70% at 90% 10%, rgba(167,139,250,0.14) 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23a78bfa' stroke-opacity='0.07' stroke-width='1'%3E%3Cpath d='M20 5 L35 15 L35 25 L20 35 L5 25 L5 15Z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Top bar inside hero */
+/* topbar */
 .v14-topbar {
-  display: flex; align-items: center;
-  padding: 12px 32px; gap: 12px;
+  display: flex; align-items: center; padding: 14px 36px; gap: 12px;
   position: relative; z-index: 2;
 }
 .v14-back-btn {
   display: flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16);
-  color: rgba(255,255,255,0.8); border-radius: 8px;
-  padding: 6px 14px; font-size: 12px; font-weight: 500; font-family: inherit;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.75); border-radius: 8px;
+  padding: 7px 16px; font-size: 12px; font-weight: 500; font-family: inherit;
   cursor: pointer; transition: all 160ms ease; white-space: nowrap;
 }
-.v14-back-btn:hover { background: rgba(255,255,255,0.16); color: #fff; }
+.v14-back-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
 .v14-topbar-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+
+/* action buttons */
 .v14-btn {
   display: inline-flex; align-items: center; gap: 6px;
-  border-radius: 8px; padding: 7px 16px;
-  font-size: 12px; font-weight: 600; cursor: pointer;
-  font-family: inherit; transition: all 160ms ease; border: none; white-space: nowrap;
+  border-radius: 8px; padding: 7px 18px; font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: inherit; transition: all 160ms ease;
+  border: none; white-space: nowrap;
 }
-.v14-btn-pdf  { background: #7c3aed; color: #fff; }
-.v14-btn-pdf:hover { background: #6d28d9; }
-.v14-btn-ghost { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.18); }
-.v14-btn-ghost:hover { background: rgba(255,255,255,0.2); }
+.v14-btn-pdf { background: #7c3aed; color: #fff; box-shadow: 0 2px 8px rgba(124,58,237,0.35); }
+.v14-btn-pdf:hover { background: #6d28d9; box-shadow: 0 4px 12px rgba(124,58,237,0.45); }
+.v14-btn-ghost {
+  background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.v14-btn-ghost:hover { background: rgba(255,255,255,0.18); color: #fff; }
 
-/* Hero body */
-.v14-hero-body {
-  padding: 6px 32px 28px;
-  position: relative; z-index: 2;
-}
+/* hero body */
+.v14-hero-body { padding: 4px 36px 32px; position: relative; z-index: 2; }
 .v14-hotel-name {
-  font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800;
-  color: #fff; letter-spacing: -0.025em; line-height: 1.15;
-  margin-bottom: 10px;
+  font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 800; color: #fff;
+  letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 12px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.25);
 }
+
+/* meta row */
 .v14-meta-row {
-  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  margin-bottom: 22px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
 }
 .v14-status-badge {
   display: inline-flex; align-items: center; gap: 5px;
-  background: rgba(16,185,129,0.18); color: #6ee7b7;
-  border: 1px solid rgba(16,185,129,0.3); border-radius: 20px;
-  padding: 2px 10px; font-size: 11px; font-weight: 600;
+  background: rgba(16,185,129,0.15); color: #6ee7b7;
+  border: 1px solid rgba(16,185,129,0.28); border-radius: 20px;
+  padding: 3px 12px; font-size: 11px; font-weight: 600;
 }
 .v14-status-badge::before { content: '●'; font-size: 7px; }
-.v14-meta-dot { color: rgba(255,255,255,0.25); }
+.v14-meta-dot { color: rgba(255,255,255,0.2); font-size: 10px; }
 .v14-meta-item {
   display: inline-flex; align-items: center; gap: 4px;
-  font-size: 11.5px; color: rgba(255,255,255,0.55);
+  font-size: 11.5px; color: rgba(255,255,255,0.5);
 }
 
-/* Stat boxes */
-.v14-stats {
-  display: flex; gap: 10px; flex-wrap: wrap;
-}
+/* stat chips */
+.v14-stats { display: flex; gap: 10px; flex-wrap: wrap; }
 .v14-stat {
-  background: rgba(255,255,255,0.09);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 10px; padding: 12px 18px;
-  min-width: 88px; backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 10px; padding: 13px 20px; min-width: 90px;
+  backdrop-filter: blur(8px);
   cursor: default; transition: background 160ms ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
-.v14-stat:hover { background: rgba(255,255,255,0.15); }
-.v14-stat-val { font-size: 1.5rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
-.v14-stat-stars { color: #fbbf24; font-size: 15px; line-height: 1; margin-bottom: 4px; }
-.v14-stat-lbl { font-size: 9.5px; font-weight: 700; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; }
+.v14-stat:hover { background: rgba(255,255,255,0.14); }
+.v14-stat-val {
+  font-size: 1.6rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 5px;
+}
+.v14-stat-stars { color: #fbbf24; font-size: 16px; line-height: 1; margin-bottom: 5px; }
+.v14-stat-lbl {
+  font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.4);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
 
 /* --- TAB BAR --- */
 .v14-tabs {
-  background: #fff; border-bottom: 1px solid #e5e7eb;
-  display: flex; align-items: center; gap: 0;
-  padding: 0 32px; overflow-x: auto;
+  background: #fff;
+  border-bottom: 2px solid #e9eaec;
+  display: flex; align-items: center;
+  padding: 0 36px; overflow-x: auto;
   position: sticky; top: 0; z-index: 60;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  gap: 0;
 }
 .v14-tabs::-webkit-scrollbar { display: none; }
 .v14-tab {
   display: inline-flex; align-items: center; gap: 7px;
-  padding: 14px 14px 13px; font-size: 13px; font-weight: 500;
+  padding: 15px 16px 14px; font-size: 13px; font-weight: 500;
   color: #6b7280; border-bottom: 2px solid transparent;
   cursor: pointer; white-space: nowrap; user-select: none;
-  transition: color 140ms ease; position: relative; margin-bottom: -1px;
-  font-family: inherit;
-  background: none; border-top: none; border-left: none; border-right: none;
+  transition: color 120ms ease, border-color 120ms ease;
+  position: relative; margin-bottom: -2px;
+  font-family: inherit; background: none;
+  border-top: none; border-left: none; border-right: none;
 }
-.v14-tab:hover { color: #111827; }
-.v14-tab.v14-active { color: #7c3aed; border-bottom-color: #7c3aed; font-weight: 600; }
+.v14-tab:hover { color: #374151; }
+.v14-tab.v14-active {
+  color: #7c3aed; border-bottom-color: #7c3aed; font-weight: 600;
+}
 .v14-tab-count {
   display: inline-flex; align-items: center; justify-content: center;
-  background: #f3f4f6; color: #6b7280; border-radius: 20px;
-  padding: 0px 7px; font-size: 10px; font-weight: 700; min-width: 18px; height: 18px;
+  background: #f3f4f6; color: #9ca3af; border-radius: 20px;
+  padding: 0 7px; font-size: 10px; font-weight: 700;
+  min-width: 18px; height: 18px; transition: all 120ms ease;
 }
-.v14-tab.v14-active .v14-tab-count { background: #7c3aed; color: #fff; }
+.v14-tab.v14-active .v14-tab-count { background: #ede9fe; color: #7c3aed; }
 
-/* --- CONTENT LAYOUT --- */
+/* --- BODY LAYOUT --- */
 .v14-body {
-  display: flex; gap: 20px;
-  padding: 22px 32px;
+  display: flex; gap: 20px; padding: 24px 36px;
   align-items: flex-start;
-  max-width: 1700px;
 }
 .v14-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
-.v14-aside { width: 290px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
-
-/* Tab panels */
+.v14-aside { width: 300px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
 .v14-panel { display: none; flex-direction: column; gap: 16px; }
 .v14-panel.v14-active { display: flex; }
 
-/* --- CARDS --- */
+/* --- BASE CARD --- */
 .v14-card {
-  background: #fff; border-radius: 12px;
+  background: #fff; border-radius: 14px;
   border: 1px solid #e9eaec;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
   overflow: hidden;
 }
 .v14-card-hdr {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 15px 20px 13px; border-bottom: 1px solid #f3f4f6;
+  padding: 16px 20px 14px; border-bottom: 1px solid #f0f1f3;
 }
 .v14-card-ttl {
   font-size: 14px; font-weight: 700; color: #111827;
@@ -813,189 +821,378 @@ a { color: inherit; text-decoration: none; }
 .v14-copy-btn {
   display: inline-flex; align-items: center; gap: 5px;
   font-size: 11.5px; color: #6b7280; cursor: pointer;
-  padding: 5px 10px; border-radius: 6px;
-  border: 1px solid #e5e7eb; background: #f9fafb;
-  font-family: inherit; transition: all 140ms ease; font-weight: 500;
+  padding: 5px 11px; border-radius: 7px; border: 1px solid #e5e7eb;
+  background: #f9fafb; font-family: inherit; transition: all 140ms ease; font-weight: 500;
 }
-.v14-copy-btn:hover { background: #f3f4f6; color: #374151; }
+.v14-copy-btn:hover { background: #f3f4f6; color: #374151; border-color: #d1d5db; }
 
-/* Field grid - 2 col key/value */
-.v14-field-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: #f0f0f0;
-}
-.v14-field {
-  background: #fff; padding: 13px 20px;
-}
-.v14-flbl {
-  font-size: 9.5px; font-weight: 700; color: #9ca3af;
-  text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 5px;
-}
-.v14-fval {
-  font-size: 13.5px; font-weight: 600; color: #111827; line-height: 1.45;
-}
-.v14-fval.muted { color: #d1d5db; font-weight: 400; font-style: italic; font-size: 12px; }
-.v14-fsrc {
-  display: inline-flex; align-items: center; gap: 3px;
-  font-size: 10px; color: #7c3aed; margin-top: 4px;
-  text-decoration: none; opacity: 0.75; word-break: break-all;
-}
-.v14-fsrc:hover { opacity: 1; text-decoration: underline; }
+/* --- OVERVIEW LAYOUT --- */
+.v16-overview-wrap { display: flex; gap: 20px; align-items: flex-start; }
+.v16-overview-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.v16-overview-side { width: 300px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
 
-/* Data table */
-.v14-tbl { width: 100%; border-collapse: collapse; }
-.v14-tbl thead tr { background: #f9fafb; }
-.v14-tbl th {
-  font-size: 9.5px; font-weight: 700; color: #9ca3af;
-  text-transform: uppercase; letter-spacing: 0.07em;
-  padding: 10px 14px; text-align: left; border-bottom: 1px solid #e5e7eb;
-  white-space: nowrap;
+/* Vibe card */
+.v16-vibe-card {
+  background: #fff; border-radius: 14px; border: 1px solid #e9eaec;
+  padding: 22px; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
-.v14-tbl td {
-  padding: 12px 14px; font-size: 12.5px; color: #374151;
-  border-bottom: 1px solid #f3f4f6; vertical-align: middle;
+.v16-vibe-title {
+  font-size: 14px; font-weight: 700; color: #111827;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
 }
-.v14-tbl tr:last-child td { border-bottom: none; }
-.v14-tbl tr:hover td { background: #fafafa; }
-.v14-tbl td.bold { font-weight: 600; color: #111827; }
-.v14-chip {
-  display: inline-flex; align-items: center;
-  background: #f3f4f6; border-radius: 5px;
-  padding: 2px 8px; font-size: 11px; color: #6b7280; font-weight: 500; margin: 1px;
+.v16-vibe-text {
+  font-size: 13.5px; color: #374151; line-height: 1.8; margin-bottom: 16px;
 }
-.v14-detail-link {
-  color: #7c3aed; font-size: 12px; font-weight: 600;
-  cursor: pointer; padding: 4px 8px; border-radius: 6px;
-  border: none; background: none; font-family: inherit;
-  transition: background 140ms;
-}
-.v14-detail-link:hover { background: #f5f3ff; }
-
-/* Expandable detail panel */
-.v14-expand {
-  background: #f9fafb; border-top: 1px solid #f0f0f0;
-  display: none;
-}
-.v14-expand.open { display: block; }
-.v14-expand-inner { padding: 16px 20px; }
-.v14-expand-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 14px;
-}
-.v14-expand-title { font-size: 13px; font-weight: 700; color: #111827; }
-.v14-expand-close {
-  background: none; border: none; font-size: 16px; color: #9ca3af;
-  cursor: pointer; padding: 0 4px; line-height: 1; font-family: inherit;
-}
-.v14-expand-close:hover { color: #374151; }
-.v14-chips-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-
-/* Restaurant cards */
-.v14-resto-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 16px; padding: 16px 20px;
-}
-.v14-resto-card {
-  background: #fff; border: 1px solid #e9eaec;
-  border-radius: 10px; overflow: hidden;
-}
-.v14-resto-card-body { padding: 14px 16px; }
-.v14-resto-name { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 5px; }
-.v14-cuisine {
-  display: inline-block; background: #ede9fe; color: #7c3aed;
-  border-radius: 20px; padding: 2px 10px; font-size: 11px; font-weight: 600;
-  margin-bottom: 9px;
-}
-.v14-resto-desc { font-size: 11.5px; color: #6b7280; line-height: 1.65; margin-bottom: 12px; }
-.v14-resto-details {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: #f0f0f0; border-radius: 8px; overflow: hidden;
-}
-.v14-resto-detail { background: #fafafa; padding: 9px 11px; }
-.v14-rdlbl { font-size: 9.5px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
-.v14-rdval { font-size: 12px; font-weight: 600; color: #111827; }
-
-/* Overview vibe block */
-.v14-vibe-section { padding: 16px 20px; }
-.v14-vibe-text { font-size: 13px; color: #374151; line-height: 1.75; margin-bottom: 12px; }
-.v14-tag-purple {
+.v16-tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+.v16-tag-purple {
   display: inline-flex; background: #ede9fe; color: #7c3aed;
-  border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 500; margin: 2px;
+  border-radius: 20px; padding: 4px 13px; font-size: 11px; font-weight: 500;
 }
+.v16-source-link {
+  display: inline-flex; align-items: center; gap: 4px; font-size: 11px;
+  color: #7c3aed; text-decoration: none; background: #f5f3ff;
+  border-radius: 6px; padding: 3px 10px; margin-top: 4px;
+  border: 1px solid #ede9fe;
+}
+.v16-source-link:hover { background: #ede9fe; }
 
-/* Sidebar */
-.v14-sc {
-  background: #fff; border: 1px solid #e9eaec;
-  border-radius: 12px; padding: 15px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+/* Quick facts card */
+.v16-qf-card {
+  background: #fff; border-radius: 14px; border: 1px solid #e9eaec;
+  overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
-.v14-sc-title {
+.v16-qf-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 15px 20px 13px; border-bottom: 1px solid #f0f1f3;
+  font-size: 14px; font-weight: 700; color: #111827;
+}
+.v16-qf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #efefef; }
+.v16-qf-cell { background: #fff; padding: 14px 20px; }
+.v16-qf-lbl {
+  font-size: 9px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px;
+}
+.v16-qf-val { font-size: 13.5px; font-weight: 600; color: #111827; line-height: 1.4; }
+.v16-qf-val.muted { color: #d1d5db; font-weight: 400; font-style: italic; font-size: 12px; }
+
+/* Overview right sidebar */
+.v16-ov-side-card {
+  background: #fff; border-radius: 14px; border: 1px solid #e9eaec;
+  padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.v16-ov-side-title {
   font-size: 13px; font-weight: 700; color: #111827;
-  margin-bottom: 11px;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
 }
-.v14-addr { font-size: 12.5px; color: #374151; line-height: 1.75; margin-bottom: 12px; }
-.v14-map-btn, .v14-dl-btn {
+.v16-ov-side-text { font-size: 12.5px; color: #374151; line-height: 1.8; margin-bottom: 14px; }
+.v16-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.v16-mini-cell { background: #f9fafb; border-radius: 8px; padding: 10px 12px; border: 1px solid #f0f0f0; }
+.v16-mini-lbl { font-size: 9px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.v16-mini-val { font-size: 13px; font-weight: 700; color: #111827; }
+.v16-mini-val .stars { color: #f59e0b; }
+
+/* Address sidebar */
+.v16-addr-card { background: #fff; border-radius: 14px; border: 1px solid #e9eaec; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.v16-addr-title { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+.v16-addr-text { font-size: 12.5px; color: #374151; line-height: 1.75; margin-bottom: 12px; }
+.v16-map-btn {
   width: 100%; padding: 9px; border-radius: 8px;
   border: 1.5px solid #7c3aed; color: #7c3aed;
   background: #fff; font-size: 12.5px; font-weight: 600;
   cursor: pointer; transition: all 140ms ease; font-family: inherit;
-  display: flex; align-items: center; justify-content: center; gap: 7px;
 }
-.v14-map-btn:hover, .v14-dl-btn:hover { background: #f5f3ff; }
-.v14-hl {
+.v16-map-btn:hover { background: #f5f3ff; }
+
+.v16-hl-card { background: #fff; border-radius: 14px; border: 1px solid #e9eaec; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.v16-hl-title { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 10px; }
+.v16-hl-item {
   display: flex; align-items: flex-start; gap: 8px;
   font-size: 12px; color: #374151; line-height: 1.65;
   padding: 5px 0; border-bottom: 1px solid #f3f4f6;
 }
-.v14-hl:last-child { border-bottom: none; padding-bottom: 0; }
-.v14-hlck { color: #7c3aed; font-size: 11px; flex-shrink: 0; margin-top: 3px; }
+.v16-hl-item:last-child { border-bottom: none; padding-bottom: 0; }
+.v16-hl-ck { color: #7c3aed; font-size: 11px; flex-shrink: 0; margin-top: 3px; }
 
-/* Quick facts grid (2-col in sidebar) */
-.v14-qfg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.v14-qf { background: #f9fafb; border-radius: 7px; padding: 9px 11px; }
-.v14-qf-lbl { font-size: 9px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
-.v14-qf-val { font-size: 13px; font-weight: 700; color: #111827; }
+/* Sources card */
+.v16-src-card { background: #fff; border-radius: 14px; border: 1px solid #e9eaec; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.v16-src-title { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 10px; }
+.v16-src-item { padding: 6px 0; border-bottom: 1px solid #f3f4f6; }
+.v16-src-item:last-child { border-bottom: none; }
+.v16-src-domain { font-size: 11.5px; font-weight: 600; color: #374151; margin-bottom: 2px; }
+.v16-src-url { font-size: 10.5px; color: #7c3aed; text-decoration: none; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.v16-src-url:hover { text-decoration: underline; }
+.v16-src-note { font-size: 10px; color: #9ca3af; text-align: center; margin-top: 8px; }
 
-/* Content output block */
-.v14-cout {
-  border: 1px solid #ddd6fe; border-radius: 10px; overflow: hidden; margin-bottom: 4px;
+.v16-dl-btn {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px; border-radius: 8px; border: 1.5px dashed #c4b5fd;
+  color: #7c3aed; background: #faf9ff; font-size: 12.5px; font-weight: 600;
+  cursor: pointer; transition: all 140ms ease; font-family: inherit;
 }
-.v14-cout-hdr {
+.v16-dl-btn:hover { background: #f5f3ff; border-color: #7c3aed; }
+
+/* --- ROOMS TABLE --- */
+.v16-rooms-wrap {
+  background: #fff; border-radius: 14px; border: 1px solid #e9eaec;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04); overflow: hidden;
+}
+.v16-rooms-hdr {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 11px 15px; background: #f5f3ff; border-bottom: 1px solid #ddd6fe;
+  padding: 16px 20px 14px; border-bottom: 1px solid #f0f1f3;
 }
-.v14-cout-title { font-size: 13px; font-weight: 700; color: #5b21b6; }
-.v14-cout-body { padding: 13px 16px; font-size: 12.5px; color: #374151; line-height: 1.75; white-space: pre-wrap; }
-
-/* Amenity chips in amenities section */
-.v14-am-chips { display: flex; flex-wrap: wrap; gap: 7px; padding: 15px 20px; }
-.v14-am-chip {
-  display: inline-flex; align-items: center; gap: 5px;
-  background: #f3f4f6; border-radius: 20px;
-  padding: 5px 13px; font-size: 12px; color: #374151; font-weight: 500;
+.v16-rooms-title {
+  font-size: 14px; font-weight: 700; color: #111827;
+  display: flex; align-items: center; gap: 8px;
 }
-.v14-am-chip .ck { color: #7c3aed; font-size: 11px; }
-
-/* Policy rows */
-.v14-pol-row {
-  display: flex; align-items: flex-start; gap: 14px;
-  padding: 11px 20px; border-bottom: 1px solid #f3f4f6; font-size: 12.5px;
+.v16-rooms-actions { display: flex; gap: 8px; }
+.v16-tbl { width: 100%; border-collapse: collapse; }
+.v16-tbl thead tr { background: #fafafa; }
+.v16-tbl th {
+  font-size: 9px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 11px 16px; text-align: left;
+  border-bottom: 1px solid #e9eaec; white-space: nowrap;
 }
-.v14-pol-row:last-child { border-bottom: none; }
-.v14-pol-k { width: 170px; flex-shrink: 0; color: #6b7280; font-weight: 500; }
-.v14-pol-v { color: #111827; font-weight: 600; flex: 1; line-height: 1.6; }
+.v16-tbl td {
+  padding: 14px 16px; font-size: 13px; color: #374151;
+  border-bottom: 1px solid #f3f4f6; vertical-align: middle;
+}
+.v16-tbl tr:last-child td { border-bottom: none; }
+.v16-tbl tr.has-expand:hover td { background: #fafafa; cursor: pointer; }
+.v16-tbl td.room-name { font-weight: 700; color: #111827; font-size: 13.5px; }
+.v16-chip {
+  display: inline-flex; background: #f3f4f6; color: #4b5563;
+  border-radius: 6px; padding: 3px 9px; font-size: 11px; font-weight: 500;
+  margin-right: 4px; margin-bottom: 2px; border: 1px solid #e9eaec;
+}
+.v16-detail-btn {
+  background: none; border: none; color: #7c3aed; font-size: 12px;
+  font-weight: 600; cursor: pointer; font-family: inherit;
+  padding: 5px 10px; border-radius: 6px; transition: background 140ms ease;
+}
+.v16-detail-btn:hover { background: #f5f3ff; }
 
-/* source tag in sidebar */
-.v14-src-note { font-size: 10px; color: #9ca3af; margin-top: 8px; }
+/* Room expand panel */
+.v16-expand { display: none; }
+.v16-expand.open { display: block; }
+.v16-expand-inner {
+  background: #f9fafb; border-top: 1px solid #e9eaec;
+  padding: 20px; border-radius: 0 0 14px 14px;
+}
+.v16-expand-hdr {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+}
+.v16-expand-title { font-size: 14px; font-weight: 700; color: #111827; }
+.v16-expand-btns { display: flex; gap: 8px; align-items: center; }
+.v16-expand-close {
+  background: none; border: 1px solid #e5e7eb; border-radius: 6px;
+  width: 28px; height: 28px; cursor: pointer; font-size: 16px; color: #6b7280;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 140ms ease; font-family: inherit;
+}
+.v16-expand-close:hover { background: #f3f4f6; color: #374151; }
+.v16-detail-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px; margin-bottom: 16px;
+}
+.v16-detail-cell {
+  background: #fff; border-radius: 9px; padding: 12px 14px;
+  border: 1px solid #e9eaec;
+}
+.v16-detail-lbl {
+  font-size: 9px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;
+}
+.v16-detail-val { font-size: 13px; font-weight: 600; color: #111827; }
+.v16-amenities-section { margin-top: 4px; }
+.v16-amenities-lbl {
+  font-size: 9px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;
+}
+.v16-amenity-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.v16-amenity-chip {
+  display: inline-flex; background: #fff; border: 1px solid #e9eaec;
+  border-radius: 7px; padding: 4px 11px; font-size: 11.5px; color: #374151;
+}
+.v16-room-src {
+  display: inline-flex; align-items: center; gap: 4px; font-size: 11px;
+  color: #7c3aed; text-decoration: none; margin-top: 12px;
+  background: #f5f3ff; border-radius: 6px; padding: 4px 10px;
+  border: 1px solid #ede9fe;
+}
+.v16-room-src:hover { background: #ede9fe; }
 
-@media (max-width: 960px) {
+/* --- DINING CARDS --- */
+.v16-dining-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px 14px; border-bottom: 1px solid #f0f1f3;
+}
+.v16-dining-title { font-size: 14px; font-weight: 700; color: #111827; }
+.v16-dining-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; padding: 20px;
+}
+.v16-resto-card {
+  background: #fff; border-radius: 12px; border: 1px solid #e9eaec;
+  padding: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: box-shadow 160ms ease;
+}
+.v16-resto-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+.v16-resto-name { font-size: 14.5px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+.v16-cuisine-tag {
+  display: inline-flex; background: #ede9fe; color: #7c3aed;
+  border-radius: 20px; padding: 3px 12px; font-size: 11px; font-weight: 500;
+  margin-bottom: 10px;
+}
+.v16-resto-desc { font-size: 12.5px; color: #6b7280; line-height: 1.7; margin-bottom: 14px; }
+.v16-resto-details {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  background: #f9fafb; border-radius: 9px; padding: 12px;
+  border: 1px solid #f0f0f0;
+}
+.v16-rd-cell { }
+.v16-rd-lbl {
+  font-size: 9px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px;
+}
+.v16-rd-val { font-size: 12.5px; font-weight: 600; color: #111827; }
+
+/* --- AMENITIES --- */
+.v16-am-section { padding: 18px 20px; }
+.v16-am-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.v16-am-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #f9fafb; border: 1px solid #e9eaec;
+  border-radius: 8px; padding: 6px 14px; font-size: 12.5px; color: #374151;
+}
+.v16-am-chip .ck {
+  color: #7c3aed; font-weight: 700; font-size: 11px;
+}
+
+/* --- POLICIES --- */
+.v16-pol-row {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 16px; padding: 13px 20px;
+  border-bottom: 1px solid #f3f4f6; align-items: baseline;
+}
+.v16-pol-row:last-child { border-bottom: none; }
+.v16-pol-k {
+  font-size: 12px; font-weight: 700; color: #374151;
+}
+.v16-pol-v { font-size: 13px; color: #111827; line-height: 1.6; }
+.v16-pol-src {
+  color: #7c3aed; font-size: 11px; margin-left: 6px; text-decoration: none;
+}
+.v16-pol-src:hover { text-decoration: underline; }
+
+/* --- GENERIC FIELD GRID --- */
+.v16-field-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: #efefef; margin: 0;
+}
+.v16-field { background: #fff; padding: 14px 20px; }
+.v16-flbl {
+  font-size: 9px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px;
+}
+.v16-fval { font-size: 13px; color: #111827; line-height: 1.5; font-weight: 500; }
+.v16-fsrc {
+  font-size: 10px; color: #7c3aed; text-decoration: none;
+  display: inline-block; margin-top: 4px;
+}
+.v16-fsrc:hover { text-decoration: underline; }
+
+/* --- CONTENT OUTPUT --- */
+.v16-cout {
+  background: #faf9ff; border-radius: 12px;
+  border: 1px solid #ede9fe; overflow: hidden;
+}
+.v16-cout-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 18px; border-bottom: 1px solid #ede9fe;
+  background: linear-gradient(135deg, #f5f3ff, #fdf4ff);
+}
+.v16-cout-title { font-size: 13px; font-weight: 700; color: #7c3aed; }
+.v16-cout-body {
+  padding: 18px; font-size: 13.5px; line-height: 1.85;
+  white-space: pre-wrap; color: #374151;
+}
+
+/* warn card */
+.v16-warn-card {
+  background: #fffbeb; border-radius: 12px; border: 1px solid #fde68a; padding: 20px;
+}
+.v16-warn-title { font-size: 14px; font-weight: 700; color: #92400e; margin-bottom: 8px; }
+.v16-warn-text { font-size: 13px; color: #78350f; line-height: 1.65; margin-bottom: 8px; }
+.v16-tip { font-size: 12px; color: #92400e; background: rgba(255,255,255,0.6); padding: 10px 14px; border-radius: 8px; }
+
+@media (max-width: 1100px) {
+  .v16-overview-wrap { flex-direction: column; }
+  .v16-overview-side { width: 100%; }
+  .v16-dining-grid { grid-template-columns: 1fr; }
+  .v16-detail-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
   .v14-hero-body, .v14-topbar { padding-left: 16px; padding-right: 16px; }
   .v14-tabs { padding: 0 16px; }
   .v14-body { padding: 16px; flex-direction: column; }
   .v14-aside { width: 100%; }
-  .v14-resto-grid { grid-template-columns: 1fr; }
-  .v14-stats { gap: 7px; }
+  .v16-field-grid { grid-template-columns: 1fr; }
+  .v16-qf-grid { grid-template-columns: 1fr; }
+  .v16-detail-grid { grid-template-columns: 1fr 1fr; }
 }
+
+
+/* ═══════════════════════════════════════════════════════
+   EXPERIENCES — Raw Research Tab + Writing Mode Styles
+═══════════════════════════════════════════════════════ */
+.v18-exp-header-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.v18-exp-count-badge{background:#ede9fe;color:#5b21b6;font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px;border:1px solid #c4b5fd}
+.v18-exp-bulk-copy-btn{background:#fff;border:1.5px solid #7c3aed;color:#7c3aed;font-size:12px;font-weight:700;padding:7px 16px;border-radius:10px;cursor:pointer;transition:all .15s}
+.v18-exp-bulk-copy-btn:hover{background:#7c3aed;color:#fff}
+.v18-exp-bucket-group{margin-bottom:20px}
+.v18-exp-bucket-header{font-size:14px;font-weight:800;color:#374151;padding:10px 0 8px;border-bottom:2px solid #f3f4f6;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.v18-exp-bucket-count{background:#f3f4f6;color:#6b7280;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:auto}
+.v18-exp-card{background:#fff;border:1px solid #e9eaec;border-radius:12px;margin-bottom:8px;overflow:hidden;transition:box-shadow .15s}
+.v18-exp-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.v18-exp-card-top{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;flex-wrap:wrap}
+.v18-exp-card-name{font-weight:700;font-size:13px;color:#111827;flex:1;min-width:120px}
+.v18-exp-card-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.v18-exp-chip{background:#f9fafb;border:1px solid #e5e7eb;color:#374151;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap}
+.v18-exp-card-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.v18-exp-copy-btn{background:#fff;border:1.5px solid #e5e7eb;color:#374151;font-size:11px;font-weight:600;padding:5px 12px;border-radius:8px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.v18-exp-copy-btn:hover{border-color:#7c3aed;color:#7c3aed}
+.v18-exp-chevron{font-size:11px;color:#9ca3af;transition:transform .2s;user-select:none}
+.v18-exp-card-body{padding:0 16px 14px;border-top:1px solid #f3f4f6}
+.v18-exp-field{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #f9fafb;font-size:13px;align-items:flex-start}
+.v18-exp-field:last-child{border-bottom:none}
+.v18-exp-field-label{font-weight:600;color:#6b7280;min-width:110px;font-size:12px;padding-top:1px}
+.v18-exp-field-value{color:#111827;flex:1;line-height:1.5}
+.v18-exp-warn-badge{background:#fef3c7;color:#92400e;font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;border:1px solid #fde68a;white-space:nowrap}
+/* Writing Mode Cards */
+.v18-exp-write-card{background:#fff;border:1.5px solid #e9eaec;border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.v18-exp-write-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px;flex-wrap:wrap}
+.v18-exp-bucket-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid;white-space:nowrap}
+.v18-exp-write-fields{display:flex;flex-direction:column;gap:14px}
+.v18-exp-write-field-group{display:flex;flex-direction:column;gap:5px}
+.v18-exp-write-label{font-size:12px;font-weight:700;color:#374151;display:flex;align-items:center;gap:6px}
+.v18-exp-char-count{font-size:11px;font-weight:700;padding:2px 7px;border-radius:8px}
+.v18-exp-char-count.ok{background:#d1fae5;color:#065f46}
+.v18-exp-char-count.warn{background:#fef3c7;color:#92400e}
+.v18-exp-char-count.over{background:#fee2e2;color:#991b1b}
+.v18-exp-write-input{border:1.5px solid #e5e7eb;border-radius:9px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;transition:border-color .15s;color:#111827;box-sizing:border-box;width:100%}
+.v18-exp-write-input:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.08)}
+.v18-exp-write-textarea{border:1.5px solid #e5e7eb;border-radius:9px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;transition:border-color .15s;resize:vertical;min-height:52px;line-height:1.55;color:#111827;box-sizing:border-box;width:100%}
+.v18-exp-write-textarea:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.08)}
+.v18-exp-char-bar{height:3px;background:#f3f4f6;border-radius:4px;overflow:hidden;margin-top:2px}
+.v18-exp-char-fill{height:100%;background:#7c3aed;border-radius:4px;transition:width .2s}
+.v18-exp-char-fill.over{background:#ef4444}
+.v18-exp-save-btn{background:#fff;border:1.5px solid #e5e7eb;color:#374151;font-size:12px;font-weight:700;padding:7px 14px;border-radius:9px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.v18-exp-save-btn:hover{border-color:#7c3aed;color:#7c3aed}
+.v18-exp-gen-progress{background:#fff;border:1.5px solid #e9eaec;border-radius:14px;padding:24px;text-align:center;margin-bottom:16px}
+.v18-exp-gen-bar{height:6px;background:#f3f4f6;border-radius:6px;overflow:hidden;margin:10px 0 4px}
+.v18-exp-gen-fill{height:100%;background:linear-gradient(90deg,#7c3aed,#a855f7);border-radius:6px;transition:width .3s}
+.v18-exp-coming-pill{opacity:.65}
 
 </style>
 
@@ -1076,7 +1273,7 @@ a { color: inherit; text-decoration: none; }
       <input class="hero-input" id="hotelInput" placeholder="e.g. The Leela Palace New Delhi, Taj Mahal Palace Mumbai..." onkeydown="if(event.key==='Enter')addHotel()" />
       <button class="hero-add-btn" onclick="addHotel()">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-        + Add
+        Add
       </button>
     </div>
     <div id="hotelTags" class="hero-tags"></div>
@@ -1095,22 +1292,22 @@ a { color: inherit; text-decoration: none; }
     <div id="mmtOptions" style="width:100%;display:flex;flex-direction:column;align-items:center;">
       <div class="output-type-label">Select Output Type</div>
       <div class="output-type-row">
-        <button class="output-pill active" id="pill-brown_text" onclick="selectOutputPill(this,'brown_text')">&#128221; Brown Text</button>
-        <button class="output-pill" id="pill-experience_cards" onclick="selectOutputPill(this,'experience_cards')">&#11088; Experience Cards</button>
-        <button class="output-pill" id="pill-property_description" onclick="selectOutputPill(this,'property_description')">&#127968; Property Description</button>
+        <button class="output-pill active" id="pill-experience_cards" onclick="navigateToExpWriter()">🎯 Experience Cards</button>
+        <button class="output-pill v18-exp-coming-pill" id="pill-brown_text" onclick="showComingSoonToast()">📝 Brown Text</button>
+        <button class="output-pill v18-exp-coming-pill" id="pill-property_description" onclick="showComingSoonToast()">🏨 Property Description</button>
       </div>
     </div>
 
     <div id="rawOptions" style="display:none;width:100%;flex-direction:column;align-items:center;">
       <div class="output-type-label">Select Data Categories</div>
       <div class="hero-cat-row" id="categoryList">
-        <button class="output-pill" onclick="toggleCat(this,'rooms')">Rooms &amp; Accommodation</button>
-        <button class="output-pill" onclick="toggleCat(this,'dining')">Dining</button>
-        <button class="output-pill" onclick="toggleCat(this,'amenities')">Amenities &amp; Facilities</button>
-        <button class="output-pill" onclick="toggleCat(this,'location')">Location</button>
-        <button class="output-pill" onclick="toggleCat(this,'policies')">Policies</button>
-        <button class="output-pill" onclick="toggleCat(this,'images')">Images &amp; Media</button>
-        <button class="output-pill" onclick="toggleCat(this,'reviews')">Reviews &amp; Ratings</button>
+        <button class="output-pill" onclick="toggleCat(this,'overview')">🏠 Overview</button>
+        <button class="output-pill" onclick="toggleCat(this,'rooms')">🛏 Rooms</button>
+        <button class="output-pill" onclick="toggleCat(this,'dining')">🍽 Dining</button>
+        <button class="output-pill" onclick="toggleCat(this,'amenities')">🏊 Amenities &amp; Facilities</button>
+        <button class="output-pill" onclick="toggleCat(this,'experiences')">🎯 Experiences</button>
+        <button class="output-pill" onclick="toggleCat(this,'policies')">📋 Policies</button>
+        <button class="output-pill" onclick="toggleCat(this,'images')">🖼 Images</button>
         <button class="output-pill" style="font-weight:700" onclick="toggleCat(this,'all')">All Categories</button>
       </div>
     </div>
@@ -1482,16 +1679,7 @@ let state = {
 };
 
 // ===== SEED DATA =====
-const seedProcesses = [
-  {id:3523,userId:'MMT11972',name:'Holiday Inn Resort',type:'single',status:'finished',hotelId:'200701091654253400',completedAt:'May 14, 2025 | 10:24 AM'},
-  {id:3522,userId:'MMT12726',name:'The Elgin Mount Pandim - Heritage Resort & Spa',type:'single',status:'finished',hotelId:'201103041130544788',completedAt:'May 14, 2025 | 09:48 AM'},
-  {id:3521,userId:'MMT12637',name:'The Kipling Lodge - Nature Kalp',type:'single',status:'finished',hotelId:'201508171825374345',completedAt:'May 14, 2025 | 09:15 AM'},
-  {id:3520,userId:'MMT12637',name:'Hotel Batch 2 - The Kipling Lodge - Nature Kalp',type:'batch',status:'finished',hotelId:'BATCH_20250514_0002',completedAt:'May 14, 2025 | 08:52 AM'},
-  {id:3519,userId:'MMT12637',name:'The Orchid Rishivan, Rishikesh',type:'single',status:'finished',hotelId:'202507231604246207',completedAt:'May 14, 2025 | 08:31 AM'},
-  {id:3518,userId:'MMT12637',name:'Lakeside Chalet Marriott Executive Apartments',type:'single',status:'finished',hotelId:'201202131507131861',completedAt:'May 14, 2025 | 08:05 AM'},
-  {id:3517,userId:'MMT11457',name:'Sofitel Mumbai BKC',type:'single',status:'finished',hotelId:'201201101024268076',completedAt:'May 14, 2025 | 07:42 AM'},
-  {id:3516,userId:'MMT11457',name:'Xandari Pearl Beach Resort',type:'single',status:'finished',hotelId:'201503201659592979',completedAt:'May 14, 2025 | 07:18 AM'},
-];
+const seedProcesses = [];
 state.processes = [...seedProcesses];
 
 // ===== CATEGORIES =====
@@ -1501,12 +1689,11 @@ const defaultCategories = [
   {id:'property_description',name:'Property Description',mode:'mmt',desc:'Detailed property descriptions for listing pages',active:true},
   {id:'rooms',name:'Rooms & Accommodation',mode:'raw',desc:'Room types, amenities, size, occupancy',active:true},
   {id:'dining',name:'Dining',mode:'raw',desc:'Restaurants, bars, cuisines, timings',active:true},
-  {id:'amenities',name:'Amenities & Facilities',mode:'raw',desc:'Hotel facilities, services, wellness',active:true},
-  {id:'location',name:'Location',mode:'raw',desc:'Address, nearby attractions, transport',active:true},
+  {id:'amenities',name:'Amenities',mode:'raw',desc:'Hotel amenities sourced verbatim from official website',active:true},{id:'facilities',name:'Facilities',mode:'raw',desc:'Hotel facilities sourced verbatim from official website',active:true},
   {id:'policies',name:'Policies',mode:'raw',desc:'Check-in/out, cancellation, child policy',active:true},
   {id:'images',name:'Images & Media',mode:'raw',desc:'Image URLs, galleries, videos',active:true},
-  {id:'reviews',name:'Reviews & Ratings',mode:'raw',desc:'Guest reviews, ratings summary',active:true},
   {id:'overview',name:'Hotel Overview / About',mode:'raw',desc:'General hotel description and history',active:true},
+  {id:'experiences',name:'Experiences',mode:'raw',desc:'All hotel experiences mapped to 11 buckets',active:true},
 ];
 let categories = [...defaultCategories];
 
@@ -1614,7 +1801,7 @@ function toggleCat(el, val) {
       c.classList.toggle('active', nowActive);
       c.classList.toggle('checked', nowActive);
     });
-    state.selectedCats = nowActive ? ['rooms','dining','amenities','location','policies','images','reviews','overview'] : [];
+    state.selectedCats = nowActive ? ['overview','rooms','dining','amenities','facilities','experiences','policies','images'] : [];
     return;
   }
   if (!isActive) {
@@ -1809,134 +1996,192 @@ async function testApi() {
 
 async function callGemini(hotelName, mode, outputType, cats, userPrompt) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${state.model}:generateContent?key=${state.apiKey}`;
-
-  const fetchWithTimeout = async (body, timeoutMs = 60000) => {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-        signal: controller.signal
-      });
-      clearTimeout(timer);
-      return res;
-    } catch(e) {
-      clearTimeout(timer);
-      if (e.name === 'AbortError') throw new Error('Request timed out. Try gemini-2.0-flash for faster responses.');
-      throw e;
-    }
+  const fetchWT = async (body, ms=90000) => {
+    const ctrl=new AbortController(), t=setTimeout(()=>ctrl.abort(),ms);
+    try { const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:ctrl.signal}); clearTimeout(t); return r; }
+    catch(e){ clearTimeout(t); if(e.name==='AbortError') throw new Error('Request timed out. Try gemini-2.0-flash.'); throw e; }
   };
+  const stage = msg => { const el=document.getElementById('loadingStage'); if(el) el.textContent=msg; };
 
-  const updateStage = (msg) => { const el = document.getElementById('loadingStage'); if (el) el.textContent = msg; };
+  // ── Detect which categories are needed ──────────────────────────────────
+  const inCats = re => mode==='mmt' || cats.some(c=>re.test(c));
+  const needsOverview    = inCats(/overview|about|description|general/i);
+  const needsRooms       = inCats(/room|accommodat|suite|villa/i);
+  const needsDining      = inCats(/din|restaur|food|bar|caf/i);
+  const needsAmenities   = inCats(/amenit|spa|pool|gym|wellness|kids/i);
+  const needsFacilities  = inCats(/facilit|services|business|banquet|parking|transport|recreation/i);
+  const needsPolicies    = inCats(/polic|check.?in|check.?out|cancel|pet|child/i);
+  const needsExperiences = inCats(/experience|activit/i);
+  const needsImages      = inCats(/image|photo|gallery|media/i);
 
-  // CALL 1: Web search grounding
-  updateStage(`[1/2] Searching web for ${hotelName}...`);
-  let groundedText = '';
-  let sources = [];
+  // ── CALL 1: Grounded web search ──────────────────────────────────────────
+  stage(`[1/3] Searching official website for ${hotelName}...`);
+  let groundedText='', sources=[];
+  const searchLines = [
+    `You are researching hotel "${hotelName}". Access the hotel's OFFICIAL WEBSITE ONLY. Copy all text VERBATIM — do NOT paraphrase, summarise, or invent. Preserve exact names, wording, prices, and timings exactly as on the site.`,
+    `Always extract: full hotel name, star rating, total rooms/suites count, official website URL, full address.`,
+    needsOverview    ? `OVERVIEW: Visit the home page and About/Overview section. Copy the full hotel description VERBATIM. Include: brand/chain, year opened, architectural style, heritage, location, views, vibe, atmosphere, USPs, awards. If a downloadable PDF factsheet exists on the site include that URL.` : '',
+    needsRooms       ? `ROOMS: Visit the Rooms section. For EVERY room/suite/villa — exact verbatim room type name, full verbatim description, size (sqm/sqft), bed config, view, max occupancy, floor, bathroom, complete in-room amenities verbatim. List every room category.` : '',
+    needsDining      ? `DINING: Visit the Dining section. For EVERY outlet — exact verbatim name, full verbatim description, cuisine, location/setting within property, view, timings, seating capacity, dress code, reservations, price range, awards, events hosted, features. List every outlet.` : '',
+    needsAmenities   ? `AMENITIES & FACILITIES: Visit the Amenities section. For EVERY facility — exact verbatim name and full verbatim description. Include: spa (every treatment), pools, fitness centre, kids club, business centre, concierge, banquet spaces, parking, transport, sports, recreation.` : '',
+    needsPolicies    ? `POLICIES: Visit the policies/FAQ page. Copy VERBATIM: check-in time, check-out time, full cancellation policy, pet policy, child policy, extra bed policy, age restrictions, payment methods.` : '',
+    needsExperiences ? `EXPERIENCES: Visit the Experiences/Activities section on the OFFICIAL WEBSITE ONLY. For EVERY experience copy verbatim: exact experience name, short description, timings, duration, price, inclusions, availability, notes, official link. Also assign the closest SOP bucket.` : '',
+    needsImages      ? `IMAGES: Visit the official gallery/media section. List every image URL found with category label (Exterior, Rooms, Dining, Spa, Pool, Lobby, etc).` : '',
+  ].filter(Boolean).join('\n\n');
 
   try {
-    const searchRes = await fetchWithTimeout({
-      contents: [{ parts: [{ text: `Research the hotel "${hotelName}". Find: official website URL, full address, star rating, total rooms, room types with sizes and amenities, all dining outlets with cuisine and timings, all facilities and amenities, check-in/out times, cancellation policy, and unique highlights. Be thorough and factual.` }] }],
-      tools: [{ googleSearch: {} }],
-      generationConfig: { temperature: 0.1, maxOutputTokens: 2000 }
-    }, 60000);
-    if (searchRes.ok) {
-      const d = await searchRes.json();
-      groundedText = d.candidates?.[0]?.content?.parts?.[0]?.text || '';
-      sources = (d.candidates?.[0]?.groundingMetadata?.groundingChunks || [])
-        .map(c => ({ pageTitle: c.web?.title || '', url: c.web?.uri || '', extractedText: '' }));
+    const res=await fetchWT({
+      contents:[{parts:[{text:searchLines}]}],
+      tools:[{googleSearch:{}}],
+      generationConfig:{temperature:0.1, maxOutputTokens:8000}
+    });
+    if(res.ok){
+      const d=await res.json();
+      groundedText=d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+      sources=(d.candidates?.[0]?.groundingMetadata?.groundingChunks||[]).map(c=>({pageTitle:c.web?.title||'',url:c.web?.uri||'',extractedText:''}));
     }
-  } catch(e) {
-    console.warn('Search call failed:', e.message);
-    updateStage(`[1/2] Using direct knowledge for ${hotelName}...`);
-  }
+  } catch(e){ console.warn('Search call failed:',e.message); stage(`[1/3] Using model knowledge for ${hotelName}...`); }
 
-  // CALL 2: Structure into JSON
-  updateStage(`[2/2] Structuring data for ${hotelName}...`);
+  const researchData = groundedText ? groundedText.slice(0,7000) : `Use your training knowledge about "${hotelName}"`;
 
-  const catList = cats.join(', ');
+  // ── Helper: build section instructions ──────────────────────────────────
+  const buildSectionInstructions = (flags) => {
+    const si = [];
+    if (flags.overview)    si.push(`- "Hotel Overview / About": Hotel Name, Brand/Chain, Star Rating, Total Rooms, Year Established, Full Address, Description (verbatim paragraph), Architectural Style, Location Description (verbatim), Vibe/Atmosphere (verbatim), Awards/Accolades, Factsheet URL (if PDF on site), Official Website URL`);
+    if (flags.rooms)       si.push(`- "Rooms & Accommodation": EVERY room — label "Room Type Name" (verbatim), then: Description (verbatim), Size, Bed Type, View, Max Occupancy, Floor, Bathroom, Amenities (comma-separated verbatim). Repeat full block for every room type.`);
+    if (flags.dining)      si.push(`- "Dining": EVERY outlet — label "Restaurant Name" (verbatim), then: Cuisine Type, Description (verbatim), Location/Setting, View, Timings, Seating Capacity, Dress Code, Reservations, Price Range, Awards, Events Hosted, Features. Repeat full block for every outlet.`);
+    if (flags.amenities)   si.push(`- "Amenities & Facilities": Each facility as its own entry — label = exact verbatim name, value = full verbatim description. Spa (every treatment), pool, fitness, kids area, business centre, concierge, events/banquet, parking, transport, sports, recreation. One entry per facility.`);
+    if (flags.policies)    si.push(`- "Policies": Check-In Time (exact), Check-Out Time (exact), Cancellation Policy (full verbatim), Pet Policy (verbatim), Child Policy (verbatim), Extra Bed Policy (verbatim), Payment Methods, Age Restrictions, any other policy`);
+    if (flags.experiences) si.push(`- "Experiences": EVERY experience — label "Experience Name" (verbatim), then: Suggested Bucket (one of: Dining Experiences/Wellness & Beyond/Kids Corner/Party & Play/Truly Unique/WOW Rooms/Luxury Transfers/Vibes & Views/Heritage & Culture/Fun Adventures/Nature & Wildlife/Uncategorised), Short Description (verbatim), Timings, Duration, Price (exact), Inclusions (pipe-separated), Availability, Notes, Official Link. Repeat for EVERY experience found.`);
+    if (flags.images)      si.push(`- "Images & Media": Each image from official gallery — label = category (Exterior/Rooms/Dining/Spa/Pool/Lobby/etc), value = full image URL. List every URL.`);
+    return si;
+  };
 
-  const sectionExample = cats.slice(0, 2).map(cat => `    {
-      "title": "${cat}",
-      "fields": [
-        { "label": "Field Name", "value": "Actual value from research", "sourceUrl": "https://...", "confidence": "high" },
-        { "label": "Another Field", "value": "Another value", "sourceUrl": "", "confidence": "medium" }
-      ]
-    }`).join(',\n');
-
-  const formatPrompt = mode === 'mmt'
-    ? `You are a hotel copywriter. Output ONLY valid JSON, no markdown, no explanation, start with { end with }.
-
+  // ── Helper: run a structured JSON call ──────────────────────────────────
+  const runStructuredCall = async (sectionInstructions, callLabel) => {
+    if (!sectionInstructions.length) return [];
+    stage(callLabel);
+    const prompt = mode==='mmt'
+      ? `You are a hotel copywriter for MakeMyTrip. Output ONLY valid JSON. NO markdown, NO backticks. First char MUST be {.
 Hotel: "${hotelName}"
-Research data: ${groundedText ? groundedText.slice(0, 3000) : 'Use your knowledge about ' + hotelName}
-User notes: ${userPrompt.slice(0, 150)}
-
-Write compelling hotel copy. JSON structure:
+Research data: ${researchData}
+User notes: ${userPrompt.slice(0,300)}
 {
-  "hotelName": "${hotelName}",
-  "officialWebsite": "real URL",
+  "hotelName": "${hotelName}", "officialWebsite": "real URL",
+  "starRating": "5", "totalRooms": "254",
   "researchMode": "mmt_content_mode",
   "selectedCategories": [${JSON.stringify(outputType)}],
   "status": "completed",
-  "summary": { "shortAnswer": "2-3 sentence hotel summary", "confidence": "high", "missingInformation": [] },
+  "summary": { "shortAnswer": "2-3 sentence summary", "confidence": "high", "missingInformation": [] },
   "sections": [],
   "contentOutputs": [
-    { "type": "brown_text", "title": "Hotel Description", "copy": "Write 150-250 word compelling description here", "supportingEvidence": [], "warnings": [] },
-    { "type": "experience_card", "title": "Experiences", "copy": "Write 3-5 unique experience highlights here", "supportingEvidence": [], "warnings": [] },
-    { "type": "property_description", "title": "Property Overview", "copy": "Write detailed listing description here", "supportingEvidence": [], "warnings": [] }
+    { "type": "brown_text", "title": "Hotel Description", "copy": "150-250 word description", "supportingEvidence": [], "warnings": [] }
   ],
-  "rawEvidence": [],
-  "errors": []
+  "rawEvidence": [], "errors": []
 }`
-    : `You are a hotel data extraction expert. Output ONLY valid JSON, no markdown, no code fences, no explanation. Start response with { and end with }.
+      : `You are a hotel data extraction expert for MakeMyTrip.
 
-Hotel: "${hotelName}"
-Research data: ${groundedText ? groundedText.slice(0, 3000) : 'Use your knowledge about ' + hotelName}
-Categories to extract: ${catList}
-User notes: ${userPrompt.slice(0, 150)}
+OUTPUT RULES:
+1. Output ONLY raw valid JSON. NO markdown fences, NO backticks. First char MUST be {, last MUST be }.
+2. Extract values VERBATIM from the research data. DO NOT paraphrase, invent, or hallucinate.
+3. Use "not_found" for any field not found in research data.
+4. NEVER skip a section — include ALL ${sectionInstructions.length} sections below.
+5. For Rooms, Dining, Experiences: repeat the label pattern for EVERY entry found.
 
-IMPORTANT: Fill sections array with REAL DATA for every category. Do NOT leave sections as []. Extract as many fields as possible.
+HOTEL: "${hotelName}"
+RESEARCH DATA (ONLY source):
+${researchData}
 
-Required JSON (replace ALL placeholder values with real data about ${hotelName}):
+USER NOTES: ${userPrompt.slice(0,200)}
+
+SECTIONS TO EXTRACT (${sectionInstructions.length} total):
+${sectionInstructions.join('\n')}
+
+OUTPUT THIS JSON STRUCTURE EXACTLY:
 {
   "hotelName": "${hotelName}",
-  "officialWebsite": "real website URL",
+  "officialWebsite": "extract from research or not_found",
+  "starRating": "extract exact value",
+  "totalRooms": "extract exact value",
   "researchMode": "raw_research_mode",
   "selectedCategories": ${JSON.stringify(cats)},
   "status": "completed",
-  "summary": { "shortAnswer": "Write 2-3 real sentences about ${hotelName}", "confidence": "high", "missingInformation": [] },
+  "summary": {
+    "shortAnswer": "2-3 sentence factual summary from research data",
+    "confidence": "high",
+    "missingInformation": []
+  },
   "sections": [
-${sectionExample}
+    ${sectionInstructions.map(si => {
+      const tm = si.match(/"([^"]+)":/);
+      const title = tm ? tm[1] : si.slice(2,40);
+      return `{ "title": "${title}", "fields": [ { "label": "...", "value": "verbatim value", "sourceUrl": "source URL if available", "confidence": "high" } ] }`;
+    }).join(',\n    ')}
   ],
-  "contentOutputs": [],
   "rawEvidence": [],
   "errors": []
-}
+}`;
 
-Fill ALL ${cats.length} categories: ${catList}. Each section needs minimum 5-10 fields with real values.`;
+    try {
+      const res = await fetchWT({
+        contents:[{parts:[{text:prompt}]}],
+        generationConfig:{temperature:0.05, maxOutputTokens:8192}
+      });
+      if(res.ok){
+        const d=await res.json();
+        return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+      } else {
+        const e=await res.json().catch(()=>({}));
+        throw new Error(`${res.status}: ${e.error?.message||'API error'}`);
+      }
+    } catch(e){ throw new Error('Format call failed: '+e.message); }
+  };
 
-  let text = '';
-  try {
-    const formatRes = await fetchWithTimeout({
-      contents: [{ parts: [{ text: formatPrompt }] }],
-      generationConfig: { temperature: 0.15, maxOutputTokens: 8192 }
-    }, 90000);
-    if (formatRes.ok) {
-      const d = await formatRes.json();
-      text = d.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  // ── CALL STRATEGY: split heavy requests to avoid token truncation ────────
+  let finalText = '';
+  if (mode !== 'mmt') {
+    const heavyCats = cats.length >= 4; // split when 4+ categories selected
+
+    if (heavyCats) {
+      const siA = buildSectionInstructions({ overview: needsOverview, rooms: needsRooms, dining: needsDining });
+      const siB = buildSectionInstructions({ amenities: needsAmenities, facilities: needsFacilities, policies: needsPolicies, images: needsImages });
+      const siC = buildSectionInstructions({ experiences: needsExperiences });
+
+      let textA='', textB='', textC='';
+      if (siA.length) textA = await runStructuredCall(siA, `[2/4] Structuring Overview, Rooms & Dining for ${hotelName}...`);
+      if (siB.length) textB = await runStructuredCall(siB, `[3/4] Structuring Amenities, Facilities & Policies for ${hotelName}...`);
+      if (siC.length) textC = await runStructuredCall(siC, `[4/4] Structuring Experiences for ${hotelName}...`);
+
+      const tryP = s => { try { s=(s||'').trim().replace(/^```[a-z]*\n?/i,'').replace(/```$/,'').trim(); return JSON.parse(s); } catch(e){ const m=(s||'').match(/\{[\s\S]*\}/); if(m) try{return JSON.parse(m[0]);}catch(e2){} return null; } };
+      const pA = tryP(textA)||{}, pB = tryP(textB)||{}, pC = tryP(textC)||{};
+      const merged = { ...pA, sections: [...(pA.sections||[]), ...(pB.sections||[]), ...(pC.sections||[])], rawEvidence: sources };
+      if (!merged.officialWebsite || merged.officialWebsite==='not_found') merged.officialWebsite = pB.officialWebsite||pC.officialWebsite||pA.officialWebsite||'not_found';
+      if (!merged.starRating || merged.starRating==='not_found') merged.starRating = pB.starRating||pC.starRating||pA.starRating||'not_found';
+      if (!merged.totalRooms || merged.totalRooms==='not_found') merged.totalRooms = pB.totalRooms||pC.totalRooms||pA.totalRooms||'not_found';
+      finalText = JSON.stringify(merged);
+
     } else {
-      const errData = await formatRes.json().catch(() => ({}));
-      throw new Error(`[${formatRes.status}] ${errData.error?.message || 'API error'}`);
+      // Single call for 1-3 categories
+      const si = buildSectionInstructions({
+        overview:    needsOverview,
+        rooms:       needsRooms,
+        dining:      needsDining,
+        amenities:   needsAmenities,
+        facilities:  needsFacilities,
+        experiences: needsExperiences,
+        policies:    needsPolicies,
+        images:      needsImages,
+      });
+      finalText = await runStructuredCall(si, `[2/2] Structuring data for ${hotelName}...`);
     }
-  } catch(e) {
-    throw new Error('Format call failed: ' + e.message);
+  } else {
+    // MMT content mode — single call
+    const si = [];
+    finalText = await runStructuredCall(si, `[2/2] Writing content for ${hotelName}...`);
   }
 
-  return parseAndReturn(text, hotelName, mode, outputType, cats, sources, groundedText);
+  return parseAndReturn(finalText, hotelName, mode, outputType, cats, sources, groundedText);
 }
-
 
 function buildSchema() {
   return `{
@@ -1979,132 +2224,98 @@ function buildSchema() {
 }
 
 function parseAndReturn(text, hotelName, mode, outputType, cats, sources, groundedText) {
+
   function tryParse(str) {
     if (!str || typeof str !== 'string') return null;
     str = str.trim();
+    // Strip markdown fences first
+    str = str.replace(/^```(?:json)?\s*/im,'').replace(/\s*```\s*$/im,'').trim();
     try { return JSON.parse(str); } catch {}
-    // Strip markdown fences
-    const fence = str.match(/```(?:json)?\s*([\s\S]+?)```/i);
-    if (fence) { try { return JSON.parse(fence[1].trim()); } catch {} }
     // Extract first complete {...} block
     const brace = str.match(/(\{[\s\S]*\})/);
     if (brace) { try { return JSON.parse(brace[1]); } catch {} }
-    // Try to fix truncated JSON by finding last complete field
+    // Fix truncated JSON — find last complete } and balance
     try {
       let s = str.trim();
-      if (!s.endsWith('}')) {
-        // Find last complete section by trimming to last }
-        const lastBrace = s.lastIndexOf('}');
-        if (lastBrace > 0) {
-          s = s.slice(0, lastBrace + 1);
-          // Balance brackets
-          let depth = 0;
-          for (let i = 0; i < s.length; i++) {
-            if (s[i] === '{' || s[i] === '[') depth++;
-            if (s[i] === '}' || s[i] === ']') depth--;
-          }
-          // Try adding missing closing brackets
-          while (depth > 0) { s += depth > 1 ? ']}' : '}'; depth--; }
-          return JSON.parse(s);
+      const lastBrace = s.lastIndexOf('}');
+      if (lastBrace > 100) {
+        s = s.slice(0, lastBrace + 1);
+        let open = 0, openArr = 0;
+        for (let i=0;i<s.length;i++) {
+          if(s[i]==='{') open++; if(s[i]==='}') open--;
+          if(s[i]==='[') openArr++; if(s[i]===']') openArr--;
         }
+        while(openArr > 0) { s += ']'; openArr--; }
+        while(open > 0)    { s += '}'; open--; }
+        return JSON.parse(s);
       }
     } catch {}
     return null;
   }
 
-  // Build fallback sections from groundedText when JSON parse fails
-  function buildFallbackSections(gt, catList) {
-    if (!gt || !catList || catList.length === 0) return [];
-    const sections = [];
-    const lines = gt.split('\n').filter(l => l.trim().length > 10);
-
-    catList.forEach(cat => {
-      const fields = [];
-      const catLower = cat.toLowerCase();
-
-      // Try to extract relevant lines for this category
-      lines.forEach(line => {
-        const l = line.trim().replace(/^[-•*]\s*/, '');
-        if (l.length < 5) return;
-        // Colon-separated key: value
-        const colonIdx = l.indexOf(':');
-        if (colonIdx > 2 && colonIdx < 60) {
-          const label = l.slice(0, colonIdx).trim();
-          const value = l.slice(colonIdx + 1).trim();
-          if (label.length > 1 && value.length > 1 && fields.length < 15) {
-            fields.push({ label, value, sourceUrl: sources[0]?.url || '', confidence: 'medium' });
-          }
-        } else if (fields.length < 8) {
-          fields.push({ label: 'Information', value: l.slice(0, 200), sourceUrl: '', confidence: 'low' });
-        }
-      });
-
-      if (fields.length > 0) {
-        sections.push({ title: cat, fields: fields.slice(0, 15) });
-      } else {
-        sections.push({ title: cat, fields: [{ label: 'Note', value: 'Data extracted from research — see summary for details', sourceUrl: '', confidence: 'low' }] });
-      }
-    });
-    return sections;
+  // Clean fallback — never show garbage
+  function buildCleanFallback(catList) {
+    return catList.map(cat => ({
+      title: cat,
+      fields: [{ label: 'Status', value: 'Data could not be structured. Please re-run the research.', sourceUrl: '', confidence: 'low' }]
+    }));
   }
 
   let parsed = tryParse(text);
 
-  // If parse failed, build from groundedText
+  // If parse totally failed
   if (!parsed) {
-    const fallbackSections = buildFallbackSections(groundedText, mode === 'mmt' ? [] : cats);
     return { success: true, data: {
       hotelName, status: 'completed',
       researchMode: mode === 'mmt' ? 'mmt_content_mode' : 'raw_research_mode',
       officialWebsite: '', selectedCategories: mode === 'mmt' ? [outputType] : cats,
-      sections: fallbackSections,
-      contentOutputs: mode === 'mmt' ? [{ type: outputType || 'raw', title: 'Research Result', copy: text && !text.trim().startsWith('{') ? text : '', supportingEvidence: [], warnings: [] }] : [],
+      sections: mode === 'mmt' ? [] : buildCleanFallback(cats),
+      contentOutputs: mode === 'mmt' ? [{ type: outputType||'raw', title: 'Research Result',
+        copy: text && !text.trim().startsWith('{') ? text : groundedText||'', supportingEvidence:[], warnings:[] }] : [],
       rawEvidence: sources,
-      summary: { shortAnswer: groundedText ? groundedText.slice(0, 300) : 'Research completed. Data extracted from web sources.', confidence: 'medium', missingInformation: [] },
-      errors: []
+      summary: { shortAnswer: groundedText ? groundedText.slice(0,400) : 'Research completed.', confidence:'medium', missingInformation:[] },
+      errors: ['JSON parse failed — showing raw grounded data']
     }};
   }
 
-  // Unwrap if sections is empty but contentOutputs[0].copy has the real JSON
+  // Unwrap if sections empty but contentOutputs[0].copy has nested JSON
   if ((!parsed.sections || parsed.sections.length === 0) && parsed.contentOutputs?.length > 0) {
     for (const out of parsed.contentOutputs) {
       const inner = tryParse(String(out.copy || out.text || ''));
       if (inner && Array.isArray(inner.sections) && inner.sections.length > 0) {
-        parsed = inner;
-        break;
+        parsed = inner; break;
       }
     }
   }
 
-  // If sections still empty, build from groundedText
+  // If sections still empty after unwrap — show clean fallback (not garbage)
   if ((!parsed.sections || parsed.sections.length === 0) && mode !== 'mmt') {
-    parsed.sections = buildFallbackSections(groundedText, cats);
+    parsed.sections = buildCleanFallback(cats);
   }
 
-  // Clean summary
+  // Clean summary — never let it be raw JSON
   if (parsed.summary?.shortAnswer) {
     const sa = String(parsed.summary.shortAnswer).trim();
     if (sa.startsWith('{') || sa.startsWith('[')) {
-      const inner = tryParse(sa);
-      parsed.summary.shortAnswer = inner?.summary?.shortAnswer || groundedText?.slice(0, 300) || '';
+      parsed.summary.shortAnswer = groundedText?.slice(0,400) || `Research completed for ${hotelName}.`;
     }
   }
 
-  // Merge sources
+  // Merge grounding sources
   if (sources.length > 0 && (!parsed.rawEvidence || parsed.rawEvidence.length === 0)) {
     parsed.rawEvidence = sources;
   }
 
-  parsed.hotelName = parsed.hotelName || hotelName;
-  parsed.sections = Array.isArray(parsed.sections) ? parsed.sections : [];
-  parsed.contentOutputs = Array.isArray(parsed.contentOutputs) ? parsed.contentOutputs : [];
-  parsed.rawEvidence = Array.isArray(parsed.rawEvidence) ? parsed.rawEvidence : sources;
-  parsed.summary = parsed.summary || { shortAnswer: '', confidence: 'medium', missingInformation: [] };
-  parsed.errors = parsed.errors || [];
+  // Normalise
+  parsed.hotelName        = parsed.hotelName || hotelName;
+  parsed.sections         = Array.isArray(parsed.sections)       ? parsed.sections       : [];
+  parsed.contentOutputs   = Array.isArray(parsed.contentOutputs) ? parsed.contentOutputs : [];
+  parsed.rawEvidence      = Array.isArray(parsed.rawEvidence)     ? parsed.rawEvidence    : sources;
+  parsed.summary          = parsed.summary  || { shortAnswer:'', confidence:'medium', missingInformation:[] };
+  parsed.errors           = parsed.errors   || [];
 
   return { success: true, data: parsed };
 }
-
 
 function makeFallback(hotelName, mode, outputType, text, sources) {
   return {
@@ -2140,29 +2351,34 @@ function isOfficialSource(url, hotelName) {
 // ===== V14 FIXED showResults =====
 function tryReparseResult(r) {
   function tryParse(str) {
-    if (!str || typeof str !== 'string') return null;
-    str = str.trim();
+    if(!str||typeof str!=='string') return null;
+    str=str.trim();
     try { return JSON.parse(str); } catch {}
-    try { return JSON.parse(str.replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'')); } catch {}
-    try { const m = str.match(/\{[\s\S]+\}/); if (m) return JSON.parse(m[0]); } catch {}
+    str=str.replace(/^```(?:json)?\s*/im,'').replace(/\s*```\s*$/im,'').trim();
+    try { return JSON.parse(str); } catch {}
+    try { const m=str.match(/(\{[\s\S]+\})/); if(m) return JSON.parse(m[1]); } catch {}
+    try {
+      let s=str.trim(), last=s.lastIndexOf('}');
+      if(last>100){
+        s=s.slice(0,last+1);
+        let d=0; for(const c of s){if(c==='{'||c==='[')d++;else if(c==='}'||c===']')d--;}
+        while(d>0){s+='}';d--;}
+        return JSON.parse(s);
+      }
+    } catch {}
     return null;
   }
-  function hasRealSections(obj) {
-    return obj && Array.isArray(obj.sections) && obj.sections.length > 0;
+  function hasRealSections(obj){ return obj&&Array.isArray(obj.sections)&&obj.sections.length>0; }
+  if(hasRealSections(r)) return r;
+  if(typeof r==='string'){ const v=tryParse(r); if(hasRealSections(v)) return v; }
+  if(!r||typeof r!=='object') return r||{};
+  for(const out of(r.contentOutputs||[])){
+    for(const k of['copy','text','content']){const v=tryParse(out[k]);if(hasRealSections(v))return v;}
   }
-  if (hasRealSections(r)) return r;
-  if (typeof r === 'string') { const v = tryParse(r); if (hasRealSections(v)) return v; }
-  if (!r || typeof r !== 'object') return r || {};
-  for (const out of (r.contentOutputs || [])) {
-    for (const key of ['copy','text','content']) {
-      const v = tryParse(out[key]);
-      if (hasRealSections(v)) return v;
-    }
-  }
-  for (const key of ['data','result','response','output']) {
-    const val = r[key];
-    if (typeof val === 'string') { const v = tryParse(val); if (hasRealSections(v)) return v; }
-    if (val && typeof val === 'object' && hasRealSections(val)) return val;
+  for(const k of['data','result','response','output']){
+    const val=r[k];
+    if(typeof val==='string'){const v=tryParse(val);if(hasRealSections(v))return v;}
+    if(val&&typeof val==='object'&&hasRealSections(val))return val;
   }
   return r;
 }
@@ -2193,419 +2409,747 @@ function showResults(proc) {
   const hasRealContent = realContentOutputs.length > 0;
 
   const navIcons = {
-    'Overview':'🏠','Rooms & Accommodation':'🛏','Dining':'🍽',
-    'Amenities & Facilities':'🏊','Location':'📍','Images':'🖼',
-    'Reviews & Ratings':'⭐','Policies':'📋','Guest Information':'👤',
-    'Nearby Attractions':'🗺','How to Reach':'🚗','Official Website Info':'🌐',
+    'Hotel Overview / About':'🏠','Overview':'🏠','overview':'🏠',
+    'Rooms & Accommodation':'🛏','Rooms':'🛏','rooms':'🛏',
+    'Dining':'🍽','dining':'🍽',
+    'Amenities & Facilities':'🏊','Amenities':'🏊','amenities':'🏊',
+    'Policies':'📋','policies':'📋',
+    'Experiences':'🎯','experiences':'🎯',
+    'Images & Media':'🖼','Images':'🖼','images':'🖼',
     'Content Output':'✨'
   };
+  const tabShortNames = {
+    'Hotel Overview / About':'Overview',
+    'Rooms & Accommodation':'Rooms',
+    'Amenities & Facilities':'Amenities',
+    'Images & Media':'Images'
+  };
 
-  // Hotel name
-  document.getElementById('v14HotelName').textContent = proc.hotelName || proc.name;
+  // ── Hotel name ────────────────────────────────────────────
+  document.getElementById('v14HotelName').textContent = proc.hotelName || proc.name || '';
 
-  // Meta row
-  const modeLabel = proc.mode === 'mmt' ? 'MMT Content Mode' : 'Raw Research Mode';
+  // ── Meta row ──────────────────────────────────────────────
+  const modeLabel = (proc.mode === 'mmt' || r.researchMode === 'mmt_content_mode') ? 'MMT Content Mode' : 'Raw Research Mode';
   const statusOk = proc.status === 'finished';
   document.getElementById('v14MetaRow').innerHTML = `
-    <span class="v14-status-badge">${statusOk ? 'Finished' : 'Failed'} \u2022 ${proc.type === 'batch' ? 'Batch Hotel' : 'Single Hotel'}</span>
-    <span class="v14-meta-dot">\u2022</span>
-    <span class="v14-meta-item">\uD83C\uDD94 MMT ID: ${proc.hotelId || proc.id}</span>
-    <span class="v14-meta-dot">\u2022</span>
-    <span class="v14-meta-item">\u2699 ${modeLabel}</span>
-    <span class="v14-meta-dot">\u2022</span>
-    <span class="v14-meta-item">\uD83C\uDF10 Official Website Only</span>
-    <span class="v14-meta-dot">\u2022</span>
-    <span class="v14-meta-item">\uD83D\uDCC5 ${proc.completedAt || proc.startedAt || ''}</span>
+    <span class="v14-status-badge">${statusOk ? 'Finished' : 'Failed'} &bull; ${proc.type === 'batch' ? 'Batch Hotel' : 'Single Hotel'}</span>
+    <span class="v14-meta-dot">&bull;</span>
+    <span class="v14-meta-item">&#x1F194; MMT ID: ${proc.hotelId || proc.id || ''}</span>
+    <span class="v14-meta-dot">&bull;</span>
+    <span class="v14-meta-item">&#x2699; ${modeLabel}</span>
+    <span class="v14-meta-dot">&bull;</span>
+    <span class="v14-meta-item">&#x1F310; Official Website Only</span>
+    <span class="v14-meta-dot">&bull;</span>
+    <span class="v14-meta-item">&#x1F4C5; ${proc.completedAt || proc.startedAt || ''}</span>
   `;
 
-  // Stats
+  // ── Stats  [FIX #7: read from top-level first, broad fallback patterns] ─────
   const roomsSection = sections.find(s => /room/i.test(s.title));
   const diningSection = sections.find(s => /din/i.test(s.title));
-  const amenitiesSection = sections.find(s => /amenit/i.test(s.title));
-
-  const roomTypes = roomsSection ? roomsSection.fields.filter(f => f.value !== 'not_found').length : null;
-  const restaurants = diningSection ? diningSection.fields.filter(f => f.value !== 'not_found').length : null;
-  const starRating = r.starRating || r.summary?.starRating || null;
+  const roomTypes = roomsSection
+    ? (roomsSection.fields||[]).filter(f=>f.value!=='not_found'&&/^room type name$/i.test(f.label)).length
+      || (roomsSection.fields||[]).filter(f=>f.value!=='not_found'&&/^(room type|room name|suite name|accommodation)/i.test(f.label)).length
+      || (roomsSection.fields||[]).filter(f=>f.value!=='not_found'&&/name|type|suite|room/i.test(f.label)).length || null
+    : null;
+  const restaurants = diningSection
+    ? (diningSection.fields||[]).filter(f=>f.value!=='not_found'&&/^restaurant name$/i.test(f.label)).length
+      || (diningSection.fields||[]).filter(f=>f.value!=='not_found'&&/^(restaurant|outlet|bar|cafe|lounge)\s*(name)?$/i.test(f.label)).length
+      || (diningSection.fields||[]).filter(f=>f.value!=='not_found'&&/name|outlet|restaurant|bar|cafe/i.test(f.label)).length || null
+    : null;
+  const _ovSec = sections.find(s=>/overview|about/i.test(s.title));
+  const _starFld = (_ovSec?.fields||[]).find(f=>/star|rating|categor/i.test(f.label)&&f.value!=='not_found');
+  const starRating = r.starRating || r.summary?.starRating
+    || (_starFld ? String(_starFld.value).replace(/[^\d]/g,'').slice(0,1) : null);
   const confidence = r.summary?.confidence || null;
+  const totalRooms = r.totalRooms || sections.reduce((acc,s)=>{
+    const f=s.fields&&s.fields.find(f=>/total.*(room|suite|inventor)|number.*room|room.*count/i.test(f.label));
+    return acc||(f&&f.value!=='not_found'?f.value:null);
+  }, null);
 
   let statsHTML = '';
   if (starRating) {
-    const stars = parseInt(starRating) || 0;
-    statsHTML += `<div class="v14-stat"><div class="v14-stat-stars">${'\u2605'.repeat(stars)}${'\u2606'.repeat(Math.max(0,5-stars))}</div><div class="v14-stat-lbl">Rating</div></div>`;
+    const stars = parseInt(starRating)||0;
+    statsHTML += `<div class="v14-stat"><div class="v14-stat-stars">${'★'.repeat(stars)}${'☆'.repeat(Math.max(0,5-stars))}</div><div class="v14-stat-lbl">Rating</div></div>`;
   }
-  if (roomTypes !== null) statsHTML += `<div class="v14-stat"><div class="v14-stat-val">${roomTypes}</div><div class="v14-stat-lbl">Room Types</div></div>`;
-  if (restaurants !== null) statsHTML += `<div class="v14-stat"><div class="v14-stat-val">${restaurants}</div><div class="v14-stat-lbl">Restaurants</div></div>`;
+  if (totalRooms) statsHTML += `<div class="v14-stat"><div class="v14-stat-val">${String(totalRooms).replace(/\D.*$/, '')}</div><div class="v14-stat-lbl">Rooms</div></div>`;
+  if (roomTypes !== null && roomTypes > 0) statsHTML += `<div class="v14-stat"><div class="v14-stat-val">${roomTypes}</div><div class="v14-stat-lbl">Room Types</div></div>`;
+  if (restaurants !== null && restaurants > 0) statsHTML += `<div class="v14-stat"><div class="v14-stat-val">${restaurants}</div><div class="v14-stat-lbl">Restaurants</div></div>`;
   if (confidence) statsHTML += `<div class="v14-stat"><div class="v14-stat-val" style="font-size:1.1rem;text-transform:capitalize">${confidence}</div><div class="v14-stat-lbl">Confidence</div></div>`;
-  const totalRooms = sections.reduce((acc, s) => {
-    const f = s.fields && s.fields.find(f => /total.*(room|suite|inventor)/i.test(f.label));
-    return acc || (f && f.value !== 'not_found' ? f.value : null);
-  }, null);
-  if (totalRooms) statsHTML += `<div class="v14-stat"><div class="v14-stat-val">${String(totalRooms).replace(/\D.*$/,'')}</div><div class="v14-stat-lbl">Rooms</div></div>`;
-
   document.getElementById('v14Stats').innerHTML = statsHTML;
 
-  // TAB BAR - map section titles to short display names
-  const shortNames = {
-    'Rooms & Accommodation': 'Rooms',
-    'Amenities & Facilities': 'Amenities',
-    'Reviews & Ratings': 'Reviews',
-    'Nearby Attractions': 'Attractions',
-    'Official Website Info': 'Website Info',
-    'Guest Information': 'Guests',
-    'How to Reach': 'Directions',
-  };
+  // ── Tab bar ───────────────────────────────────────────────
+  const tabs = [];
+  tabs.push({ id:'overview', label:'Overview', icon:'🏠', count:null });
+  sections.filter(s => !/overview|about/i.test(s.title.trim()) && !/^(location|reviews|ratings|nearby|how to reach)/i.test(s.title.trim())).forEach(s => {
+    tabs.push({ id: s.title.replace(/\W/g,'_'), label: tabShortNames[s.title]||s.title, icon: navIcons[s.title]||navIcons[s.title.toLowerCase()]||'📄', count: (s.fields||[]).filter(f=>f.value!=='not_found').length });
+  });
+  if (hasRealContent) tabs.push({ id:'content', label:'Content', icon:'✨', count: realContentOutputs.length });
 
-  const tabDefs = [
-    { id: 'overview', label: 'Overview', icon: '🏠', count: null },
-    ...sections.map(s => ({
-      id: s.title.replace(/\W/g,'_'),
-      label: shortNames[s.title] || s.title,
-      icon: navIcons[s.title] || '📄',
-      count: (s.fields || []).filter(f => f.value !== 'not_found').length
-    })),
-    ...(hasRealContent ? [{ id: 'content_output', label: 'Content', icon: '\u2728', count: realContentOutputs.length }] : [])
-  ];
-
-  document.getElementById('v14TabBar').innerHTML = tabDefs.map((t, i) => `
-    <button class="v14-tab${i===0?' v14-active':''}" onclick="v14SwitchTab('${t.id}', this)">
-      ${t.icon} ${t.label}
+  document.getElementById('v14TabBar').innerHTML = tabs.map((t,i) =>
+    `<button class="v14-tab${i===0?' v14-active':''}" onclick="v14SwitchTab('${t.id}',this)">
+      ${t.icon} ${escapeHtml(t.label)}
       ${t.count !== null ? `<span class="v14-tab-count">${t.count}</span>` : ''}
-    </button>
-  `).join('');
+    </button>`
+  ).join('');
 
-  // BUILD MAIN CONTENT
+  // ── Build panels ──────────────────────────────────────────
   let mainHTML = '';
-  let asideHTML = '';
-
+  const overviewSection = sections.find(s => /overview|about/i.test(s.title));
+  const overviewFields = overviewSection ? (overviewSection.fields||[]).filter(f=>f.value!=='not_found') : [];
+  const vibeRaw = r.summary?.shortAnswer || '';
+  const vibeDisplay = vibeRaw && !vibeRaw.trim().startsWith('{') ? vibeRaw : '';
   const locationSection = sections.find(s => /location/i.test(s.title));
-  const vibeText = r.summary?.shortAnswer || '';
-  const vibeDisplay = vibeText && !vibeText.trim().startsWith('{') ? vibeText : '';
-  const overviewSection = sections.find(s => /overview/i.test(s.title));
-  const overviewFields = overviewSection ? (overviewSection.fields || []).filter(f => f.value !== 'not_found') : [];
+  const addressField = (locationSection?.fields||[]).find(f=>/address|location/i.test(f.label)&&f.value!=='not_found');
 
-  // ===== OVERVIEW PANEL =====
-  mainHTML += `<div class="v14-panel v14-active" id="v14panel-overview">`;
+  // ── OVERVIEW PANEL ──────────────────────────────────────
+  mainHTML += `<div class="v14-panel v14-active" id="v14panel-overview"><div class="v16-overview-wrap">`;
+  mainHTML += `<div class="v16-overview-main">`;
 
   if (vibeDisplay) {
-    mainHTML += `
-    <div class="v14-card">
-      <div class="v14-card-hdr">
-        <div class="v14-card-ttl">\uD83C\uDFA8 Vibe &amp; Architecture</div>
-      </div>
-      <div class="v14-vibe-section">
-        <div class="v14-vibe-text">${escapeHtml(vibeDisplay.slice(0,600))}</div>
-        <div>
-          ${(r.summary?.confidence === 'high' ? ['Verified','Official Source','High Accuracy'] : r.summary?.confidence === 'medium' ? ['Verified','Medium Confidence'] : ['Low Confidence']).map(t=>`<span class="v14-tag-purple">${t}</span>`).join('')}
-        </div>
-      </div>
+    const vibeField = overviewFields.find(f=>/vibe|arch|style|description|about|character/i.test(f.label));
+    const vibeSrc = vibeField?.sourceUrl && vibeField.sourceUrl !== 'not_found' ? vibeField.sourceUrl : '';
+    const tags = confidence==='high' ? ['Verified','Official Source','High Accuracy'] : confidence==='medium' ? ['Verified','Medium Confidence'] : ['Low Confidence'];
+    mainHTML += `<div class="v16-vibe-card">
+      <div class="v16-vibe-title">🎨 Vibe &amp; Architecture</div>
+      <div class="v16-vibe-text">${escapeHtml(vibeDisplay.slice(0,700))}</div>
+      <div class="v16-tag-row">${tags.map(t=>`<span class="v16-tag-purple">${t}</span>`).join('')}</div>
+      ${vibeSrc?`<a class="v16-source-link" href="${escapeHtml(vibeSrc)}" target="_blank" rel="noopener">&#x2197; ${escapeHtml(vibeSrc.replace(/https?:\/\/(www\.)?/,'').slice(0,50))}</a>`:''}
     </div>`;
   }
 
   if (overviewFields.length > 0) {
-    const chunk1 = overviewFields.slice(0, 8);
-    const chunk2 = overviewFields.slice(8);
-    mainHTML += `
-    <div class="v14-card">
-      <div class="v14-card-hdr">
-        <div class="v14-card-ttl">\uD83D\uDCCB Quick Facts</div>
-        <span class="v14-card-sub">${overviewFields.length} fields</span>
-      </div>
-      <div class="v14-field-grid">
-        ${chunk1.map(f => `
-          <div class="v14-field">
-            <div class="v14-flbl">${escapeHtml(f.label)}</div>
-            <div class="v14-fval">${escapeHtml(String(f.value).slice(0,150))}</div>
-            ${f.sourceUrl && f.sourceUrl !== 'not_found' ? `<a class="v14-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">\uD83D\uDD17 ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,45))}</a>` : ''}
-          </div>
-        `).join('')}
-      </div>
-    </div>`;
-    if (chunk2.length > 0) {
-      mainHTML += `
-      <div class="v14-card">
-        <div class="v14-card-hdr"><div class="v14-card-ttl">\uD83D\uDCC4 More Details</div><span class="v14-card-sub">${chunk2.length} fields</span></div>
-        <div class="v14-field-grid">
-          ${chunk2.map(f => `
-            <div class="v14-field">
-              <div class="v14-flbl">${escapeHtml(f.label)}</div>
-              <div class="v14-fval">${escapeHtml(String(f.value).slice(0,150))}</div>
-              ${f.sourceUrl && f.sourceUrl !== 'not_found' ? `<a class="v14-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">\uD83D\uDD17 ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,45))}</a>` : ''}
-            </div>
-          `).join('')}
-        </div>
-      </div>`;
-    }
-  } else if (!vibeDisplay && sections.length === 0) {
-    // True fallback - nothing parsed
-    mainHTML += `
-    <div class="v14-card">
-      <div class="v14-card-hdr"><div class="v14-card-ttl">\u26A0 Research data could not be structured</div></div>
-      <div style="padding:16px 20px;font-size:13px;color:#6b7280">
-        The AI returned a response but it could not be parsed into sections. Please re-run the research or check the raw export.
+    mainHTML += `<div class="v16-qf-card">
+      <div class="v16-qf-header">📊 Quick Facts</div>
+      <div class="v16-qf-grid">
+        ${overviewFields.map(f=>`<div class="v16-qf-cell">
+          <div class="v16-qf-lbl">${escapeHtml(f.label)}</div>
+          <div class="v16-qf-val${!f.value||f.value==='not_found'?' muted':''}">${!f.value||f.value==='not_found'?'—':escapeHtml(String(f.value).slice(0,160))}</div>
+          ${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v16-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">&#x1F517; ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,45))}</a>`:''}
+        </div>`).join('')}
       </div>
     </div>`;
   }
 
-  mainHTML += `</div>`;
+  if (!vibeDisplay && overviewFields.length === 0 && sections.length === 0) {
+    const _rawDebug = proc._rawText
+      ? proc._rawText.slice(0,2000)
+      : (proc.result&&typeof proc.result==='object' ? JSON.stringify(proc.result).slice(0,2000) : '');
+    mainHTML += `<div class="v16-warn-card">
+      <div class="v16-warn-title">⚠ No Structured Data Found</div>
+      <div class="v16-warn-text">Gemini returned a response but it could not be parsed into sections. This usually means the JSON was wrapped in markdown fences, or the model returned partial/plain text.</div>
+      <div class="v16-tip" style="margin-bottom:10px">
+        <strong>Try these:</strong><br>
+        1. Click <strong>Back</strong> and re-run — Gemini occasionally needs a retry<br>
+        2. Switch to <strong>gemini-2.0-flash</strong> (faster, stricter JSON output)<br>
+        3. Verify your API key has Search / Grounding enabled
+      </div>
+      ${_rawDebug ? `<details><summary style="font-size:11px;color:#92400e;cursor:pointer;font-weight:600;padding:4px 0">▶ Show raw AI response (debug)</summary><pre style="font-size:10px;color:#374151;background:#fff;border:1px solid #fde68a;border-radius:6px;padding:10px;margin-top:8px;overflow:auto;max-height:320px;white-space:pre-wrap;word-break:break-all">${escapeHtml(_rawDebug)}</pre></details>` : ''}
+    </div>`;
+  }
 
-  // ===== SECTION PANELS =====
-  sections.forEach(section => {
+  mainHTML += `</div>`; // close overview-main
+
+  // Right sidebar for overview
+  mainHTML += `<div class="v16-overview-side">`;
+  // Hotel Overview text card
+  const hotelOverviewText = overviewFields.find(f=>/description|summary|overview|about/i.test(f.label)&&f.value!=='not_found');
+  if (hotelOverviewText || vibeDisplay) {
+    const txt = hotelOverviewText?.value || vibeDisplay.slice(0,400);
+    mainHTML += `<div class="v16-ov-side-card">
+      <div class="v16-ov-side-title">🏨 Hotel Overview</div>
+      <div class="v16-ov-side-text">${escapeHtml(String(txt).slice(0,500))}</div>
+    </div>`;
+  }
+  // Quick mini grid from key fields
+  const keyLabels = ['Star Rating','Total Rooms','Year Opened','Property Type','Area','Hotel Chain','Chain'];
+  const keyFields = overviewFields.filter(f=>keyLabels.some(k=>f.label.toLowerCase().includes(k.toLowerCase()))).slice(0,6);
+  if (keyFields.length > 0) {
+    mainHTML += `<div class="v16-ov-side-card"><div class="v16-mini-grid">
+      ${keyFields.map(f=>`<div class="v16-mini-cell">
+        <div class="v16-mini-lbl">${escapeHtml(f.label)}</div>
+        <div class="v16-mini-val">${escapeHtml(String(f.value).slice(0,50))}</div>
+      </div>`).join('')}
+    </div>
+    ${(() => {
+      const tags2 = overviewFields.filter(f=>/tag|style|vibe|highlight|unique/i.test(f.label)&&f.value!=='not_found').slice(0,5);
+      return tags2.length>0?`<div class="v16-tag-row" style="padding-top:10px">${tags2.map(f=>`<span class="v16-tag-purple">${escapeHtml(String(f.value).slice(0,30))}</span>`).join('')}</div>`:'';
+    })()}
+    </div>`;
+  }
+  // Address
+  if (addressField) {
+    mainHTML += `<div class="v16-addr-card">
+      <div class="v16-addr-title">📍 Address</div>
+      <div class="v16-addr-text">${escapeHtml(String(addressField.value))}</div>
+      <button class="v16-map-btn" onclick="window.open('https://maps.google.com?q='+encodeURIComponent('${escapeHtml(String(addressField.value))}'),'_blank')">🗺 View on Map</button>
+    </div>`;
+  }
+  // Sources
+  const srcs = (r.rawEvidence||[]).filter(s=>s.url).slice(0,5);
+  if (srcs.length > 0) {
+    mainHTML += `<div class="v16-src-card">
+      <div class="v16-src-title">🔗 Research Sources</div>
+      ${srcs.map(s=>`<div class="v16-src-item">
+        <div class="v16-src-domain">${escapeHtml((s.pageTitle||s.url||'').slice(0,40))}</div>
+        <a class="v16-src-url" href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(s.url.replace(/https?:\/\/(www\.)?/,'').slice(0,55))}</a>
+      </div>`).join('')}
+    </div>`;
+  }
+  // Factsheet download btn
+  const factsheetFld = overviewFields.find(f=>/factsheet|pdf|brochure/i.test(f.label)&&f.value&&f.value!=='not_found');
+  const officialUrl = r.officialWebsite || (srcs.find(s=>/official|hotel/i.test(s.pageTitle||''))?.url);
+  const fsUrl = (factsheetFld?.value&&factsheetFld.value!=='not_found') ? factsheetFld.value : officialUrl;
+  if (fsUrl) {
+    mainHTML += `<div class="v16-src-card">
+      <div class="v16-src-note" style="font-size:11px;color:#6b7280;margin-bottom:8px">Official: ${escapeHtml(fsUrl.replace(/https?:\/\/(www\.)?/,'').split('/')[0])}</div>
+      <button class="v16-dl-btn" onclick="window.open('${escapeHtml(fsUrl)}','_blank')">&#x2913; ${factsheetFld ? 'Download Official Factsheet (PDF)' : 'Open Official Website'}</button>
+    </div>`;
+  }
+  mainHTML += `</div></div></div>`; // close aside, overview-wrap, panel
+
+  // ── SECTION PANELS ───────────────────────────────────────
+  // Skip sections whose title is "overview" — rendered as the Overview tab already
+  const renderSections = sections.filter(s => !/overview|about/i.test(s.title.trim()) && !/^(location|reviews|ratings|nearby|how to reach)/i.test(s.title.trim()));
+  renderSections.forEach(section => {
     const panelId = 'v14panel-' + section.title.replace(/\W/g,'_');
     const isDining = /din/i.test(section.title);
     const isRooms = /room/i.test(section.title);
     const isAmenities = /amenit/i.test(section.title);
     const isPolicies = /polic/i.test(section.title);
+    const isExperiences = /experience/i.test(section.title);
     const sFields = section.fields || [];
     const visibleFields = sFields.filter(f => f.value !== 'not_found');
-    const sIcon = navIcons[section.title] || '\uD83D\uDCC4';
+    const sIcon = navIcons[section.title] || navIcons[section.title.toLowerCase()] || '📄';
 
     mainHTML += `<div class="v14-panel" id="${panelId}">`;
 
-    if (isDining) {
-      const diningEntries = [];
-      let current = null;
-      sFields.forEach(f => {
-        if (f.value === 'not_found') return;
+    // ── EXPERIENCES ───────────────────────────────────────────
+    if (isExperiences) {
+      mainHTML += `<div class="v14-card" style="padding:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div style="font-weight:700;font-size:16px;color:#111827">🎯 Experiences</div>
+        </div>
+        ${renderExperiencesTab(visibleFields)}
+      </div>`;
+
+    // ── ROOMS ──────────────────────────────────────────────
+    } else if (isRooms) {
+      // ── Parse rooms  [FIX #3+#4: canonical "Room Type Name", fires for every room]
+      const roomObjects = [];
+      let cur = null;
+      visibleFields.forEach(f => {
         const lbl = f.label.toLowerCase();
-        if (/^(restaurant|dining outlet|outlet name|bar name|cafe|lounge name|restaurant name|\d+\.\s)/i.test(f.label) || /\bname\b$/i.test(f.label)) {
-          current = { name: String(f.value), cuisine:'', desc:'', timings:'', capacity:'', dress:'', reservation:'', extra:[] };
-          diningEntries.push(current);
-        } else if (current) {
-          if (/cuisine|type|style/i.test(lbl)) current.cuisine = String(f.value);
-          else if (/desc|about|overview/i.test(lbl)) current.desc = String(f.value);
-          else if (/timing|hour|open/i.test(lbl)) current.timings = String(f.value);
-          else if (/capac|seat|cover/i.test(lbl)) current.capacity = String(f.value);
-          else if (/dress/i.test(lbl)) current.dress = String(f.value);
-          else if (/reserv/i.test(lbl)) current.reservation = String(f.value);
-          else current.extra.push(f);
-        } else {
-          current = { name: f.label, cuisine:'', desc: String(f.value), timings:'', capacity:'', dress:'', reservation:'', extra:[] };
-          diningEntries.push(current);
+        // "Room Type Name" is the canonical label from the prompt.
+        // isRoomStarter fires on EVERY occurrence so all rooms after the first are captured.
+        const isRoomStarter =
+          /^room type name$/i.test(f.label) ||
+          /^(room type|room name|suite name|suite type|accommodation type|room category)$/i.test(f.label) ||
+          /^\d+\.\s*(room|suite|villa|deluxe|premier|club|royal|grand|junior|superior|standard|luxury|executive|family)/i.test(f.label);
+        // Fallback: label IS the room name (only when no room started yet)
+        const looksLikeRoomName = !isRoomStarter && !cur &&
+          /^[A-Z]/.test(f.label) &&
+          /room|suite|villa|cottage|bungalow|chalet|studio|deluxe|premier|club|royal|grand|junior|superior|standard|luxury|executive|family|connecting/i.test(f.label);
+        if (isRoomStarter || looksLikeRoomName) {
+          cur = { name:String(f.value), desc:'', size:'', bed:'', view:'', maxOcc:'', floor:'', checkin:'', checkout:'', bathroom:'', amenities:[], sourceUrl:f.sourceUrl||'' };
+          roomObjects.push(cur);
+        } else if (cur) {
+          if (/^size$|^area$|sqm|sq\.?\s*ft|square\s*met/i.test(lbl)) cur.size = String(f.value);
+          else if (/^bed(\s*type)?$|^mattress$/i.test(lbl)) cur.bed = String(f.value);
+          else if (/^view$/i.test(lbl)) cur.view = String(f.value);
+          else if (/^max\s*(occ|occupan)|^occupan|^max\s*guest|^max\s*person/i.test(lbl)) cur.maxOcc = String(f.value);
+          else if (/^floor$/i.test(lbl)) cur.floor = String(f.value);
+          else if (/^check[\s-]?in$/i.test(lbl)) cur.checkin = String(f.value);
+          else if (/^check[\s-]?out$/i.test(lbl)) cur.checkout = String(f.value);
+          else if (/^bathroom|^bath\s/i.test(lbl)) cur.bathroom = String(f.value);
+          else if (/^desc|^about|^overview|^detail|^highlight|^summary/i.test(lbl)) cur.desc = String(f.value);
+          else if (/ameniti|facilit|feature|include/i.test(lbl)) {
+            String(f.value).split(/[,;]/).map(a=>a.trim()).filter(a=>a.length>1).forEach(a=>cur.amenities.push(a));
+          } else if (!/^(source|confidence|url|excerpt|evidence)/i.test(lbl)) {
+            const chip=`${f.label}: ${f.value}`;
+            if(!cur.amenities.includes(chip)) cur.amenities.push(chip);
+          }
+          if (!cur.sourceUrl && f.sourceUrl && f.sourceUrl !== 'not_found') cur.sourceUrl = f.sourceUrl;
         }
       });
 
-      if (diningEntries.length > 0) {
-        mainHTML += `
-        <div class="v14-card">
-          <div class="v14-card-hdr">
-            <div class="v14-card-ttl">\uD83C\uDF7D Dining \u2014 ${diningEntries.length} restaurant${diningEntries.length!==1?'s':''} &amp; bars</div>
-            <button class="v14-copy-btn" onclick="copySection('${section.title}')">&#x2398; Copy All</button>
+      // If no structured rooms, fall back to generic field grid
+      if (roomObjects.length === 0) {
+        mainHTML += `<div class="v16-rooms-wrap">
+          <div class="v16-rooms-hdr">
+            <div class="v16-rooms-title">${sIcon} ${escapeHtml(section.title)}</div>
+            <div class="v16-rooms-actions">
+              <button class="v14-copy-btn" onclick="copySection('${escapeHtml(section.title)}')">&#x2398; Copy All Rooms</button>
+            </div>
           </div>
-          <div class="v14-resto-grid">
-            ${diningEntries.map(d => `
-              <div class="v14-resto-card">
-                <div class="v14-resto-card-body">
-                  <div class="v14-resto-name">${escapeHtml(d.name.slice(0,80))}</div>
-                  ${d.cuisine ? `<div class="v14-cuisine">${escapeHtml(d.cuisine)}</div>` : ''}
-                  ${d.desc ? `<div class="v14-resto-desc">${escapeHtml(d.desc.slice(0,200))}</div>` : ''}
-                  ${(d.timings||d.capacity||d.dress||d.reservation) ? `
-                  <div class="v14-resto-details">
-                    ${d.timings?`<div class="v14-resto-detail"><div class="v14-rdlbl">Timings</div><div class="v14-rdval">${escapeHtml(d.timings)}</div></div>`:''}
-                    ${d.capacity?`<div class="v14-resto-detail"><div class="v14-rdlbl">Capacity</div><div class="v14-rdval">${escapeHtml(d.capacity)}</div></div>`:''}
-                    ${d.dress?`<div class="v14-resto-detail"><div class="v14-rdlbl">Dress Code</div><div class="v14-rdval">${escapeHtml(d.dress)}</div></div>`:''}
-                    ${d.reservation?`<div class="v14-resto-detail"><div class="v14-rdlbl">Reservations</div><div class="v14-rdval">${escapeHtml(d.reservation)}</div></div>`:''}
-                  </div>` : ''}
+          <div class="v16-qf-grid">
+            ${visibleFields.map(f=>`<div class="v16-qf-cell">
+              <div class="v16-qf-lbl">${escapeHtml(f.label)}</div>
+              <div class="v16-qf-val">${escapeHtml(String(f.value).slice(0,200))}</div>
+              ${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v16-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">&#x1F517; ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,45))}</a>`:''}
+            </div>`).join('')}
+          </div>
+        </div>`;
+      } else {
+        mainHTML += `<div class="v16-rooms-wrap">
+          <div class="v16-rooms-hdr">
+            <div class="v16-rooms-title">${sIcon} Rooms &amp; Suites <span style="font-size:11.5px;color:#9ca3af;font-weight:400;margin-left:6px">— ${roomObjects.length} room types found</span></div>
+            <div class="v16-rooms-actions">
+              <button class="v14-copy-btn" onclick="copySection('${escapeHtml(section.title)}')">&#x2398; Copy All Rooms</button>
+              <button class="v14-copy-btn" onclick="exportRoomsTable()">&#x2913; Export Table</button>
+            </div>
+          </div>
+          <table class="v16-tbl">
+            <thead><tr>
+              <th>Room Type</th><th>Size</th><th>Bed</th><th>View</th><th>Max Occ.</th><th>Key Amenities</th><th></th>
+            </tr></thead>
+            <tbody>
+              ${roomObjects.map((rm,i)=>{
+                const chips = rm.amenities.slice(0,3).map(a=>`<span class="v16-chip">${escapeHtml(a.slice(0,20))}</span>`).join('');
+                const more = rm.amenities.length > 3 ? `<span class="v16-chip">+${rm.amenities.length-3} more</span>` : '';
+                return `<tr class="has-expand" onclick="toggleRoomExpand('room-expand-${i}',this)">
+                  <td class="room-name">${escapeHtml(rm.name)}</td>
+                  <td>${escapeHtml(rm.size||'—')}</td>
+                  <td>${escapeHtml(rm.bed||'—')}</td>
+                  <td>${escapeHtml(rm.view||'—')}</td>
+                  <td>${escapeHtml(rm.maxOcc||'—')}</td>
+                  <td>${chips}${more}</td>
+                  <td><button class="v16-detail-btn" onclick="event.stopPropagation();toggleRoomExpand('room-expand-${i}',null)">Details ↓</button></td>
+                </tr>
+                <tr><td colspan="7" style="padding:0;border:none">
+                  <div class="v16-expand" id="room-expand-${i}">
+                    <div class="v16-expand-inner">
+                      <div class="v16-expand-hdr">
+                        <div class="v16-expand-title">🛏 ${escapeHtml(rm.name)} — Full Details</div>
+                        <div class="v16-expand-btns">
+                          <button class="v14-copy-btn" onclick="navigator.clipboard.writeText(${JSON.stringify(JSON.stringify(rm))}).then(()=>showToast('Copied!','success'))">&#x2398; Copy</button>
+                          <button class="v16-expand-close" onclick="toggleRoomExpand('room-expand-${i}',null)">&times;</button>
+                        </div>
+                      </div>
+                      ${rm.desc?`<div style="font-size:13px;color:#374151;line-height:1.8;padding:0 0 16px;border-bottom:1px solid #f3f4f6;margin-bottom:16px">${escapeHtml(rm.desc.slice(0,600))}</div>`:''}
+                      <div class="v16-detail-grid">
+                        ${rm.size?`<div class="v16-detail-cell"><div class="v16-detail-lbl">Size</div><div class="v16-detail-val">${escapeHtml(rm.size)}</div></div>`:''}
+                        ${rm.bed?`<div class="v16-detail-cell"><div class="v16-detail-lbl">Bed</div><div class="v16-detail-val">${escapeHtml(rm.bed)}</div></div>`:''}
+                        ${rm.view?`<div class="v16-detail-cell"><div class="v16-detail-lbl">View</div><div class="v16-detail-val">${escapeHtml(rm.view)}</div></div>`:''}
+                        ${rm.maxOcc?`<div class="v16-detail-cell"><div class="v16-detail-lbl">Max Occupancy</div><div class="v16-detail-val">${escapeHtml(rm.maxOcc)}</div></div>`:''}
+                        ${rm.floor?`<div class="v16-detail-cell"><div class="v16-detail-lbl">Floor</div><div class="v16-detail-val">${escapeHtml(rm.floor)}</div></div>`:''}
+                        ${rm.checkin?`<div class="v16-detail-cell"><div class="v16-detail-lbl">Check-In</div><div class="v16-detail-val">${escapeHtml(rm.checkin)}</div></div>`:''}
+                        ${rm.checkout?`<div class="v16-detail-cell"><div class="v16-detail-lbl">Check-Out</div><div class="v16-detail-val">${escapeHtml(rm.checkout)}</div></div>`:''}
+                        ${rm.bathroom?`<div class="v16-detail-cell"><div class="v16-detail-lbl">Bathroom</div><div class="v16-detail-val">${escapeHtml(rm.bathroom)}</div></div>`:''}
+                      </div>
+                      ${rm.amenities.length>0?`<div class="v16-amenities-section">
+                        <div class="v16-amenities-lbl">All Amenities</div>
+                        <div class="v16-amenity-chips">${rm.amenities.map(a=>`<span class="v16-amenity-chip">${escapeHtml(a.slice(0,40))}</span>`).join('')}</div>
+                      </div>`:''}
+                      ${rm.sourceUrl&&rm.sourceUrl!=='not_found'?`<a class="v16-room-src" href="${escapeHtml(rm.sourceUrl)}" target="_blank" rel="noopener">&#x2197; ${escapeHtml(rm.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,60))}</a>`:''}
+                    </div>
+                  </div>
+                </td></tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>`;
+      }
+
+    // ── DINING ────────────────────────────────────────────
+    } else if (isDining) {
+      // ── Parse dining  [FIX #5: canonical "Restaurant Name" label + all variants]
+      const diningEntries = [];
+      let dcur = null;
+      visibleFields.forEach(f => {
+        const lbl = f.label.toLowerCase();
+        const isRestaurantStarter =
+          /^restaurant\s*name$/i.test(f.label) ||
+          /^(outlet|bar|cafe|lounge|dining\s*outlet|dining\s*venue)\s*(name)?$/i.test(f.label) ||
+          /^(restaurant|outlet|bar|cafe|lounge|dining)\s*\d+$/i.test(f.label) ||
+          /^\d+\.\s*(restaurant|outlet|bar|cafe|lounge|dining)/i.test(f.label) ||
+          (/^name$/i.test(f.label) && (!dcur || dcur.timings || dcur.cuisine));
+        if (isRestaurantStarter) {
+          dcur = { name:String(f.value), cuisine:'', desc:'', timings:'', capacity:'', dress:'', reservation:'', extra:{} };
+          diningEntries.push(dcur);
+        } else if (dcur) {
+          if (/^cuisine(\s*type)?$|^type$|^style$|^category$/i.test(lbl)) dcur.cuisine = String(f.value);
+          else if (/^desc|^about|^overview|^speciali|^highlight/i.test(lbl)) dcur.desc = String(f.value);
+          else if (/^timing|^hour|^open|^serving|^meal\s*hour/i.test(lbl)) dcur.timings = String(f.value);
+          else if (/^capac|^seat|^cover/i.test(lbl)) dcur.capacity = String(f.value);
+          else if (/^dress/i.test(lbl)) dcur.dress = String(f.value);
+          else if (/^reserv/i.test(lbl)) dcur.reservation = String(f.value);
+          else dcur.extra[f.label] = String(f.value);
+        }
+      });
+
+      // Fallback: if no named restaurants found, create one per distinct field-name group
+      if (diningEntries.length === 0 && visibleFields.length > 0) {
+        mainHTML += `<div class="v14-card">
+          <div class="v16-dining-hdr"><div class="v16-dining-title">🍽 ${escapeHtml(section.title)}</div>
+          <button class="v14-copy-btn" onclick="copySection('${escapeHtml(section.title)}')">&#x2398; Copy All</button></div>
+          <div class="v16-field-grid">
+            ${visibleFields.map(f=>`<div class="v16-field">
+              <div class="v16-flbl">${escapeHtml(f.label)}</div>
+              <div class="v16-fval">${escapeHtml(String(f.value).slice(0,200))}</div>
+              ${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v16-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">&#x1F517; ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,45))}</a>`:''}
+            </div>`).join('')}
+          </div>
+        </div>`;
+      } else {
+        mainHTML += `<div class="v14-card">
+          <div class="v16-dining-hdr">
+            <div class="v16-dining-title">🍽 Dining <span style="font-size:11.5px;color:#9ca3af;font-weight:400;margin-left:6px">— ${diningEntries.length} restaurants &amp; bars</span></div>
+            <button class="v14-copy-btn" onclick="copySection('${escapeHtml(section.title)}')">&#x2398; Copy All</button>
+          </div>
+          <div class="v16-dining-grid">
+            ${diningEntries.map(d=>`
+              <div class="v16-resto-card">
+                <div class="v16-resto-name">${escapeHtml(d.name)}</div>
+                ${d.cuisine?`<span class="v16-cuisine-tag">${escapeHtml(d.cuisine)}</span>`:''}
+                ${d.desc?`<div class="v16-resto-desc">${escapeHtml(d.desc.slice(0,400))}</div>`:''}
+                <div class="v16-resto-details">
+                  ${d.timings?`<div class="v16-rd-cell"><div class="v16-rd-lbl">⏰ Timings</div><div class="v16-rd-val">${escapeHtml(d.timings)}</div></div>`:''}
+                  ${d.capacity?`<div class="v16-rd-cell"><div class="v16-rd-lbl">🪑 Capacity</div><div class="v16-rd-val">${escapeHtml(d.capacity)}</div></div>`:''}
+                  ${d.dress?`<div class="v16-rd-cell"><div class="v16-rd-lbl">👔 Dress Code</div><div class="v16-rd-val">${escapeHtml(d.dress)}</div></div>`:''}
+                  ${d.reservation?`<div class="v16-rd-cell"><div class="v16-rd-lbl">📞 Reservations</div><div class="v16-rd-val">${escapeHtml(d.reservation)}</div></div>`:''}
+                  ${Object.entries(d.extra||{}).slice(0,8).map(([k,v])=>`<div class="v16-rd-cell"><div class="v16-rd-lbl">${escapeHtml(k)}</div><div class="v16-rd-val">${escapeHtml(String(v).slice(0,120))}</div></div>`).join('')}
                 </div>
               </div>
             `).join('')}
           </div>
         </div>`;
-      } else {
-        mainHTML += buildFieldCard(section, sFields, sIcon);
       }
 
-    } else if (isRooms) {
-      mainHTML += `
-      <div class="v14-card">
-        <div class="v14-card-hdr">
-          <div class="v14-card-ttl">\uD83D\uDECF Rooms &amp; Suites <span class="v14-card-sub">\u2014 ${visibleFields.length} fields found</span></div>
-          <button class="v14-copy-btn" onclick="copySection('${section.title}')">&#x2398; Copy All Rooms</button>
-        </div>
-        <div style="overflow-x:auto">
-          <table class="v14-tbl">
-            <thead><tr><th>Field</th><th>Value</th><th>Source</th></tr></thead>
-            <tbody>
-              ${sFields.map(f => `
-                <tr>
-                  <td class="bold">${escapeHtml(f.label)}</td>
-                  <td>${f.value==='not_found'?'<span style="color:#d1d5db;font-style:italic">Not found</span>':escapeHtml(String(f.value).slice(0,150))}</td>
-                  <td>${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v14-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">\uD83D\uDD17 ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').split('/')[0].slice(0,30))}</a>`:'<span style="color:#d1d5db;font-size:11px">\u2014</span>'}</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
-      </div>`;
-
+    // ── AMENITIES ─────────────────────────────────────────
     } else if (isAmenities) {
-      mainHTML += `
-      <div class="v14-card">
+      mainHTML += `<div class="v14-card">
         <div class="v14-card-hdr">
-          <div class="v14-card-ttl">\uD83C\uDFCA Amenities &amp; Facilities</div>
-          <span class="v14-card-sub">${visibleFields.length}+ amenities</span>
+          <div class="v14-card-ttl">${sIcon} ${escapeHtml(section.title)}</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="v14-card-sub">${visibleFields.length} facilities listed</span>
+            <button class="v14-copy-btn" onclick="copySection('${escapeHtml(section.title)}')">&#x2398; Copy All</button>
+          </div>
         </div>
-        <div class="v14-am-chips">
-          ${visibleFields.map(f=>`<div class="v14-am-chip"><span class="ck">\u2713</span>${escapeHtml(f.label)}: ${escapeHtml(String(f.value).slice(0,60))}</div>`).join('')}
+        <div style="padding:4px 0">
+          ${visibleFields.map(f=>{
+            const fn=escapeHtml(f.label);
+            const fd=(f.value&&f.value!=='not_found'&&f.value.toLowerCase()!==f.label.toLowerCase())?escapeHtml(String(f.value).slice(0,500)):'';
+            const fs=(f.sourceUrl&&f.sourceUrl!=='not_found')?escapeHtml(f.sourceUrl):'';
+            return '<div style="display:flex;align-items:flex-start;gap:14px;padding:14px 20px;border-bottom:1px solid #f3f4f6">'
+              +'<div style="width:22px;height:22px;border-radius:50%;background:#ecfdf5;color:#059669;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:2px">✓</div>'
+              +'<div style="flex:1;min-width:0">'
+              +'<div style="font-size:13px;font-weight:600;color:#111827;margin-bottom:'+(fd?'5px':'0')+'">'+fn+'</div>'
+              +(fd?'<div style="font-size:12.5px;color:#374151;line-height:1.75">'+fd+'</div>':'')
+              +(fs?'<a href="'+fs+'" target="_blank" rel="noopener" style="font-size:11px;color:#7c3aed;margin-top:5px;display:inline-block">↗ Source</a>':'')
+              +'</div></div>';
+          }).join('')}
         </div>
       </div>`;
 
+    // ── POLICIES ─────────────────────────────────────────
     } else if (isPolicies) {
-      mainHTML += `
-      <div class="v14-card">
+      mainHTML += `<div class="v14-card">
         <div class="v14-card-hdr">
-          <div class="v14-card-ttl">\uD83D\uDCCB ${escapeHtml(section.title)}</div>
-          <span class="v14-card-sub">${visibleFields.length} policies</span>
+          <div class="v14-card-ttl">${sIcon} ${escapeHtml(section.title)}</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="v14-card-sub">${visibleFields.length} policies</span>
+            <button class="v14-copy-btn" onclick="copySection('${escapeHtml(section.title)}')">&#x2398; Copy</button>
+          </div>
         </div>
-        <div>
-          ${visibleFields.map(f=>`
-            <div class="v14-pol-row">
-              <div class="v14-pol-k">${escapeHtml(f.label)}</div>
-              <div class="v14-pol-v">${escapeHtml(String(f.value))}
-                ${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v14-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">\uD83D\uDD17 ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,40))}</a>`:''}
-              </div>
-            </div>
-          `).join('')}
+        ${visibleFields.map(f=>`<div class="v16-pol-row">
+          <div class="v16-pol-k">${escapeHtml(f.label)}</div>
+          <div class="v16-pol-v">${escapeHtml(String(f.value).slice(0,300))}
+            ${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v16-pol-src" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">&#x2197;</a>`:''}
+          </div>
+        </div>`).join('')}
+      </div>`;
+
+    // ── IMAGES ───────────────────────────────────────────
+    } else if (/image|photo|gallery|media/i.test(section.title)) {
+      const imgF = visibleFields.filter(f=>/https?:\/\/.+\.(jpg|jpeg|png|webp|gif|avif)/i.test(String(f.value)));
+      const urlF = visibleFields.filter(f=>!imgF.includes(f)&&/https?:\/\//i.test(String(f.value)));
+      mainHTML += '<div class="v14-card">'
+        +'<div class="v14-card-hdr"><div class="v14-card-ttl">🖼 '+escapeHtml(section.title)+'</div>'
+        +'<div style="display:flex;align-items:center;gap:8px"><span class="v14-card-sub">'+visibleFields.length+' items</span>'
+        +'<button class="v14-copy-btn" onclick="copySection(\''+escapeHtml(section.title)+'\')">&#x2398; Copy All</button></div></div>'
+        +'<div style="padding:20px">'
+        +(imgF.length?'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-bottom:20px">'
+          +imgF.map(f=>'<div style="border-radius:10px;overflow:hidden;border:1px solid #e9eaec;background:#f9fafb">'
+            +'<img src="'+escapeHtml(String(f.value))+'" alt="'+escapeHtml(f.label)+'" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block" onerror="this.style.display=\'none\'">'
+            +'<div style="padding:8px 10px"><div style="font-size:11px;color:#6b7280;font-weight:500">'+escapeHtml(f.label)+'</div>'
+            +'<a href="'+escapeHtml(String(f.value))+'" target="_blank" rel="noopener" style="font-size:10px;color:#7c3aed;word-break:break-all">'+escapeHtml(String(f.value).slice(0,55))+'</a></div>'
+            +'</div>').join('')+'</div>':'')
+        +(urlF.length?'<div style="display:flex;flex-direction:column;gap:0">'
+          +urlF.map(f=>'<div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f3f4f6">'
+            +'<div style="font-size:11px;font-weight:600;color:#6b7280;min-width:120px;flex-shrink:0">'+escapeHtml(f.label)+'</div>'
+            +'<a href="'+escapeHtml(String(f.value))+'" target="_blank" rel="noopener" style="font-size:12px;color:#7c3aed;word-break:break-all">'+escapeHtml(String(f.value).slice(0,100))+'</a>'
+            +'</div>').join('')+'</div>':'')
+        +(visibleFields.length===0?'<div style="color:#9ca3af;font-size:13px;padding:20px 0">No gallery images found. The official website may not expose image URLs publicly.</div>':'')
+        +'</div></div>';
+
+    // ── GENERIC ─────────────────────────────────────────
+    } else {
+      mainHTML += `<div class="v14-card">
+        <div class="v14-card-hdr">
+          <div class="v14-card-ttl">${sIcon} ${escapeHtml(section.title)}</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="v14-card-sub">${visibleFields.length} fields found</span>
+            <button class="v14-copy-btn" onclick="copySection('${escapeHtml(section.title)}')">&#x2398; Copy</button>
+          </div>
+        </div>
+        <div class="v16-field-grid">
+          ${visibleFields.map(f=>`<div class="v16-field">
+            <div class="v16-flbl">${escapeHtml(f.label)}</div>
+            <div class="v16-fval">${escapeHtml(String(f.value).slice(0,200))}</div>
+            ${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v16-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">&#x1F517; ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,45))}</a>`:''}
+          </div>`).join('')}
         </div>
       </div>`;
-    } else {
-      mainHTML += buildFieldCard(section, sFields, sIcon);
     }
-    mainHTML += `</div>`;
+
+    mainHTML += `</div>`; // close panel
   });
 
-  // ===== CONTENT PANEL (only real copy, no raw JSON) =====
+  // ── CONTENT OUTPUT PANEL ─────────────────────────────
   if (hasRealContent) {
-    mainHTML += `<div class="v14-panel" id="v14panel-content_output">
+    mainHTML += `<div class="v14-panel" id="v14panel-content">
       <div class="v14-card">
         <div class="v14-card-hdr">
-          <div class="v14-card-ttl">\u2728 Content Output</div>
+          <div class="v14-card-ttl">✨ Content Output</div>
           <span class="v14-card-sub">${realContentOutputs.length} outputs ready</span>
         </div>
-        <div style="padding:16px 20px;display:flex;flex-direction:column;gap:12px">
-          ${realContentOutputs.map(out=>`
-            <div class="v14-cout">
-              <div class="v14-cout-hdr">
-                <div class="v14-cout-title">\u2728 ${escapeHtml(out.title||(out.type||'').replace(/_/g,' '))}</div>
-                <span class="pill pill-finished">Ready to use</span>
-              </div>
-              <div class="v14-cout-body">${escapeHtml(out.copy||'')}</div>
-              ${out.warnings?.length?`<div style="padding:8px 16px;background:#fffbeb">${out.warnings.map(w=>`<div style="font-size:11px;color:#d97706">\u26A0 ${escapeHtml(w)}</div>`).join('')}</div>`:''}
+        <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+          ${realContentOutputs.map(o=>`<div class="v16-cout">
+            <div class="v16-cout-hdr">
+              <div class="v16-cout-title">✨ ${escapeHtml(o.title||o.type||'Output')}</div>
+              <button class="v14-copy-btn" onclick="navigator.clipboard.writeText(${JSON.stringify(o.copy||'')}).then(()=>showToast('Copied!','success'))">&#x2398; Copy</button>
             </div>
-          `).join('')}
+            <div class="v16-cout-body">${escapeHtml(String(o.copy||''))}</div>
+          </div>`).join('')}
         </div>
       </div>
     </div>`;
   }
-
-  // True raw fallback
-  if (!sections.length && !hasRealContent) {
-    const summary = r.summary?.shortAnswer || '';
-    mainHTML += `<div class="v14-panel v14-active" id="v14panel-overview">
-      <div class="v14-card">
-        <div class="v14-card-hdr"><div class="v14-card-ttl">⚠ Research Data Issue</div></div>
-        <div class="v14-vibe-section">
-          <div class="v14-vibe-text" style="color:#374151">${summary ? escapeHtml(summary.slice(0,500)) : 'The AI returned a response but it could not be structured into sections. Please re-run the research, or try a different hotel name or model.'}</div>
-          <div style="margin-top:12px;padding:12px;background:#f5f3ff;border-radius:8px;font-size:12px;color:#6d28d9"><strong>Tip:</strong> Try running research again — Gemini sometimes needs a retry to return structured JSON. Also try using <strong>gemini-2.0-flash</strong> for best results.</div>
-        </div>
-      </div>
-    </div>`;
-  }
-
 
   document.getElementById('v14Main').innerHTML = mainHTML;
-
-  // ===== ASIDE =====
-  const addrFields = locationSection?.fields?.filter(f=>f.value!=='not_found') || [];
-  const addrText = addrFields.slice(0,3).map(f=>String(f.value)).join(', ') || (r.officialWebsite?'See official website':'Address not found');
-  const highlights = vibeDisplay ? vibeDisplay.split(/[.!]/).filter(s=>s.trim().length>15).slice(0,4) : [];
-
-  asideHTML += `
-    <div class="v14-sc">
-      <div class="v14-sc-title">\uD83D\uDCCD Address</div>
-      <div class="v14-addr">${escapeHtml(addrText)}</div>
-      <button class="v14-map-btn" onclick="window.open('https://maps.google.com?q=${encodeURIComponent(proc.hotelName||'')}','_blank')">View on Map</button>
-    </div>`;
-
-  if (highlights.length) {
-    asideHTML += `
-    <div class="v14-sc">
-      <div class="v14-sc-title">\u2B50 Key Highlights</div>
-      ${highlights.map(h=>`<div class="v14-hl"><span class="v14-hlck">\u2714</span><span>${escapeHtml(h.trim())}</span></div>`).join('')}
-    </div>`;
-  }
-
-  asideHTML += `
-    <div class="v14-sc">
-      <div class="v14-sc-title">\u2139 Quick Info</div>
-      <div class="v14-qfg">
-        <div class="v14-qf"><div class="v14-qf-lbl">Hotel ID</div><div class="v14-qf-val" style="font-size:11px;font-weight:600">${proc.hotelId||proc.id||'N/A'}</div></div>
-        <div class="v14-qf"><div class="v14-qf-lbl">Mode</div><div class="v14-qf-val" style="font-size:11px;font-weight:600">${modeLabel}</div></div>
-        <div class="v14-qf"><div class="v14-qf-lbl">Type</div><div class="v14-qf-val" style="font-size:11px;font-weight:600">${proc.type==='batch'?'Batch':'Single'}</div></div>
-        <div class="v14-qf"><div class="v14-qf-lbl">Source</div><div class="v14-qf-val" style="font-size:11px;font-weight:600">Official Web</div></div>
-      </div>
-    </div>`;
-
-  if (r.officialWebsite) {
-    asideHTML += `
-    <div class="v14-sc">
-      <div class="v14-sc-title">\uD83C\uDF10 Official Factsheet</div>
-      <button class="v14-dl-btn" onclick="window.open('${escapeHtml(r.officialWebsite)}','_blank')">\u2B07 Download Official Factsheet (PDF)</button>
-      <div class="v14-src-note">Sourced from ${escapeHtml(r.officialWebsite.replace(/https?:\/\/(www\.)?/,'').split('/')[0])} \u2022 Last fetched ${proc.completedAt||''}</div>
-    </div>`;
-  }
-
-  const evidence = r.rawEvidence?.filter(e=>e.url)||[];
-  if (evidence.length) {
-    const official = evidence.filter(ev=>isOfficialSource(ev.url,proc.hotelName));
-    const display = official.length>0?official:evidence;
-    asideHTML += `
-    <div class="v14-sc">
-      <div class="v14-sc-title">\uD83D\uDD17 Research Sources (${evidence.length})</div>
-      ${display.slice(0,5).map(ev=>{
-        const domain=(ev.url||'').replace(/https?:\/\/(www\.)?/,'').split('/')[0];
-        return `<div style="padding:6px 0;border-bottom:1px solid #f3f4f6">
-          <div style="font-size:11px;font-weight:600;color:#111827">${escapeHtml(domain)}</div>
-          <a href="${escapeHtml(ev.url||'')}" target="_blank" rel="noopener" style="font-size:10px;color:#7c3aed;word-break:break-all">${escapeHtml((ev.url||'').slice(0,55))}</a>
-        </div>`;
-      }).join('')}
-    </div>`;
-  }
-
-  document.getElementById('v14Aside').innerHTML = asideHTML;
+  document.getElementById('v14Aside').innerHTML = '';
 }
 
+
+
+// ═══════════════════════════════════════════════════════════════════════
+//  EXPERIENCES — Raw Research Renderer + Writing Mode
+// ═══════════════════════════════════════════════════════════════════════
+const EXP_BUCKETS=['Dining Experiences','Wellness & Beyond','Kids Corner','Party & Play',
+  'Truly Unique','WOW Rooms','Luxury Transfers','Vibes & Views',
+  'Heritage & Culture','Fun Adventures','Nature & Wildlife','Uncategorised'];
+const EXP_BUCKET_ICONS={'Dining Experiences':'🍽','Wellness & Beyond':'🧘','Kids Corner':'🧒',
+  'Party & Play':'🎉','Truly Unique':'💎','WOW Rooms':'🛏','Luxury Transfers':'✈️',
+  'Vibes & Views':'🌅','Heritage & Culture':'🏛','Fun Adventures':'🏄',
+  'Nature & Wildlife':'🌿','Uncategorised':'⚠️'};
+
+function renderExperiencesTab(fields){
+  if(!fields||!fields.length) return '<p style="color:#6b7280;padding:20px 0">No experience data found.</p>';
+  const exps=[];let cur=null;
+  fields.forEach(f=>{
+    if(/^experience name$/i.test(f.label)&&f.value&&f.value!=='not_found'){
+      cur={name:f.value,bucket:'',desc:'',timings:'',duration:'',price:'',inclusions:'',availability:'',notes:'',link:''};exps.push(cur);
+    } else if(cur){
+      const l=f.label.toLowerCase();
+      if(/suggested bucket/i.test(l))cur.bucket=f.value;
+      else if(/short desc|^description$/i.test(l))cur.desc=f.value;
+      else if(/^timing/i.test(l))cur.timings=f.value;
+      else if(/^duration/i.test(l))cur.duration=f.value;
+      else if(/^price/i.test(l))cur.price=f.value;
+      else if(/^inclusion/i.test(l))cur.inclusions=f.value;
+      else if(/^availab/i.test(l))cur.availability=f.value;
+      else if(/^notes?$/i.test(l))cur.notes=f.value;
+      else if(/^official link|^link$|^url$|^website$/i.test(l))cur.link=f.value;
+    }
+  });
+  if(!exps.length)return '<p style="color:#6b7280;padding:20px 0">No experiences parsed. Try re-running the research.</p>';
+  const byBucket={};
+  exps.forEach(e=>{const b=EXP_BUCKETS.includes(e.bucket)?e.bucket:'Uncategorised';if(!byBucket[b])byBucket[b]=[];byBucket[b].push(e);});
+  const nf=v=>v&&v!=='not_found';
+  const toText=e=>[`Experience: ${e.name}`,`Bucket: ${e.bucket||'Uncategorised'}`,
+    nf(e.desc)?`Description: ${e.desc}`:'',nf(e.timings)?`Timings: ${e.timings}`:'',
+    nf(e.duration)?`Duration: ${e.duration}`:'',nf(e.price)?`Price: ${e.price}`:'',
+    nf(e.inclusions)?`Inclusions: ${e.inclusions}`:'',nf(e.availability)?`Availability: ${e.availability}`:'',
+    nf(e.notes)?`Notes: ${e.notes}`:'',nf(e.link)?`Link: ${e.link}`:''].filter(Boolean).join('\n');
+  const allTxt=exps.map(toText).join('\n\n---\n\n');
+  let html=`<div class="v18-exp-header-row"><div class="v18-exp-count-badge">${exps.length} Experience${exps.length!==1?'s':''} across ${Object.keys(byBucket).length} bucket${Object.keys(byBucket).length!==1?'s':''}</div><button class="v18-exp-bulk-copy-btn" onclick="expCopyAll(this,${JSON.stringify(encodeURIComponent(allTxt))})">📋 Copy All Experiences</button></div>`;
+  EXP_BUCKETS.forEach(bucket=>{
+    if(!byBucket[bucket])return;
+    const icon=EXP_BUCKET_ICONS[bucket]||'🎯';
+    html+=`<div class="v18-exp-bucket-group"><div class="v18-exp-bucket-header">${icon} ${bucket}<span class="v18-exp-bucket-count">${byBucket[bucket].length}</span></div>`;
+    byBucket[bucket].forEach((e,ei)=>{
+      const eid=`exp_${bucket.replace(/\W/g,'_')}_${ei}`;
+      const raw=toText(e);
+      html+=`<div class="v18-exp-card"><div class="v18-exp-card-top" onclick="expToggle('${eid}')">
+        <div class="v18-exp-card-name">${bucket==='Uncategorised'?'<span class="v18-exp-warn-badge">⚠ Uncategorised</span> ':''}${escapeHtml(e.name)}</div>
+        <div class="v18-exp-card-meta">${nf(e.timings)?`<span class="v18-exp-chip">⏰ ${escapeHtml(e.timings)}</span>`:''}${nf(e.price)?`<span class="v18-exp-chip">💰 ${escapeHtml(e.price)}</span>`:''}${nf(e.availability)?`<span class="v18-exp-chip">📅 ${escapeHtml(e.availability)}</span>`:''}</div>
+        <div class="v18-exp-card-actions"><button class="v18-exp-copy-btn" onclick="event.stopPropagation();expCopySingle(this,${JSON.stringify(encodeURIComponent(raw))})">📋 Copy</button><span class="v18-exp-chevron" id="chev_${eid}">▼</span></div>
+      </div>
+      <div class="v18-exp-card-body" id="${eid}" style="display:none">
+        ${nf(e.desc)?`<div class="v18-exp-field"><span class="v18-exp-field-label">Description</span><span class="v18-exp-field-value">${escapeHtml(e.desc)}</span></div>`:''}
+        ${nf(e.duration)?`<div class="v18-exp-field"><span class="v18-exp-field-label">Duration</span><span class="v18-exp-field-value">${escapeHtml(e.duration)}</span></div>`:''}
+        ${nf(e.inclusions)?`<div class="v18-exp-field"><span class="v18-exp-field-label">Inclusions</span><span class="v18-exp-field-value">${escapeHtml(e.inclusions)}</span></div>`:''}
+        ${nf(e.notes)?`<div class="v18-exp-field"><span class="v18-exp-field-label">Notes</span><span class="v18-exp-field-value">${escapeHtml(e.notes)}</span></div>`:''}
+        ${nf(e.link)?`<div class="v18-exp-field"><span class="v18-exp-field-label">Official Link</span><span class="v18-exp-field-value"><a href="${escapeHtml(e.link)}" target="_blank" rel="noopener" style="color:#7c3aed;text-decoration:underline">View on website ↗</a></span></div>`:''}
+      </div></div>`;
+    });
+    html+='</div>';
+  });
+  return html;
+}
+function expToggle(id){const el=document.getElementById(id),ch=document.getElementById('chev_'+id);if(!el)return;const o=el.style.display!=='none';el.style.display=o?'none':'block';if(ch)ch.textContent=o?'▼':'▲';}
+function expCopySingle(btn,enc){navigator.clipboard.writeText(decodeURIComponent(enc)).then(()=>{const o=btn.textContent;btn.textContent='✓ Copied!';btn.style.background='#d1fae5';setTimeout(()=>{btn.textContent=o;btn.style.background='';},1800);});}
+function expCopyAll(btn,enc){navigator.clipboard.writeText(decodeURIComponent(enc)).then(()=>{const o=btn.textContent;btn.textContent='✓ All Copied!';btn.style.background='#d1fae5';setTimeout(()=>{btn.textContent=o;btn.style.background='';},2000);});}
+function showComingSoonToast(){let t=document.getElementById('v18-coming-toast');if(!t){t=document.createElement('div');t.id='v18-coming-toast';t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#1e1b4b;color:#fff;padding:12px 28px;border-radius:40px;font-size:14px;font-weight:600;z-index:9999;box-shadow:0 4px 24px rgba(0,0,0,.18);pointer-events:none;opacity:0;transition:opacity .25s';t.textContent='🚧 Coming Soon — Stay Tuned!';document.body.appendChild(t);}t.style.opacity='1';clearTimeout(t._tmr);t._tmr=setTimeout(()=>{t.style.opacity='0';},2200);}
+
+// ── Writing Mode ──────────────────────────────────────────────────────
+const EXP_WRITE_STATE={cards:[],generating:false};
+function navigateToExpWriter(){navigate('page-exp-writer');}
+function expWriterBack(){navigate('page-home');}
+async function generateExpCards(){
+  const hotel=document.getElementById('expWriterHotel').value.trim();
+  const raw=document.getElementById('expWriterRaw').value.trim();
+  if(!hotel){alert('Please enter the hotel name.');return;}
+  if(!raw){alert('Please paste raw experience info from Raw Research.');return;}
+  if(!state.apiKey){alert('No API key found. Set it on the home screen.');return;}
+  if(EXP_WRITE_STATE.generating)return;
+  const blocks=raw.split(/\n---\n|\n\n(?=Experience:)/i).map(b=>b.trim()).filter(Boolean);
+  if(!blocks.length){alert('Could not parse experiences. Use the Copy button from Raw Research results.');return;}
+  EXP_WRITE_STATE.generating=true;EXP_WRITE_STATE.cards=[];
+  const outEl=document.getElementById('expWriterOutput');
+  const btn=document.getElementById('expWriterGenBtn');
+  btn.disabled=true;btn.textContent='⏳ Generating...';
+  outEl.innerHTML=`<div class="v18-exp-gen-progress"><div style="font-weight:600;color:#5b21b6;margin-bottom:10px">Generating ${blocks.length} experience card${blocks.length!==1?'s':''}...</div><div class="v18-exp-gen-bar"><div class="v18-exp-gen-fill" id="expGenFill" style="width:0%"></div></div><div id="expGenStatus" style="font-size:12px;color:#6b7280;margin-top:8px">Starting...</div></div>`;
+  const url=`https://generativelanguage.googleapis.com/v1beta/models/${state.model}:generateContent?key=${state.apiKey}`;
+  for(let i=0;i<blocks.length;i++){
+    document.getElementById('expGenStatus').textContent=`Processing ${i+1} of ${blocks.length}...`;
+    document.getElementById('expGenFill').style.width=`${Math.round((i/blocks.length)*100)}%`;
+    const prompt=`You are an expert hotel content writer for MakeMyTrip (MMT). Write L1 and L2 copy for this experience card.\n\nHOTEL: "${hotel}"\nEXPERIENCE DATA:\n${blocks[i]}\n\nSTYLE GUIDE:\n- L1 Header: MAX 28 characters, short and self-explanatory\n- L1 One-liner: exactly 80-85 characters, concise factual tone\n- L2 One-liner: exactly 85-100 characters, aspirational actionable tone\n- L2 Bullets: max 4 bullet points, aspirational, 85-100 chars each\n- Timings: "7:00 AM to 9:00 AM" format\n- Duration: under 60 min = "X mins"; 60+ = "X Hours"\n- Inclusions: pipe-separated "Item A | Item B"\n- Do NOT invent facts\n\nBUCKETS: Dining Experiences|Wellness & Beyond|Kids Corner|Party & Play|Truly Unique|WOW Rooms|Luxury Transfers|Vibes & Views|Heritage & Culture|Fun Adventures|Nature & Wildlife\nIf none fit, use "Uncategorised" and set uncategorisedFlag:true.\n\nOutput ONLY raw JSON, no markdown:\n{"experienceName":"name","bucket":"bucket or Uncategorised","uncategorisedFlag":false,"l1Header":"max 28","l1Oneliner":"80-85 chars","l2Oneliner":"85-100 chars","l2Bullets":["b1","b2","b3","b4"],"timings":"formatted or not_found","price":"price or not_found","inclusions":"A | B or not_found","duration":"X mins or X Hours or not_found"}`;
+    try{
+      const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.2,maxOutputTokens:1024}})});
+      if(res.ok){const d=await res.json();let txt=(d.candidates?.[0]?.content?.parts?.[0]?.text||'').trim().replace(/^```(?:json)?\s*/im,'').replace(/\s*```\s*$/im,'').trim();
+        try{const card=JSON.parse(txt);card._rawBlock=blocks[i];card._saved=false;EXP_WRITE_STATE.cards.push(card);}
+        catch(e){EXP_WRITE_STATE.cards.push({experienceName:`Experience ${i+1}`,bucket:'Uncategorised',uncategorisedFlag:true,_parseError:true,_rawBlock:blocks[i],l1Header:'',l1Oneliner:'',l2Oneliner:'',l2Bullets:[],timings:'',price:'',inclusions:'',duration:''});}
+      }
+    }catch(e){EXP_WRITE_STATE.cards.push({experienceName:`Experience ${i+1}`,bucket:'Uncategorised',uncategorisedFlag:true,_error:e.message,_rawBlock:blocks[i],l1Header:'',l1Oneliner:'',l2Oneliner:'',l2Bullets:[],timings:'',price:'',inclusions:'',duration:''});}
+  }
+  document.getElementById('expGenFill').style.width='100%';
+  EXP_WRITE_STATE.generating=false;btn.disabled=false;btn.textContent='🎯 Generate Experience Cards';
+  renderExpWriterCards();
+}
+function renderExpWriterCards(){
+  const cards=EXP_WRITE_STATE.cards;if(!cards.length)return;
+  const outEl=document.getElementById('expWriterOutput');
+  const nf=v=>v&&v!=='not_found';
+  let html=`<div class="v18-exp-header-row" style="margin-bottom:18px"><div class="v18-exp-count-badge">${cards.length} card${cards.length!==1?'s':''} generated</div><button class="v18-exp-bulk-copy-btn" onclick="expWriterBulkCopy(this)">📋 Copy All Cards</button></div>`;
+  html+=cards.map((c,idx)=>{
+    const icon=EXP_BUCKET_ICONS[c.bucket]||'🎯';const isU=c.bucket==='Uncategorised'||c.uncategorisedFlag;
+    const l1hL=(c.l1Header||'').length,l1oL=(c.l1Oneliner||'').length,l2oL=(c.l2Oneliner||'').length;
+    return `<div class="v18-exp-write-card" id="ewcard_${idx}">
+      <div class="v18-exp-write-card-header">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span class="v18-exp-bucket-badge" style="${isU?'background:#fef3c7;color:#92400e;border-color:#fde68a':'background:#ede9fe;color:#5b21b6;border-color:#c4b5fd'}">${icon} ${escapeHtml(c.bucket||'Uncategorised')}</span>
+          ${isU?'<span class="v18-exp-warn-badge">⚠ Uncategorised</span>':''}
+          <span style="font-weight:700;font-size:14px;color:#111827">${escapeHtml(c.experienceName||'')}</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-shrink:0">
+          <button class="v18-exp-save-btn" id="ewsavebtn_${idx}" onclick="expWriterSave(${idx},this)">💾 Save</button>
+          <button class="v18-exp-copy-btn" onclick="expWriterCopySingle(${idx},this)">📋 Copy</button>
+        </div>
+      </div>
+      ${c._parseError||c._error?'<div style="color:#dc2626;font-size:12px;padding:8px 12px;background:#fef2f2;border-radius:8px;margin:0 0 12px">⚠ AI parse error — edit fields manually.</div>':''}
+      <div class="v18-exp-write-fields">
+        <div class="v18-exp-write-field-group">
+          <div class="v18-exp-write-label">L1 Header <span class="v18-exp-char-count ${l1hL>28?'over':l1hL>=22?'ok':'warn'}" id="ewl1h_lbl_${idx}">${l1hL}/28</span></div>
+          <input class="v18-exp-write-input" id="ewl1h_${idx}" value="${escapeHtml(c.l1Header||'')}" maxlength="60" oninput="ewCount(this,${idx},'l1h',28)" placeholder="Max 28 characters...">
+          <div class="v18-exp-char-bar"><div class="v18-exp-char-fill ${l1hL>28?'over':''}" id="ewl1h_bar_${idx}" style="width:${Math.min(100,Math.round((l1hL/28)*100))}%"></div></div>
+        </div>
+        <div class="v18-exp-write-field-group">
+          <div class="v18-exp-write-label">L1 One-liner <span class="v18-exp-char-count ${l1oL>85?'over':l1oL>=80?'ok':'warn'}" id="ewl1o_lbl_${idx}">${l1oL}/80–85</span></div>
+          <textarea class="v18-exp-write-textarea" id="ewl1o_${idx}" oninput="ewCountTA(this,${idx},'l1o',80,85)" placeholder="80–85 chars, factual...">${escapeHtml(c.l1Oneliner||'')}</textarea>
+          <div class="v18-exp-char-bar"><div class="v18-exp-char-fill ${l1oL>85?'over':''}" id="ewl1o_bar_${idx}" style="width:${Math.min(100,Math.round((l1oL/85)*100))}%"></div></div>
+        </div>
+        <div class="v18-exp-write-field-group">
+          <div class="v18-exp-write-label">L2 One-liner <span class="v18-exp-char-count ${l2oL>100?'over':l2oL>=85?'ok':'warn'}" id="ewl2o_lbl_${idx}">${l2oL}/85–100</span></div>
+          <textarea class="v18-exp-write-textarea" id="ewl2o_${idx}" oninput="ewCountTA(this,${idx},'l2o',85,100)" placeholder="85–100 chars, aspirational...">${escapeHtml(c.l2Oneliner||'')}</textarea>
+          <div class="v18-exp-char-bar"><div class="v18-exp-char-fill ${l2oL>100?'over':''}" id="ewl2o_bar_${idx}" style="width:${Math.min(100,Math.round((l2oL/100)*100))}%"></div></div>
+        </div>
+        <div class="v18-exp-write-field-group">
+          <div class="v18-exp-write-label">L2 Bullets <span style="font-size:10px;color:#9ca3af">(max 4, one per line)</span></div>
+          <textarea class="v18-exp-write-textarea" style="min-height:90px" id="ewl2b_${idx}" placeholder="Bullet 1&#10;Bullet 2&#10;Bullet 3&#10;Bullet 4">${escapeHtml((c.l2Bullets||[]).join('\n'))}</textarea>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px">
+          ${nf(c.timings)?`<div class="v18-exp-write-field-group" style="flex:1;min-width:160px"><div class="v18-exp-write-label">Timings</div><input class="v18-exp-write-input" id="ewt_${idx}" value="${escapeHtml(c.timings||'')}"></div>`:''}
+          ${nf(c.price)?`<div class="v18-exp-write-field-group" style="flex:1;min-width:120px"><div class="v18-exp-write-label">Price</div><input class="v18-exp-write-input" id="ewp_${idx}" value="${escapeHtml(c.price||'')}"></div>`:''}
+          ${nf(c.duration)?`<div class="v18-exp-write-field-group" style="flex:1;min-width:120px"><div class="v18-exp-write-label">Duration</div><input class="v18-exp-write-input" id="ewd_${idx}" value="${escapeHtml(c.duration||'')}"></div>`:''}
+          ${nf(c.inclusions)?`<div class="v18-exp-write-field-group" style="flex:2;min-width:220px"><div class="v18-exp-write-label">Inclusions <span style="font-size:10px;color:#9ca3af">( | separated)</span></div><input class="v18-exp-write-input" id="ewi_${idx}" value="${escapeHtml(c.inclusions||'')}"></div>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  outEl.innerHTML=html;
+}
+function ewCount(inp,idx,field,max){const len=inp.value.length;const lbl=document.getElementById(`ew${field}_lbl_${idx}`);const bar=document.getElementById(`ew${field}_bar_${idx}`);if(lbl){lbl.textContent=`${len}/${max}`;lbl.className=`v18-exp-char-count ${len>max?'over':len>=Math.floor(max*0.78)?'ok':'warn'}`;}if(bar){bar.style.width=`${Math.min(100,Math.round((len/max)*100))}%`;bar.className=`v18-exp-char-fill ${len>max?'over':''}`;}}
+function ewCountTA(ta,idx,field,min,max){const len=ta.value.length;const lbl=document.getElementById(`ew${field}_lbl_${idx}`);const bar=document.getElementById(`ew${field}_bar_${idx}`);if(lbl){lbl.textContent=`${len}/${min}–${max}`;lbl.className=`v18-exp-char-count ${len>max?'over':len>=min?'ok':'warn'}`;}if(bar){bar.style.width=`${Math.min(100,Math.round((len/max)*100))}%`;bar.className=`v18-exp-char-fill ${len>max?'over':''}`;}}
+function expWriterSave(idx,btn){const c=EXP_WRITE_STATE.cards[idx];c._saved=true;const g=id=>document.getElementById(id)?.value;c.l1Header=g(`ewl1h_${idx}`)||c.l1Header;c.l1Oneliner=g(`ewl1o_${idx}`)||c.l1Oneliner;c.l2Oneliner=g(`ewl2o_${idx}`)||c.l2Oneliner;c.l2Bullets=(g(`ewl2b_${idx}`)||'').split('\n').filter(Boolean);c.timings=g(`ewt_${idx}`)||c.timings;c.price=g(`ewp_${idx}`)||c.price;c.duration=g(`ewd_${idx}`)||c.duration;c.inclusions=g(`ewi_${idx}`)||c.inclusions;btn.textContent='✓ Saved';btn.style.background='#d1fae5';btn.style.color='#065f46';setTimeout(()=>{btn.textContent='💾 Save';btn.style.background='';btn.style.color='';},2000);}
+function expWriterCopySingle(idx,btn){const c=EXP_WRITE_STATE.cards[idx];const g=id=>document.getElementById(id)?.value;const nf=v=>v&&v!=='not_found';const l1h=g(`ewl1h_${idx}`)||c.l1Header||'',l1o=g(`ewl1o_${idx}`)||c.l1Oneliner||'',l2o=g(`ewl2o_${idx}`)||c.l2Oneliner||'';const l2b=(g(`ewl2b_${idx}`)||(c.l2Bullets||[]).join('\n')).split('\n').filter(Boolean);const t=g(`ewt_${idx}`)||c.timings||'',p=g(`ewp_${idx}`)||c.price||'',d=g(`ewd_${idx}`)||c.duration||'',inc=g(`ewi_${idx}`)||c.inclusions||'';const text=[`Experience: ${c.experienceName}`,`Bucket: ${c.bucket}`,``,`L1 Header: ${l1h}`,`L1 One-liner: ${l1o}`,``,`L2 One-liner: ${l2o}`,l2b.length?`L2 Bullets:\n${l2b.map(b=>`• ${b}`).join('\n')}`:'',``,nf(t)?`Timings: ${t}`:'',nf(p)?`Price: ${p}`:'',nf(d)?`Duration: ${d}`:'',nf(inc)?`Inclusions: ${inc}`:''].filter(x=>x!==undefined).join('\n').replace(/\n{3,}/g,'\n\n').trim();navigator.clipboard.writeText(text).then(()=>{const o=btn.textContent;btn.textContent='✓ Copied!';btn.style.background='#d1fae5';setTimeout(()=>{btn.textContent=o;btn.style.background='';},1800);});}
+function expWriterBulkCopy(btn){const nf=v=>v&&v!=='not_found';const lines=EXP_WRITE_STATE.cards.map((c,idx)=>{const g=id=>document.getElementById(id)?.value;const l1h=g(`ewl1h_${idx}`)||c.l1Header||'',l1o=g(`ewl1o_${idx}`)||c.l1Oneliner||'',l2o=g(`ewl2o_${idx}`)||c.l2Oneliner||'';const l2b=(g(`ewl2b_${idx}`)||(c.l2Bullets||[]).join('\n')).split('\n').filter(Boolean);const t=g(`ewt_${idx}`)||c.timings||'',p=g(`ewp_${idx}`)||c.price||'',d=g(`ewd_${idx}`)||c.duration||'',inc=g(`ewi_${idx}`)||c.inclusions||'';return[`=== ${c.experienceName} [${c.bucket}] ===`,`L1 Header: ${l1h}`,`L1 One-liner: ${l1o}`,`L2 One-liner: ${l2o}`,l2b.length?`L2 Bullets:\n${l2b.map(b=>`• ${b}`).join('\n')}`:'',nf(t)?`Timings: ${t}`:'',nf(p)?`Price: ${p}`:'',nf(d)?`Duration: ${d}`:'',nf(inc)?`Inclusions: ${inc}`:''].filter(Boolean).join('\n');}).join('\n\n---\n\n');navigator.clipboard.writeText(lines).then(()=>{const o=btn.textContent;btn.textContent='✓ All Copied!';btn.style.background='#d1fae5';setTimeout(()=>{btn.textContent=o;btn.style.background='';},2000);});}
+
 function buildFieldCard(section, fields, icon) {
-  icon = icon || '\uD83D\uDCC4';
+  // legacy fallback — not used in v16 rendering but kept for safety
+  icon = icon || '📄';
   const visible = (fields||[]).filter(f=>f.value!=='not_found');
-  return `
-  <div class="v14-card">
+  return `<div class="v14-card">
     <div class="v14-card-hdr">
       <div class="v14-card-ttl">${icon} ${escapeHtml(section.title)}</div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="v14-card-sub">${visible.length} fields found</span>
-        <button class="v14-copy-btn" onclick="copySection('${section.title}')">&#x2398; Copy</button>
-      </div>
+      <span class="v14-card-sub">${visible.length} fields found</span>
     </div>
-    <div class="v14-field-grid">
-      ${(fields||[]).map(f=>`
-        <div class="v14-field">
-          <div class="v14-flbl">${escapeHtml(f.label)}</div>
-          <div class="v14-fval${f.value==='not_found'?' muted':''}">${f.value==='not_found'?'Not found':escapeHtml(String(f.value).slice(0,150))}</div>
-          ${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v14-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">\uD83D\uDD17 ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,40))}</a>`:''}
-        </div>
-      `).join('')}
+    <div class="v16-field-grid">
+      ${visible.map(f=>`<div class="v16-field">
+        <div class="v16-flbl">${escapeHtml(f.label)}</div>
+        <div class="v16-fval">${escapeHtml(String(f.value).slice(0,200))}</div>
+        ${f.sourceUrl&&f.sourceUrl!=='not_found'?`<a class="v16-fsrc" href="${escapeHtml(f.sourceUrl)}" target="_blank" rel="noopener">🔗 ${escapeHtml(f.sourceUrl.replace(/https?:\/\/(www\.)?/,'').slice(0,45))}</a>`:''}
+      </div>`).join('')}
     </div>
   </div>`;
 }
 
 function v14SwitchTab(id, btn) {
-  document.querySelectorAll('.v14-tab').forEach(t=>t.classList.remove('v14-active'));
-  btn.classList.add('v14-active');
-  document.querySelectorAll('.v14-panel').forEach(p=>p.classList.remove('v14-active'));
-  const panel = document.getElementById('v14panel-'+id);
+  // Deactivate all tabs
+  document.querySelectorAll('#v14TabBar .v14-tab').forEach(t => t.classList.remove('v14-active'));
+  if (btn) btn.classList.add('v14-active');
+  // Hide all panels
+  document.querySelectorAll('#v14Main .v14-panel').forEach(p => p.classList.remove('v14-active'));
+  // Show selected panel
+  const panel = document.getElementById('v14panel-' + id);
   if (panel) panel.classList.add('v14-active');
+  // Scroll to tab bar
   const tabBar = document.getElementById('v14TabBar');
-  if (tabBar) window.scrollTo({top: tabBar.offsetTop - 10, behavior:'smooth'});
+  if (tabBar) window.scrollTo({ top: tabBar.offsetTop - 10, behavior: 'smooth' });
+}
+
+function toggleRoomExpand(expandId, trEl) {
+  const el = document.getElementById(expandId);
+  if (!el) return;
+  const isOpen = el.classList.contains('open');
+  // Close all others first
+  document.querySelectorAll('.v16-expand.open').forEach(e => e.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+  // Scroll into view
+  if (!isOpen && el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+}
+
+function exportRoomsTable() {
+  if (!state.currentResult?.result) return;
+  const roomsSection = (state.currentResult.result.sections||[]).find(s=>/room/i.test(s.title));
+  if (!roomsSection) return;
+  const fields = (roomsSection.fields||[]).filter(f=>f.value!=='not_found');
+  const csv = 'Label,Value,Source\n' + fields.map(f=>`"${(f.label||'').replace(/"/g,'""')}","${(String(f.value||'')).replace(/"/g,'""')}","${(f.sourceUrl||'').replace(/"/g,'""')}"`).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = (state.currentResult.hotelName||'rooms').replace(/\s+/g,'-').toLowerCase()+'-rooms.csv';
+  a.click();
+  showToast('Rooms table exported!', 'success');
 }
 
 function copySection(sectionTitle) {
@@ -2615,6 +3159,7 @@ function copySection(sectionTitle) {
   const text = (section.fields||[]).filter(f=>f.value!=='not_found').map(f=>`${f.label}: ${f.value}`).join('\n');
   navigator.clipboard.writeText(text).then(()=>showToast(`${sectionTitle} copied!`,'success'));
 }
+
 
 function copyAllResults() {
   if (!state.currentResult?.result) return;
@@ -2862,5 +3407,48 @@ function togglePromptVisibility() {
 }
 
 </script>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       PAGE: EXPERIENCE CARDS WRITING MODE
+  ════════════════════════════════════════════════════════════════════ -->
+  <div class="page" id="page-exp-writer" style="display:none;flex-direction:column;align-items:center;padding:32px 16px;min-height:100vh;background:var(--color-bg)">
+    <div style="width:100%;max-width:780px">
+      <!-- Header -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px">
+        <button onclick="expWriterBack()" style="background:none;border:none;cursor:pointer;color:#7c3aed;font-size:14px;font-weight:600;display:flex;align-items:center;gap:4px;padding:6px 0">← Back</button>
+        <div style="flex:1">
+          <div style="font-size:22px;font-weight:800;color:#111827">🎯 Experience Cards Writer</div>
+          <div style="font-size:13px;color:#6b7280;margin-top:2px">Paste raw research data → Get L1 &amp; L2 copy per experience</div>
+        </div>
+        <div style="background:#ede9fe;color:#5b21b6;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid #c4b5fd">✨ MMT Writing Mode</div>
+      </div>
+
+      <!-- Input card -->
+      <div style="background:#fff;border-radius:16px;border:1px solid #e9eaec;padding:24px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+        <div style="font-weight:700;font-size:14px;color:#374151;margin-bottom:16px">Input</div>
+        <div style="display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap">
+          <div style="flex:1;min-width:200px">
+            <label style="font-size:12px;font-weight:600;color:#6b7280;display:block;margin-bottom:5px">Hotel Name *</label>
+            <input id="expWriterHotel" class="v18-exp-write-input" placeholder="e.g. The Leela Palace New Delhi" style="width:100%">
+          </div>
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:600;color:#6b7280;display:block;margin-bottom:5px">
+            Raw Experience Data * 
+            <span style="font-weight:400;color:#9ca3af">— Copy from Raw Research → Experiences tab → 📋 Copy button</span>
+          </label>
+          <textarea id="expWriterRaw" style="width:100%;min-height:160px;border:1.5px solid #e5e7eb;border-radius:10px;padding:12px;font-size:13px;font-family:inherit;resize:vertical;outline:none;line-height:1.6;color:#111827;box-sizing:border-box" placeholder="Experience: Floating Breakfast&#10;Bucket: Dining Experiences&#10;Description: ...&#10;Timings: 7:00 AM to 10:00 AM&#10;---&#10;Experience: Turkish Hammam&#10;Bucket: Wellness &amp; Beyond&#10;..."></textarea>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;flex-wrap:wrap;gap:10px">
+          <div style="font-size:12px;color:#9ca3af">One Gemini call per experience — slower but accurate ✓</div>
+          <button id="expWriterGenBtn" onclick="generateExpCards()" style="background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;border-radius:12px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(124,58,237,.3)">🎯 Generate Experience Cards</button>
+        </div>
+      </div>
+
+      <!-- Output area -->
+      <div id="expWriterOutput"></div>
+    </div>
+  </div>
+
 </body>
 </html>
